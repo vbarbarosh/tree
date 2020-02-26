@@ -1,0 +1,39 @@
+{
+  "author": "Vladimir Barbarosh",
+  "name": "@vbarbarosh/tree",
+  "version": "0.0.0",
+  "description": "A set of helper functions for working with trees",
+  "license": "ISC",
+  "main": "src/index.js",
+  "files": [
+    "src",
+    "dist/*.js"
+  ],
+  "keywords": [
+    "js",
+    "tree"
+  ],
+  "scripts": {
+    "build": "webpack",
+    "test": "mjs src/*.m.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vbarbarosh/tree.git"
+  },
+  "bugs": {
+    "url": "https://github.com/vbarbarosh/tree/issues"
+  },
+  "homepage": "https://tree.vbarbarosh.com",
+  "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "@vbarbarosh/mjs": "github:vbarbarosh/mjs",
+    "babel-loader": "^8.0.6",
+    "webpack": "^4.41.6",
+    "webpack-cli": "^3.3.11"
+  },
+  "peerDependencies": {
+    "faker": "^4.1.0"
+  }
+}

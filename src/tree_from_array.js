@@ -57,8 +57,15 @@ function tree_from_array(items = [])
         }
     }
 
+    let id = 'root';
+    for (let i = 1; i <= 50; ++i) {
+        if (!nodes[id]) {
+            break;
+        }
+        id = `root_${i}`;
+    }
     return {
-        id: null,
+        id,
         parent: null,
         parent_id: null,
         children: roots,

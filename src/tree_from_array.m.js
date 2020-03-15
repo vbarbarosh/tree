@@ -1,5 +1,5 @@
 import tree_flatten from './tree_flatten';
-import tree_from_rows from './tree_from_rows';
+import tree_from_array from './tree_from_array';
 
 // tree_flatten(tree_from_string(tree_random()).children))
 const valid = [
@@ -18,30 +18,30 @@ const circular = [
 
 describe('tree_from_rows', function () {
     it('should accept no arguments', function () {
-        assert.deepEqual(tree_from_rows(), []);
+        assert.deepEqual(tree_from_array(), []);
     });
     it('should accept empty array', function () {
-        assert.deepEqual(tree_from_rows([]), []);
+        assert.deepEqual(tree_from_array([]), []);
     });
     it('should handle basic input №1', function () {
         const input = [{id: 1}, {id: 2, parent_id: 1}];
         const node1 = {id: 1, parent_id: null, parent: null, children: []};
         const node2 = {id: 2, parent_id: 1, parent: node1, children: []};
         node1.children.push(node2);
-        assert.deepEqual(tree_from_rows(input), [node1]);
+        assert.deepEqual(tree_from_array(input), [node1]);
     });
     it('should handle basic input №2', function () {
         const input = [{id: 2, parent_id: 1}, {id: 1}];
         const node1 = {id: 1, parent_id: null, parent: null, children: []};
         const node2 = {id: 2, parent_id: 1, parent: node1, children: []};
         node1.children.push(node2);
-        assert.deepEqual(tree_from_rows(input), [node1]);
+        assert.deepEqual(tree_from_array(input), [node1]);
     });
     it('should pass random test', function () {
         for (let i = 0, end = valid.length; i < end; ++i) {
             for (let j = 0; j < 5; ++j) {
                 const t1 = obj_clone(valid[i]).sort(fcmp_row);
-                const t2 = tree_flatten(tree_from_rows(obj_clone(valid[i]))).sort(fcmp_row);
+                const t2 = tree_flatten(tree_from_array(obj_clone(valid[i]))).sort(fcmp_row);
                 assert.deepEqual(t1, t2);
             }
         }
@@ -50,12 +50,12 @@ describe('tree_from_rows', function () {
         for (let i = 0, end = circular.length; i < end; ++i) {
             const perm = array_permutations(circular[i]);
             for (let j = 0, jj = perm.length; j < jj; ++j) {
-                assert.throws(() => tree_from_rows(obj_clone(perm[j])), /Circular dependency detected/);
+                assert.throws(() => tree_from_array(obj_clone(perm[j])), /Circular dependency detected/);
             }
         }
     });
     it('should throw "All rows should have unique ids" exception', function () {
-        assert.throws(() => tree_from_rows([{id: 1}, {id: 1}]), /All rows should have unique ids/);
+        assert.throws(() => tree_from_array([{id: 1}, {id: 1}]), /All rows should have unique ids/);
     });
 });
 

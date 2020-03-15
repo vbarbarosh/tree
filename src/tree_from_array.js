@@ -2,21 +2,21 @@
  * W A R N I N G
  *     This function will modify original values.
  *
- * @param rows
+ * @param items
  * @returns {Array}
  *
  * @link https://stackoverflow.com/a/37907458/1478566
  * @link http://krishnalearnings.blogspot.com/2015/11/basics-of-graph-in-computer-science.html
  */
-function tree_from_rows(rows = [])
+function tree_from_array(items = [])
 {
     const roots = [];
     const orphans = [];
     const nodes = {};
 
     // Split all rows into nodes and potential roots.
-    for (let i = 0, end = rows.length; i < end; ++i) {
-        const node = rows[i];
+    for (let i = 0, end = items.length; i < end; ++i) {
+        const node = items[i];
         node.parent_id = node.parent_id || null;
         node.children = [];
         if (nodes[node.id]) {
@@ -71,4 +71,4 @@ function panic(node)
     }
 }
 
-export default tree_from_rows;
+export default tree_from_array;

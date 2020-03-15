@@ -1,4 +1,4 @@
-A set of helper functions for working with trees
+A set of functions for working with trees
 
 ## Installation
 

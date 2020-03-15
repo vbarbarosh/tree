@@ -16,7 +16,7 @@ const circular = [
     [{id: 1}, {id: 2, parent_id: 3}, {id: 3, parent_id: 4}, {id: 4, parent_id: 5}, {id: 5, parent_id: 2}],
 ];
 
-describe('tree_from_rows', function () {
+describe('tree_from_array', function () {
     it('should accept no arguments', function () {
         assert.deepEqual(tree_from_array(), []);
     });

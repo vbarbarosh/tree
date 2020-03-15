@@ -9,6 +9,6 @@ describe('tree_from_string', function () {
     });
     xit('should define parent_id for each node', function () {
     });
-    xit('should return tree in the same format as tree_from_rows', function () {
+    xit('should return tree in the same format as tree_from_array', function () {
     });
 });

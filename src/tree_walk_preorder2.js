@@ -1,7 +1,6 @@
 function tree_walk_preorder2(ctx)
 {
     ctx.stack = [];
-    ctx.retval = null; // By default `null` will be returned
     tree_walk_preorder2_int(ctx);
     return ctx.retval;
 }

@@ -2,7 +2,7 @@
   "author": "Vladimir Barbarosh",
   "name": "@vbarbarosh/tree",
   "version": "0.0.1",
-  "description": "A set of helper functions for working with trees",
+  "description": "A set of functions for working with trees",
   "license": "ISC",
   "main": "src/index.js",
   "files": [

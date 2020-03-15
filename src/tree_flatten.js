@@ -1,18 +1,19 @@
-function tree_flatten(children)
-{
-    return walk([], children);
-}
+import tree_walk_preorder2 from './tree_walk_preorder2';
 
-function walk(rows, children)
+function tree_flatten(node)
 {
-    for (let i = 0, end = children.length; i < end; ++i) {
-        const row = children[i];
-        rows.push(row);
-        walk(rows, row.children);
-        delete row.parent;
-        delete row.children;
-    }
-    return rows;
+    const retval = [];
+    return tree_walk_preorder2({
+        node,
+        retval,
+        enter: function ({node}) {
+            retval.push(node);
+        },
+        leave: function ({node}) {
+            delete node.parent;
+            delete node.children;
+        },
+    });
 }
 
 export default tree_flatten;

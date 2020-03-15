@@ -53,6 +53,8 @@ function tree_walk_preorder2_int(ctx)
         }
     }
 
+    ctx.node = ctx.stack.pop();
+
     if (typeof ctx.leave == 'function') {
         ctx.leave_retval = ctx.leave(ctx);
         // noinspection EqualityComparisonWithCoercionJS
@@ -61,7 +63,6 @@ function tree_walk_preorder2_int(ctx)
         }
     }
 
-    ctx.node = ctx.stack.pop();
     return end;
 }
 

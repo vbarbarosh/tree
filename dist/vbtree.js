@@ -91,7 +91,7 @@ var vbtree =
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
-/*! exports provided: tree_flatten, tree_from_rows, tree_from_string, tree_print, tree_random, tree_sort, tree_stringify, tree_walk2, tree_walk_preorder */
+/*! exports provided: tree_flatten, tree_from_array, tree_from_string, tree_print, tree_random, tree_sort_preorder, tree_stringify, tree_walk2, tree_walk_preorder */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -99,8 +99,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _tree_flatten__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tree_flatten */ "./src/tree_flatten.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_flatten", function() { return _tree_flatten__WEBPACK_IMPORTED_MODULE_0__["default"]; });
 
-/* harmony import */ var _tree_from_rows__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tree_from_rows */ "./src/tree_from_rows.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_from_rows", function() { return _tree_from_rows__WEBPACK_IMPORTED_MODULE_1__["default"]; });
+/* harmony import */ var _tree_from_array__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tree_from_array */ "./src/tree_from_array.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_from_array", function() { return _tree_from_array__WEBPACK_IMPORTED_MODULE_1__["default"]; });
 
 /* harmony import */ var _tree_from_string__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tree_from_string */ "./src/tree_from_string.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_from_string", function() { return _tree_from_string__WEBPACK_IMPORTED_MODULE_2__["default"]; });
@@ -111,8 +111,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _tree_random__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./tree_random */ "./src/tree_random.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_random", function() { return _tree_random__WEBPACK_IMPORTED_MODULE_4__["default"]; });
 
-/* harmony import */ var _tree_sort__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./tree_sort */ "./src/tree_sort.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_sort", function() { return _tree_sort__WEBPACK_IMPORTED_MODULE_5__["default"]; });
+/* harmony import */ var _tree_sort_preorder__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./tree_sort_preorder */ "./src/tree_sort_preorder.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_sort_preorder", function() { return _tree_sort_preorder__WEBPACK_IMPORTED_MODULE_5__["default"]; });
 
 /* harmony import */ var _tree_stringify__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./tree_stringify */ "./src/tree_stringify.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_stringify", function() { return _tree_stringify__WEBPACK_IMPORTED_MODULE_6__["default"]; });
@@ -145,30 +145,34 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-function tree_flatten(children) {
-  return walk([], children);
-}
+/* harmony import */ var _tree_walk_preorder2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tree_walk_preorder2 */ "./src/tree_walk_preorder2.js");
 
-function walk(rows, children) {
-  for (var i = 0, end = children.length; i < end; ++i) {
-    var row = children[i];
-    rows.push(row);
-    walk(rows, row.children);
-    delete row.parent;
-    delete row.children;
-  }
 
-  return rows;
+function tree_flatten(node) {
+  var retval = [];
+  return Object(_tree_walk_preorder2__WEBPACK_IMPORTED_MODULE_0__["default"])({
+    node: node,
+    retval: retval,
+    enter: function enter(_ref) {
+      var node = _ref.node;
+      retval.push(node);
+    },
+    leave: function leave(_ref2) {
+      var node = _ref2.node;
+      delete node.parent;
+      delete node.children;
+    }
+  });
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (tree_flatten);
 
 /***/ }),
 
-/***/ "./src/tree_from_rows.js":
-/*!*******************************!*\
-  !*** ./src/tree_from_rows.js ***!
-  \*******************************/
+/***/ "./src/tree_from_array.js":
+/*!********************************!*\
+  !*** ./src/tree_from_array.js ***!
+  \********************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -178,20 +182,20 @@ __webpack_require__.r(__webpack_exports__);
  * W A R N I N G
  *     This function will modify original values.
  *
- * @param rows
- * @returns {Array}
+ * @param {Array} items
+ * @returns {*}
  *
  * @link https://stackoverflow.com/a/37907458/1478566
  * @link http://krishnalearnings.blogspot.com/2015/11/basics-of-graph-in-computer-science.html
  */
-function tree_from_rows() {
-  var rows = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+function tree_from_array() {
+  var items = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
   var roots = [];
   var orphans = [];
   var nodes = {}; // Split all rows into nodes and potential roots.
 
-  for (var i = 0, end = rows.length; i < end; ++i) {
-    var node = rows[i];
+  for (var i = 0, end = items.length; i < end; ++i) {
+    var node = items[i];
     node.parent_id = node.parent_id || null;
     node.children = [];
 
@@ -236,7 +240,22 @@ function tree_from_rows() {
     }
   }
 
-  return roots;
+  var id = 'root';
+
+  for (var _i2 = 1; _i2 <= 50; ++_i2) {
+    if (!nodes[id]) {
+      break;
+    }
+
+    id = "root_".concat(_i2);
+  }
+
+  return {
+    id: id,
+    parent: null,
+    parent_id: null,
+    children: roots
+  };
 }
 
 function panic(node) {
@@ -251,7 +270,7 @@ function panic(node) {
   }
 }
 
-/* harmony default export */ __webpack_exports__["default"] = (tree_from_rows);
+/* harmony default export */ __webpack_exports__["default"] = (tree_from_array);
 
 /***/ }),
 
@@ -365,7 +384,7 @@ __webpack_require__.r(__webpack_exports__);
 function tree_random() {
   var depth = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 3;
   var used = {};
-  return 'root\n' + nodes(1, depth, used);
+  return nodes(1, depth, used);
 }
 
 function nodes(depth, end, used) {
@@ -399,28 +418,28 @@ function nodes(depth, end, used) {
 
 /***/ }),
 
-/***/ "./src/tree_sort.js":
-/*!**************************!*\
-  !*** ./src/tree_sort.js ***!
-  \**************************/
+/***/ "./src/tree_sort_preorder.js":
+/*!***********************************!*\
+  !*** ./src/tree_sort_preorder.js ***!
+  \***********************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-function tree_sort(children) {
-  var fcmp = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : fcmp_tree_str;
+function tree_sort_preorder(children) {
+  var fcmp = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : fcmp_nodes_id;
   children.sort(fcmp).forEach(function (v) {
-    return tree_sort(v.children, fcmp);
+    return tree_sort_preorder(v.children, fcmp);
   });
   return children;
 }
 
-function fcmp_tree_str(a, b) {
+function fcmp_nodes_id(a, b) {
   return a.id.localeCompare(b.id);
 }
 
-/* harmony default export */ __webpack_exports__["default"] = (tree_sort);
+/* harmony default export */ __webpack_exports__["default"] = (tree_sort_preorder);
 
 /***/ }),
 
@@ -509,6 +528,89 @@ function tree_walk_preorder(children, cb) {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (tree_walk_preorder);
+
+/***/ }),
+
+/***/ "./src/tree_walk_preorder2.js":
+/*!************************************!*\
+  !*** ./src/tree_walk_preorder2.js ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function tree_walk_preorder2(ctx) {
+  ctx.stack = [];
+  tree_walk_preorder2_int(ctx);
+  return ctx.retval;
+}
+
+function tree_walk_preorder2_int(ctx) {
+  var visit = true;
+  var walk = true;
+  var end = false;
+  ctx.stack.push(ctx.node);
+
+  if (typeof ctx.enter == 'function') {
+    ctx.enter_retval = ctx.enter(ctx);
+
+    switch (ctx.enter_retval) {
+      case 'END':
+        visit = false;
+        walk = false;
+        end = true;
+        break;
+
+      case 'SKIP':
+        visit = false;
+        walk = false;
+        break;
+    }
+  }
+
+  if (visit && typeof ctx.visit == 'function') {
+    ctx.visit_retval = ctx.visit(ctx);
+
+    switch (ctx.visit_retval) {
+      case 'END':
+        walk = false;
+        end = true;
+        break;
+
+      case 'SKIP':
+        walk = false;
+        break;
+    }
+  }
+
+  if (walk) {
+    var children = ctx.node.children;
+
+    for (var i = 0, ii = children.length; i < ii; ++i) {
+      ctx.node = children[i];
+
+      if (tree_walk_preorder2_int(ctx)) {
+        end = true;
+        break;
+      }
+    }
+  }
+
+  ctx.node = ctx.stack.pop();
+
+  if (typeof ctx.leave == 'function') {
+    ctx.leave_retval = ctx.leave(ctx); // noinspection EqualityComparisonWithCoercionJS
+
+    if (ctx.leave_retval == 'END') {
+      end = true;
+    }
+  }
+
+  return end;
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (tree_walk_preorder2);
 
 /***/ }),
 

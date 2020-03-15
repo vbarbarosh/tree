@@ -3,7 +3,7 @@ import faker from 'faker';
 function tree_random(depth = 3)
 {
     const used = {};
-    return 'root\n' + nodes(1, depth, used);
+    return nodes(1, depth, used);
 }
 
 function nodes(depth, end, used)

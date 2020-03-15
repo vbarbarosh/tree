@@ -3,7 +3,7 @@ import tree_from_rows from './tree_from_rows';
 import tree_from_string from './tree_from_string';
 import tree_print from './tree_print';
 import tree_random from './tree_random';
-import tree_sort_preorder from './tree_sort';
+import tree_sort_preorder from './tree_sort_preorder';
 import tree_stringify from './tree_stringify';
 import tree_walk2 from './tree_walk2';
 import tree_walk_preorder from './tree_walk_preorder';

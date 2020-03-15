@@ -2,8 +2,8 @@
  * W A R N I N G
  *     This function will modify original values.
  *
- * @param items
- * @returns {Array}
+ * @param {Array} items
+ * @returns {*}
  *
  * @link https://stackoverflow.com/a/37907458/1478566
  * @link http://krishnalearnings.blogspot.com/2015/11/basics-of-graph-in-computer-science.html
@@ -57,7 +57,12 @@ function tree_from_array(items = [])
         }
     }
 
-    return roots;
+    return {
+        id: null,
+        parent: null,
+        parent_id: null,
+        children: roots,
+    };
 }
 
 function panic(node)

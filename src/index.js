@@ -3,6 +3,9 @@ import tree_flatten from './tree_flatten';
 import tree_from_array from './tree_from_array';
 import tree_from_string from './tree_from_string';
 import tree_from_string2 from './tree_from_string2';
+import tree_move_after from './tree_move_after';
+import tree_move_before from './tree_move_before';
+import tree_move_inside from './tree_move_inside';
 import tree_print from './tree_print';
 import tree_print2 from './tree_print2';
 import tree_random from './tree_random';
@@ -18,6 +21,9 @@ export {
     tree_from_array,
     tree_from_string,
     tree_from_string2,
+    tree_move_after,
+    tree_move_before,
+    tree_move_inside,
     tree_print,
     tree_print2,
     tree_random,

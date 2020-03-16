@@ -91,46 +91,58 @@ var vbtree =
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
-/*! exports provided: tree_flatten, tree_from_array, tree_from_string, tree_from_string2, tree_print, tree_print2, tree_random, tree_sort_preorder, tree_stringify, tree_walk2, tree_walk_preorder, tree_walk_preorder2 */
+/*! exports provided: tree_ancestor, tree_flatten, tree_from_array, tree_from_string, tree_from_string2, tree_move_after, tree_move_before, tree_move_inside, tree_print, tree_print2, tree_random, tree_sort_preorder, tree_stringify, tree_walk2, tree_walk_preorder, tree_walk_preorder2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _tree_flatten__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tree_flatten */ "./src/tree_flatten.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_flatten", function() { return _tree_flatten__WEBPACK_IMPORTED_MODULE_0__["default"]; });
+/* harmony import */ var _tree_ancestor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tree_ancestor */ "./src/tree_ancestor.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_ancestor", function() { return _tree_ancestor__WEBPACK_IMPORTED_MODULE_0__["default"]; });
 
-/* harmony import */ var _tree_from_array__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tree_from_array */ "./src/tree_from_array.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_from_array", function() { return _tree_from_array__WEBPACK_IMPORTED_MODULE_1__["default"]; });
+/* harmony import */ var _tree_flatten__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tree_flatten */ "./src/tree_flatten.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_flatten", function() { return _tree_flatten__WEBPACK_IMPORTED_MODULE_1__["default"]; });
 
-/* harmony import */ var _tree_from_string__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tree_from_string */ "./src/tree_from_string.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_from_string", function() { return _tree_from_string__WEBPACK_IMPORTED_MODULE_2__["default"]; });
+/* harmony import */ var _tree_from_array__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tree_from_array */ "./src/tree_from_array.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_from_array", function() { return _tree_from_array__WEBPACK_IMPORTED_MODULE_2__["default"]; });
 
-/* harmony import */ var _tree_from_string2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./tree_from_string2 */ "./src/tree_from_string2.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_from_string2", function() { return _tree_from_string2__WEBPACK_IMPORTED_MODULE_3__["default"]; });
+/* harmony import */ var _tree_from_string__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./tree_from_string */ "./src/tree_from_string.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_from_string", function() { return _tree_from_string__WEBPACK_IMPORTED_MODULE_3__["default"]; });
 
-/* harmony import */ var _tree_print__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./tree_print */ "./src/tree_print.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_print", function() { return _tree_print__WEBPACK_IMPORTED_MODULE_4__["default"]; });
+/* harmony import */ var _tree_from_string2__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./tree_from_string2 */ "./src/tree_from_string2.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_from_string2", function() { return _tree_from_string2__WEBPACK_IMPORTED_MODULE_4__["default"]; });
 
-/* harmony import */ var _tree_print2__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./tree_print2 */ "./src/tree_print2.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_print2", function() { return _tree_print2__WEBPACK_IMPORTED_MODULE_5__["default"]; });
+/* harmony import */ var _tree_move_after__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./tree_move_after */ "./src/tree_move_after.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_move_after", function() { return _tree_move_after__WEBPACK_IMPORTED_MODULE_5__["default"]; });
 
-/* harmony import */ var _tree_random__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./tree_random */ "./src/tree_random.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_random", function() { return _tree_random__WEBPACK_IMPORTED_MODULE_6__["default"]; });
+/* harmony import */ var _tree_move_before__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./tree_move_before */ "./src/tree_move_before.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_move_before", function() { return _tree_move_before__WEBPACK_IMPORTED_MODULE_6__["default"]; });
 
-/* harmony import */ var _tree_sort_preorder__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./tree_sort_preorder */ "./src/tree_sort_preorder.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_sort_preorder", function() { return _tree_sort_preorder__WEBPACK_IMPORTED_MODULE_7__["default"]; });
+/* harmony import */ var _tree_move_inside__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./tree_move_inside */ "./src/tree_move_inside.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_move_inside", function() { return _tree_move_inside__WEBPACK_IMPORTED_MODULE_7__["default"]; });
 
-/* harmony import */ var _tree_stringify__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./tree_stringify */ "./src/tree_stringify.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_stringify", function() { return _tree_stringify__WEBPACK_IMPORTED_MODULE_8__["default"]; });
+/* harmony import */ var _tree_print__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./tree_print */ "./src/tree_print.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_print", function() { return _tree_print__WEBPACK_IMPORTED_MODULE_8__["default"]; });
 
-/* harmony import */ var _tree_walk2__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./tree_walk2 */ "./src/tree_walk2.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_walk2", function() { return _tree_walk2__WEBPACK_IMPORTED_MODULE_9__["default"]; });
+/* harmony import */ var _tree_print2__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./tree_print2 */ "./src/tree_print2.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_print2", function() { return _tree_print2__WEBPACK_IMPORTED_MODULE_9__["default"]; });
 
-/* harmony import */ var _tree_walk_preorder__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./tree_walk_preorder */ "./src/tree_walk_preorder.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_walk_preorder", function() { return _tree_walk_preorder__WEBPACK_IMPORTED_MODULE_10__["default"]; });
+/* harmony import */ var _tree_random__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./tree_random */ "./src/tree_random.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_random", function() { return _tree_random__WEBPACK_IMPORTED_MODULE_10__["default"]; });
 
-/* harmony import */ var _tree_walk_preorder2__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./tree_walk_preorder2 */ "./src/tree_walk_preorder2.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_walk_preorder2", function() { return _tree_walk_preorder2__WEBPACK_IMPORTED_MODULE_11__["default"]; });
+/* harmony import */ var _tree_sort_preorder__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./tree_sort_preorder */ "./src/tree_sort_preorder.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_sort_preorder", function() { return _tree_sort_preorder__WEBPACK_IMPORTED_MODULE_11__["default"]; });
+
+/* harmony import */ var _tree_stringify__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./tree_stringify */ "./src/tree_stringify.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_stringify", function() { return _tree_stringify__WEBPACK_IMPORTED_MODULE_12__["default"]; });
+
+/* harmony import */ var _tree_walk2__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./tree_walk2 */ "./src/tree_walk2.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_walk2", function() { return _tree_walk2__WEBPACK_IMPORTED_MODULE_13__["default"]; });
+
+/* harmony import */ var _tree_walk_preorder__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./tree_walk_preorder */ "./src/tree_walk_preorder.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_walk_preorder", function() { return _tree_walk_preorder__WEBPACK_IMPORTED_MODULE_14__["default"]; });
+
+/* harmony import */ var _tree_walk_preorder2__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./tree_walk_preorder2 */ "./src/tree_walk_preorder2.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_walk_preorder2", function() { return _tree_walk_preorder2__WEBPACK_IMPORTED_MODULE_15__["default"]; });
 
 
 
@@ -145,6 +157,66 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+/***/ }),
+
+/***/ "./src/tree_ancestor.js":
+/*!******************************!*\
+  !*** ./src/tree_ancestor.js ***!
+  \******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+/**
+ * Return ancestor shared by all nodes
+ *
+ * @param nodes
+ */
+function tree_ancestor(nodes) {
+  if (nodes.length == 0) {
+    return null;
+  }
+
+  var ancestors = [];
+  nodes.forEach(function (node) {
+    var tmp = [];
+
+    for (var p = node; p; p = p.parent) {
+      tmp.push(p);
+    }
+
+    ancestors.push(tmp.reverse());
+  });
+  var end = Math.min.apply(Math, _toConsumableArray(Object.values(ancestors).map(function (v) {
+    return v.length;
+  })));
+
+  for (var m_parent = 0; m_parent < end; ++m_parent) {
+    for (var i = 1; i < ancestors.length; ++i) {
+      if (ancestors[i - 1][m_parent] !== ancestors[i][m_parent]) {
+        return ancestors[0][m_parent - 1];
+      }
+    }
+  }
+
+  return ancestors[0][end - 2] || null;
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (tree_ancestor);
 
 /***/ }),
 
@@ -404,6 +476,128 @@ function tree_from_string2(s) {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (tree_from_string2);
+
+/***/ }),
+
+/***/ "./src/tree_move_after.js":
+/*!********************************!*\
+  !*** ./src/tree_move_after.js ***!
+  \********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+function tree_move_after(nodes, target) {
+  var _target$parent$childr;
+
+  nodes.forEach(function (node) {
+    if (node.parent) {
+      node.parent.children.splice(node.parent.children.indexOf(node), 1);
+      node.parent = null;
+      node.parent_id = null;
+    }
+  });
+  var i = target.parent.children.indexOf(target);
+
+  (_target$parent$childr = target.parent.children).splice.apply(_target$parent$childr, [i + 1, 0].concat(_toConsumableArray(nodes)));
+
+  nodes.forEach(function (node) {
+    node.parent = target.parent;
+    node.parent_id = target.parent_id;
+  });
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (tree_move_after);
+
+/***/ }),
+
+/***/ "./src/tree_move_before.js":
+/*!*********************************!*\
+  !*** ./src/tree_move_before.js ***!
+  \*********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+function tree_move_before(nodes, target) {
+  var _target$parent$childr;
+
+  nodes.forEach(function (node) {
+    if (node.parent) {
+      node.parent.children.splice(node.parent.children.indexOf(node), 1);
+      node.parent = null;
+      node.parent_id = null;
+    }
+  });
+  var i = target.parent.children.indexOf(target);
+
+  (_target$parent$childr = target.parent.children).splice.apply(_target$parent$childr, [i, 0].concat(_toConsumableArray(nodes)));
+
+  nodes.forEach(function (node) {
+    node.parent = target.parent;
+    node.parent_id = target.parent_id;
+  });
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (tree_move_before);
+
+/***/ }),
+
+/***/ "./src/tree_move_inside.js":
+/*!*********************************!*\
+  !*** ./src/tree_move_inside.js ***!
+  \*********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+function tree_move_inside(nodes, target) {
+  var _target$children;
+
+  nodes.forEach(function (node) {
+    if (node.parent) {
+      node.parent.children.splice(node.parent.children.indexOf(node), 1);
+      node.parent = null;
+      node.parent_id = null;
+    }
+  });
+
+  (_target$children = target.children).splice.apply(_target$children, [0, 0].concat(_toConsumableArray(nodes)));
+
+  nodes.forEach(function (node) {
+    node.parent = target;
+    node.parent_id = target.id;
+  });
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (tree_move_inside);
 
 /***/ }),
 

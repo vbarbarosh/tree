@@ -3,7 +3,7 @@
  *     This function will modify original values.
  *
  * @param {Array} items
- * @returns {*}
+ * @returns {Array} roots
  *
  * @link https://stackoverflow.com/a/37907458/1478566
  * @link http://krishnalearnings.blogspot.com/2015/11/basics-of-graph-in-computer-science.html
@@ -57,19 +57,7 @@ function tree_from_array(items = [])
         }
     }
 
-    let id = 'root';
-    for (let i = 1; i <= 50; ++i) {
-        if (!nodes[id]) {
-            break;
-        }
-        id = `root_${i}`;
-    }
-    return {
-        id,
-        parent: null,
-        parent_id: null,
-        children: roots,
-    };
+    return roots;
 }
 
 function panic(node)

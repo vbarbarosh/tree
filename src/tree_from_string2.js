@@ -7,7 +7,7 @@
 function tree_from_string2(s)
 {
     let counter = 0;
-    const root = {id: 'root', parent_id: null, level: 0, parent: null, children: []};
+    const root = {id: null, parent_id: null, level: 0, parent: null, children: []};
     const parents = [root];
     s.split('\n').forEach(function (line) {
         const names = line.trimLeft();
@@ -33,7 +33,7 @@ function tree_from_string2(s)
         parents[0].level = parents.length - 1;
         parents.shift();
     }
-    return root;
+    return root.children;
 }
 
 export default tree_from_string2;

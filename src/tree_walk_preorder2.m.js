@@ -10,37 +10,34 @@ Object.freeze(valid);
 
 describe('tree_walk_preorder2', function () {
     it('should enter each node once', function () {
-        const nodes = JSON.parse(JSON.stringify(valid[0]));
-        const root = tree_from_array(nodes);
+        const items = JSON.parse(JSON.stringify(valid[0]));
+        const nodes = tree_from_array(items);
         const set = new WeakSet();
-        tree_walk_preorder2({node: root, enter: v => set.add(v.node)});
-        nodes.forEach(v => assert(set.has(v)));
-        assert(set.has(root));
+        tree_walk_preorder2({nodes, enter: v => set.add(v.node)});
+        items.forEach(v => assert(set.has(v)));
     });
     it('should leave each node once', function () {
-        const nodes = JSON.parse(JSON.stringify(valid[0]));
-        const root = tree_from_array(nodes);
+        const items = JSON.parse(JSON.stringify(valid[0]));
+        const nodes = tree_from_array(items);
         const set = new WeakSet();
-        tree_walk_preorder2({node: root, leave: v => set.add(v.node)});
-        nodes.forEach(v => assert(set.has(v)));
-        assert(set.has(root));
+        tree_walk_preorder2({nodes, leave: v => set.add(v.node)});
+        items.forEach(v => assert(set.has(v)));
     });
     it('should visit each node once', function () {
-        const nodes = JSON.parse(JSON.stringify(valid[0]));
-        const root = tree_from_array(nodes);
+        const items = JSON.parse(JSON.stringify(valid[0]));
+        const nodes = tree_from_array(items);
         const set = new WeakSet();
-        tree_walk_preorder2({node: root, visit: v => set.add(v.node)});
-        nodes.forEach(v => assert(set.has(v)));
-        assert(set.has(root));
+        tree_walk_preorder2({nodes, visit: v => set.add(v.node)});
+        items.forEach(v => assert(set.has(v)));
     });
     it('should walk each node a particular order', function () {
-        const nodes = JSON.parse(JSON.stringify(valid[0]));
-        const root = tree_from_array(nodes);
+        const items = JSON.parse(JSON.stringify(valid[0]));
+        const nodes = tree_from_array(items);
         const leave = new WeakSet();
         const enter = new WeakSet();
         const visit = new WeakSet();
         tree_walk_preorder2({
-            node: root,
+            nodes,
             enter: function ({node}) {
                 enter.add(node);
             },
@@ -54,8 +51,5 @@ describe('tree_walk_preorder2', function () {
                 visit.add(node);
             },
         });
-        assert(enter.has(root));
-        assert(leave.has(root));
-        assert(visit.has(root));
     });
 });

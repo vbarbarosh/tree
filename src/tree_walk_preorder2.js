@@ -1,7 +1,12 @@
 function tree_walk_preorder2(ctx)
 {
     ctx.stack = [];
-    tree_walk_preorder2_int(ctx);
+    for (let i = 0, end = ctx.nodes.length; i < end; ++i) {
+        ctx.node = ctx.nodes[i];
+        if (tree_walk_preorder2_int(ctx)) {
+            break;
+        }
+    }
     return ctx.retval;
 }
 

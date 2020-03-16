@@ -22,29 +22,29 @@ Object.freeze(circular);
 
 describe('tree_from_array', function () {
     it('should accept no arguments', function () {
-        assert.deepEqual(tree_from_array().children, []);
+        assert.deepEqual(tree_from_array(), []);
     });
     it('should accept empty array', function () {
-        assert.deepEqual(tree_from_array([]).children, []);
+        assert.deepEqual(tree_from_array([]), []);
     });
     it('should handle basic input №1', function () {
         const input = [{id: 1}, {id: 2, parent_id: 1}];
         const node1 = {id: 1, parent_id: null, parent: null, children: []};
         const node2 = {id: 2, parent_id: 1, parent: node1, children: []};
         node1.children.push(node2);
-        assert.deepEqual(tree_from_array(input).children, [node1]);
+        assert.deepEqual(tree_from_array(input), [node1]);
     });
     it('should handle basic input №2', function () {
         const input = [{id: 2, parent_id: 1}, {id: 1}];
         const node1 = {id: 1, parent_id: null, parent: null, children: []};
         const node2 = {id: 2, parent_id: 1, parent: node1, children: []};
         node1.children.push(node2);
-        assert.deepEqual(tree_from_array(input).children, [node1]);
+        assert.deepEqual(tree_from_array(input), [node1]);
     });
     it('should pass random test', function () {
         for (let i = 0, end = valid.length; i < end; ++i) {
             const t1 = obj_clone(valid[i]).sort(fcmp_nodes_id);
-            const t2 = tree_flatten(tree_from_array(obj_clone(valid[i]))).slice(1).sort(fcmp_nodes_id);
+            const t2 = tree_flatten(tree_from_array(obj_clone(valid[i]))).sort(fcmp_nodes_id);
             assert.deepEqual(t1, t2);
         }
     });

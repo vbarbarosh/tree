@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://unpkg.com/@vbarbarosh/smcss@0.3.20/dist/sm.css" rel="stylesheet" />
+    <title>A set of functions for working with trees &mdash; @vbarbarosh/tree</title>
+</head>
+<body>
+
+<div class="w800 ma">
+    <p>Selecting nodes</p>
+</div>
+
+<div id="app" class="w800 p15 ma bs5">
+    <div class="flex-row mi15">
+        <div class="w50p border">
+            <vue-tree v-bind:value="nodes"></vue-tree>
+        </div>
+        <div class="w50p border">
+            <textarea v-model="tree" class="xborder p10 xm ww hh bbox"></textarea>
+        </div>
+    </div>
+    <br>
+    <button v-on:click="save">save</button>
+    <button v-on:click="restore">restore</button>
+    <br>
+    selection:
+    <pre class="dashed" style="white-space: normal;">{{ selection }}</pre>
+    <pre v-if="saved" class="dashed" style="white-space: normal;">{{ saved }}</pre>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.min.js"></script>
+<script src="https://unpkg.com/@vbarbarosh/tree@0.2.0/dist/vbtree.js"></script>
+<script src="https://unpkg.com/vue@2.6.11/dist/vue.js"></script>
+
+<script id="templ-vue-tree" type="text/html">
+    <ul v-if="nodes.length">
+        <li v-for="node in nodes" v-bind:key="node.id">
+            <input type="checkbox" v-model="node.is_checked">
+            {{ node.text }}
+            <vue-tree v-model="node.children" />
+        </li>
+    </ul>
+</script>
+<script>
+Vue.component('vue-tree', {
+    template: '#templ-vue-tree',
+    props: ['value'],
+    computed: {
+        nodes: function () {
+            return this.value;
+        },
+    }
+});
+
+new Vue({
+    el: '#app',
+    data: {
+        saved: null,
+        nodes: [],
+        tree: `    aa
+    bb
+    cc
+    one
+        two json:{"is_checked":true}
+            three json:{"is_checked":true}
+                four json:{"is_checked":true}
+                    five
+                        six
+                    foo
+                bar
+            baz
+        quiz
+    quux
+    quux
+`,
+    },
+    computed: {
+        selection: function () {
+            return vbtree.tree_walk_preorder2({
+                retval: [],
+                nodes: this.nodes,
+                visit: function (ctx) {
+                    if (ctx.node.is_checked) {
+                        ctx.retval.push(ctx.node.id);
+                    }
+                },
+            });
+        },
+    },
+    watch: {
+        tree: {
+            handler: function () {
+                const nodes = vbtree.tree_from_string2(this.tree);
+                vbtree.tree_walk_preorder2({
+                    nodes,
+                    visit: function ({node}) {
+                        const i = node.text.indexOf('json:{');
+                        if (i != -1) {
+                            const json = node.text.slice(i+5);
+                            node.text = node.text.slice(0,i).trim();
+                            try {
+                                Object.assign(node, JSON.parse(json));
+                            }
+                            catch (error) {
+                                // console.warn(error);
+                            }
+                        }
+                    },
+                });
+                this.nodes = nodes;
+            },
+            immediate: true,
+        },
+    },
+    methods: {
+        save: function () {
+            const items = [];
+            vbtree.tree_walk_preorder2({
+                nodes: this.nodes,
+                visit: function ({node}) {
+                    const tmp = {...node};
+                    delete tmp.parent;
+                    delete tmp.children;
+                    items.push(tmp);
+                },
+            });
+            this.saved = JSON.stringify(items);
+        },
+        restore: function () {
+            let lines = '';
+            vbtree.tree_walk_preorder2({
+                nodes: vbtree.tree_from_array(JSON.parse(this.saved)),
+                visit: function ({stack, node}) {
+                    const tmp = {...node, id: undefined, parent_id: undefined, level: undefined, parent: undefined, children: undefined, text: undefined};
+                    let json = JSON.stringify(tmp);
+                    if (json === '{}') {json = '';}else {json = ` json:${json}`}
+                    lines += ' '.repeat(stack.length*4) + node.text + json + '\n';
+                },
+            });
+            // XXX Force update
+            this.tree = '';
+            this.$nextTick(() => this.tree = lines);
+        },
+    },
+    created: function () {
+        this.save();
+    },
+});
+</script>
+
+</body>
+</html>

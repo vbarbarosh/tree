@@ -1,3 +1,4 @@
+import tree_ancestor from './tree_ancestor';
 import tree_flatten from './tree_flatten';
 import tree_from_array from './tree_from_array';
 import tree_from_string from './tree_from_string';
@@ -12,6 +13,7 @@ import tree_walk_preorder from './tree_walk_preorder';
 import tree_walk_preorder2 from './tree_walk_preorder2';
 
 export {
+    tree_ancestor,
     tree_flatten,
     tree_from_array,
     tree_from_string,

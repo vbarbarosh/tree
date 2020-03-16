@@ -160,10 +160,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _tree_walk_preorder2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tree_walk_preorder2 */ "./src/tree_walk_preorder2.js");
 
 
-function tree_flatten(node) {
+function tree_flatten(nodes) {
   var retval = [];
   return Object(_tree_walk_preorder2__WEBPACK_IMPORTED_MODULE_0__["default"])({
-    node: node,
+    nodes: nodes,
     retval: retval,
     enter: function enter(_ref) {
       var node = _ref.node;
@@ -195,7 +195,7 @@ __webpack_require__.r(__webpack_exports__);
  *     This function will modify original values.
  *
  * @param {Array} items
- * @returns {*}
+ * @returns {Array} roots
  *
  * @link https://stackoverflow.com/a/37907458/1478566
  * @link http://krishnalearnings.blogspot.com/2015/11/basics-of-graph-in-computer-science.html
@@ -252,22 +252,7 @@ function tree_from_array() {
     }
   }
 
-  var id = 'root';
-
-  for (var _i2 = 1; _i2 <= 50; ++_i2) {
-    if (!nodes[id]) {
-      break;
-    }
-
-    id = "root_".concat(_i2);
-  }
-
-  return {
-    id: id,
-    parent: null,
-    parent_id: null,
-    children: roots
-  };
+  return roots;
 }
 
 function panic(node) {
@@ -373,7 +358,7 @@ __webpack_require__.r(__webpack_exports__);
 function tree_from_string2(s) {
   var counter = 0;
   var root = {
-    id: 'root',
+    id: null,
     parent_id: null,
     level: 0,
     parent: null,
@@ -415,7 +400,7 @@ function tree_from_string2(s) {
     parents.shift();
   }
 
-  return root;
+  return root.children;
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (tree_from_string2);
@@ -459,22 +444,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _tree_walk_preorder2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tree_walk_preorder2 */ "./src/tree_walk_preorder2.js");
 
 
-function tree_print2(node) {
+function tree_print2(nodes) {
   // Two conditions:
   // 1) Whether or not a node is the last one among its siblings
   // 2) Whether or not a node is the last one in a walking stack (or, whether or not a node is a last one in its branch)
   Object(_tree_walk_preorder2__WEBPACK_IMPORTED_MODULE_0__["default"])({
-    node: node,
+    nodes: nodes,
     visit: function visit(ctx) {
       var s = '';
       ctx.stack.forEach(function (node, stack_i) {
-        if (!node.parent) {
-          return;
-        }
+        var siblings = node.parent ? node.parent.children : nodes; // noinspection EqualityComparisonWithCoercionJS
 
-        var sibling_i = node.parent.children.indexOf(node); // noinspection EqualityComparisonWithCoercionJS
-
-        if (sibling_i == node.parent.children.length - 1) {
+        if (node === siblings[siblings.length - 1]) {
           // noinspection EqualityComparisonWithCoercionJS
           s += stack_i == ctx.stack.length - 1 ? '└── ' : '    ';
         } else {
@@ -665,7 +646,15 @@ function tree_walk_preorder(children, cb) {
 __webpack_require__.r(__webpack_exports__);
 function tree_walk_preorder2(ctx) {
   ctx.stack = [];
-  tree_walk_preorder2_int(ctx);
+
+  for (var i = 0, end = ctx.nodes.length; i < end; ++i) {
+    ctx.node = ctx.nodes[i];
+
+    if (tree_walk_preorder2_int(ctx)) {
+      break;
+    }
+  }
+
   return ctx.retval;
 }
 

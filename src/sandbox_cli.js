@@ -9,12 +9,17 @@ import tree_walk_preorder2 from './tree_walk_preorder2';
 
 // Case when node refers to undefined parent_id
 
-function print(items)
+function print(items, selection)
 {
     console.log(preorder(items));
     let s = tree_print2(tree_from_array(JSON.parse(JSON.stringify(items))));
-    s = s.replace('─ x', '─\x1b[32m x <<<<\x1b[0m');
-    console.log(s);
+    s = s.split('\n').map(function (line) {
+        if (line.endsWith(`─ ${selection.text}`)) {
+            return `\x1b[32m${line}<<<<\x1b[0m`;
+        }
+        return line;
+    });
+    console.log(s.join('\n'));
 }
 
 cli(main);
@@ -27,18 +32,19 @@ function preorder(items)
         nodes: tree_from_array(JSON.parse(JSON.stringify(items))),
         visit: function (ctx) {
             retval.push(ctx.node.id);
-            parents.push((ctx.node.parent_id===undefined)
+            parents.push((ctx.node.parent_id === undefined)
                 ? 'U'
-                : (ctx.node.parent_id===null)
+                : (ctx.node.parent_id === null)
                     ? 'N'
                     : ctx.node.parent_id);
         },
     });
     return parents.join(',') + '\n' + retval.join(',');
 }
+
 async function main()
 {
-    const before = tree(`
+    const nodes = tree(`
     x
     group images
         image bg
@@ -56,73 +62,108 @@ async function main()
         c
     z
 `);
-    print(before);
+    let selection = nodes[0];
+    let mode = 'select'; // move
+    print(nodes, selection);
 
 // https://thisdavej.com/making-interactive-node-js-console-apps-that-listen-for-keypress-events/
 // https://stackoverflow.com/a/5059872/1478566
 // https://github.com/nodejs/node/issues/6626
-readline.emitKeypressEvents(process.stdin);
-process.stdin.setRawMode(true);
-await new Promise(function (resolve) {
-    process.stdin.on('keypress', (str, key) => {
-        console.log('\x1bc');
-    switch (key.name) {
-    case 'q':
-    case 'esc':
-        // https://github.com/nodejs/node/issues/6626#issuecomment-217614102
-        process.kill(process.pid, 'SIGINT');
-        break;
-    case 'up':
-        move_up2(before, before.find(v => v.text == 'x'));
-        print(before);
-        break;
-    case 'down':
-        move_down2(before, before.find(v => v.text == 'x'));
-        print(before);
-        break;
-    case 'left':
-        move_left(before, before.find(v => v.text == 'x'));
-        print(before);
-        break;
-    case 'right':
-        move_right(before, before.find(v => v.text == 'x'));
-        print(before);
-        break;
-    }
-      if (key.name == 'q' || (key.ctrl && key.name === 'c')) {
-        // process.exit();
-          // https://github.com/nodejs/node/issues/6626#issuecomment-217614102
-          process.kill(process.pid, 'SIGINT');
-      } else {
-      /*
-        console.log(`You pressed the "${str}" key`);
-        console.log();
-        console.log(key);
-        console.log();
-        */
-      }
-    });
-});
+    readline.emitKeypressEvents(process.stdin);
+    process.stdin.setRawMode(true);
+    await new Promise(function (resolve) {
+        process.stdin.on('keypress', function (str, key) {
+            console.log('\x1bc');
+            console.log(`mode: ${mode}`);
+            console.log();
 
-    move_right(before, before.find(v => v.text == 'z'));
-    print(before);
-    move_right(before, before.find(v => v.text == 'z'));
-    print(before);
-    move_right(before, before.find(v => v.text == 'z'));
-    print(before);
-    before.unshift(before.pop());
-    print(before);
+            switch (key.name) {
+            case 'space':
+                mode = (mode == 'select') ? 'move' : 'select';
+                print(nodes, selection);
+                return;
+            case 'q':
+            case 'esc':
+                // https://github.com/nodejs/node/issues/6626#issuecomment-217614102
+                process.kill(process.pid, 'SIGINT');
+                return;
+            case 'c':
+                if (key.ctrl) {
+                    // https://github.com/nodejs/node/issues/6626#issuecomment-217614102
+                    process.kill(process.pid, 'SIGINT');
+                }
+                return;
+            }
+
+            let tmp,tmp2;
+            switch (mode) {
+            case 'select':
+                switch (key.name) {
+                case 'up':
+                    tmp = tree_walk_preorder2({
+                        nodes: tree_from_array(JSON.parse(JSON.stringify(nodes))),
+                        retval: [],
+                        visit: function (ctx) {
+                            ctx.retval.push(ctx.node);
+                        },
+                    });
+                    tmp2 = (tmp[tmp.findIndex(v => v.id == selection.id)-1]||{}).id;
+                    selection = nodes[nodes.findIndex(v => v.id == tmp2)]||selection;
+                    break;
+                case 'down':
+                    tmp = tree_walk_preorder2({
+                        nodes: tree_from_array(JSON.parse(JSON.stringify(nodes))),
+                        retval: [],
+                        visit: function (ctx) {
+                            ctx.retval.push(ctx.node);
+                        },
+                    });
+                    tmp2 = (tmp[tmp.findIndex(v => v.id == selection.id)+1]||{}).id;
+                    selection = nodes[nodes.findIndex(v => v.id == tmp2)]||selection;
+                    break;
+                }
+                break;
+            case 'move':
+                switch (key.name) {
+                case 'up':
+                    move_up2(nodes, nodes.find(v => v === selection));
+                    break;
+                case 'down':
+                    move_down2(nodes, nodes.find(v => v === selection));
+                    break;
+                case 'left':
+                    move_left(nodes, nodes.find(v => v === selection));
+                    break;
+                case 'right':
+                    move_right(nodes, nodes.find(v => v === selection));
+                    break;
+                }
+                break;
+            }
+
+            print(nodes, selection);
+        });
+    });
+
+    move_right(nodes, nodes.find(v => v.text == 'z'));
+    print(nodes);
+    move_right(nodes, nodes.find(v => v.text == 'z'));
+    print(nodes);
+    move_right(nodes, nodes.find(v => v.text == 'z'));
+    print(nodes);
+    nodes.unshift(nodes.pop());
+    print(nodes);
 
     console.log('----------------');
 
-    move_left(before, before.find(v => v.text == 'z'));
-    print(before);
-    move_left(before, before.find(v => v.text == 'z'));
-    print(before);
-    move_left(before, before.find(v => v.text == 'z'));
-    print(before);
-    move_left(before, before.find(v => v.text == 'z'));
-    print(before);
+    move_left(nodes, nodes.find(v => v.text == 'z'));
+    print(nodes);
+    move_left(nodes, nodes.find(v => v.text == 'z'));
+    print(nodes);
+    move_left(nodes, nodes.find(v => v.text == 'z'));
+    print(nodes);
+    move_left(nodes, nodes.find(v => v.text == 'z'));
+    print(nodes);
 
 }
 
@@ -130,7 +171,7 @@ await new Promise(function (resolve) {
 function cli(main)
 {
     // https://stackoverflow.com/a/46916601/1478566
-    return Promise.method(main).call().catch(panic).finally(clearInterval.bind(null, setInterval(v=>v, 1E9)));
+    return Promise.method(main).call().catch(panic).finally(clearInterval.bind(null, setInterval(v => v, 1E9)));
 }
 
 function panic(error)
@@ -143,7 +184,7 @@ function panic(error)
 function move_up(nodes, target)
 {
     const i = nodes.indexOf(target);
-    for (let j = i; --j >= 0; ) {
+    for (let j = i; --j >= 0;) {
         if (nodes[j].parent_id === target.parent_id) {
             nodes.splice(i, 1);
             nodes.splice(j, 0, target);
@@ -165,13 +206,13 @@ function move_up2(nodes, target)
 
     const p_i = preorder.findIndex(v => v.id === target.id);
     if (p_i > 0) {
-        const prev_id = preorder[p_i-1].id;
+        const prev_id = preorder[p_i - 1].id;
         const j = nodes.findIndex(v => v.id === prev_id);
         if (j >= 0) {
-            target.parent_id = preorder[p_i-1].parent_id;
+            target.parent_id = preorder[p_i - 1].parent_id;
             const i = nodes.indexOf(target);
             nodes.splice(i, 1);
-            nodes.splice(j+(i<j), 0, target);
+            nodes.splice(j + (i < j), 0, target);
         }
     }
 
@@ -204,18 +245,17 @@ function move_down2(nodes, target)
     });
 
     const p_i = preorder.findIndex(v => v.id === target.id);
-    if (p_i >= 0 && p_i < preorder.length-1) {
-        const next_id = preorder[p_i+1].id;
+    if (p_i >= 0 && p_i < preorder.length - 1) {
+        const next_id = preorder[p_i + 1].id;
         const j = nodes.findIndex(v => v.id === next_id);
         if (j >= 0) {
-            if (preorder[p_i+2] && preorder[p_i+2].parent_id == preorder[p_i+1].id) {
-                target.parent_id = preorder[p_i+1].id||null;
+            if (preorder[p_i + 2] && preorder[p_i + 2].parent_id == preorder[p_i + 1].id) {
+                target.parent_id = preorder[p_i + 1].id || null;
                 const i = nodes.indexOf(target);
                 nodes.splice(i, 1);
                 nodes.unshift(target);
-            }
-            else {
-                target.parent_id = preorder[p_i+1].parent_id||null;
+            } else {
+                target.parent_id = preorder[p_i + 1].parent_id || null;
                 const i = nodes.indexOf(target);
                 nodes.splice(i, 1);
                 nodes.push(target);
@@ -278,7 +318,7 @@ function move_left(nodes, target)
     }
     target.parent_id = nodes[ii].parent_id;
     nodes.splice(i, 1);
-    nodes.splice(ii+(ii<i), 0, target);
+    nodes.splice(ii + (ii < i), 0, target);
 }
 
 function move_right(nodes, target)

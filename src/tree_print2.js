@@ -6,6 +6,7 @@ function tree_print2(nodes)
     // 1) Whether or not a node is the last one among its siblings
     // 2) Whether or not a node is the last one in a walking stack (or, whether or not a node is a last one in its branch)
 
+    let retval = '';
     tree_walk_preorder2({
         nodes,
         visit: function (ctx) {
@@ -22,9 +23,10 @@ function tree_print2(nodes)
                     s += (stack_i == ctx.stack.length - 1) ? '├── ' : '│   ';
                 }
             });
-            console.log(`${s}${ctx.node.id}`);
+            retval += `${s}${ctx.node.id}\n`;
         },
     });
+    return retval;
 }
 
 export default tree_print2;

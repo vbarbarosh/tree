@@ -7,6 +7,8 @@ import readline from 'readline';
 import Promise from 'bluebird';
 import tree_walk_preorder2 from './tree_walk_preorder2';
 
+// Case when node refers to undefined parent_id
+
 function print(items)
 {
     console.log(preorder(items));
@@ -18,13 +20,19 @@ cli(main);
 function preorder(items)
 {
     let retval = [];
+    let parents = [];
     tree_walk_preorder2({
         nodes: tree_from_array(JSON.parse(JSON.stringify(items))),
         visit: function (ctx) {
             retval.push(ctx.node.id);
+            parents.push((ctx.node.parent_id===undefined)
+                ? 'U'
+                : (ctx.node.parent_id===null)
+                    ? 'N'
+                    : ctx.node.parent_id);
         },
     });
-    return retval.join(',');
+    return retval.join(',') + ' ' + parents.join(',');
 }
 async function main()
 {
@@ -187,13 +195,13 @@ function move_down2(nodes, target)
         const j = nodes.findIndex(v => v.id === next_id);
         if (j >= 0) {
             if (preorder[p_i+2] && preorder[p_i+2].parent_id == preorder[p_i+1].id) {
-                target.parent_id = preorder[p_i+1].id;
+                target.parent_id = preorder[p_i+1].id||null;
                 const i = nodes.indexOf(target);
                 nodes.splice(i, 1);
                 nodes.unshift(target);
             }
             else {
-                target.parent_id = preorder[p_i+1].parent_id;
+                target.parent_id = preorder[p_i+1].parent_id||null;
                 const i = nodes.indexOf(target);
                 nodes.splice(i, 1);
                 nodes.push(target);
@@ -263,11 +271,13 @@ function move_right(nodes, target)
 {
     const i = nodes.indexOf(target);
     for (let j = i; --j >= 0; ) {
+        console.log(j, nodes[j], target);
         if (nodes[j].parent_id === target.parent_id) {
             const prev = nodes[j];
             nodes.splice(i, 1);
             nodes.push(target);
             target.parent_id = prev.id;
+            break;
         }
     }
 }
@@ -303,7 +313,7 @@ function tree(text)
     const ids = {};
     ret.forEach(v => ids[v.id] = v.text);
     ret.forEach(v => v.id = ids[v.id]);
-    ret.forEach(v => v.parent_id = ids[v.parent_id]);
+    ret.forEach(v => v.parent_id = ids[v.parent_id]||null);
     return ret;
 }
 

@@ -28,7 +28,7 @@ describe('tree_from_array', function () {
     it('should accept empty array', function () {
         assert.deepEqual(tree_from_array([]), []);
     });
-    it('should respect order of items', function () {
+    it('should respect order of items #1', function () {
         const items = [
             {id:'x',parent_id:'a'},
             {id:'a',parent_id:null},
@@ -40,6 +40,26 @@ describe('tree_from_array', function () {
         const expected = `
 ├── a
 │   ├── x
+│   └── b
+│       └── c
+└── z
+`.trim();
+        assert.equal(result, expected);
+    });
+    it('should respect order of items #2', function () {
+        const items = [
+            {id:'x',parent_id:'a'},
+            {id:'y',parent_id:'a'},
+            {id:'a',parent_id:null},
+            {id:'b',parent_id:'a'},
+            {id:'c',parent_id:'b'},
+            {id:'z',parent_id:null},
+        ];
+        const result = tree_print2(tree_from_array(items)).trim();
+        const expected = `
+├── a
+│   ├── x
+│   ├── y
 │   └── b
 │       └── c
 └── z

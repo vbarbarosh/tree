@@ -1,5 +1,6 @@
 import tree_flatten from './tree_flatten';
 import tree_from_array from './tree_from_array';
+import tree_print2 from './tree_print2';
 
 // tree_flatten(tree_from_string(tree_random()).children))
 const valid = [
@@ -26,6 +27,24 @@ describe('tree_from_array', function () {
     });
     it('should accept empty array', function () {
         assert.deepEqual(tree_from_array([]), []);
+    });
+    it('should respect order of items', function () {
+        const items = [
+            {id:'x',parent_id:'a'},
+            {id:'a',parent_id:null},
+            {id:'b',parent_id:'a'},
+            {id:'c',parent_id:'b'},
+            {id:'z',parent_id:null},
+        ];
+        const result = tree_print2(tree_from_array(items)).trim();
+        const expected = `
+├── a
+│   ├── x
+│   └── b
+│       └── c
+└── z
+`.trim();
+        assert.equal(result, expected);
     });
     it('should handle basic input №1', function () {
         const input = [{id: 1}, {id: 2, parent_id: 1}];

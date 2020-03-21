@@ -42,7 +42,7 @@ function tree_from_array(items = [])
     for (let i = 0, end = orphans.length; i < end; ++i) {
         const node = orphans[i];
         if (node.parent = nodes[node.parent_id] || null) {
-            node.parent.children.push(node);
+            node.parent.children.unshift(node);
             // At this point just inserted node can create a circular dependency.
             for (let p = node; p; p = p.parent) {
                 if (p.parent === node) {

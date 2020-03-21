@@ -40,6 +40,17 @@ async function main()
 {
     const before = tree(`
     x
+    group images
+        image bg
+        image logo
+    group texts
+        text safari Safari road
+        text savannah African savannah
+           XXX
+              yyy
+                 zzz
+    group buttons
+        button Book Now
     a
       b
         c

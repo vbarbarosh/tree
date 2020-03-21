@@ -66,6 +66,26 @@ describe('tree_from_array', function () {
 `.trim();
         assert.equal(result, expected);
     });
+    it('should respect order of roots #1', function () {
+        const items = [
+            {id:'x',parent_id:'q'},
+            {id:'y',parent_id:'q'},
+            {id:'a',parent_id:null},
+            {id:'b',parent_id:'a'},
+            {id:'c',parent_id:'b'},
+            {id:'z',parent_id:null},
+        ];
+        const result = tree_print2(tree_from_array(items)).trim();
+        const expected = `
+├── x
+├── y
+├── a
+│   └── b
+│       └── c
+└── z
+`.trim();
+        assert.equal(result, expected);
+    });
     it('should handle basic input №1', function () {
         const input = [{id: 1}, {id: 2, parent_id: 1}];
         const node1 = {id: 1, parent_id: null, parent: null, children: []};

@@ -12,7 +12,9 @@ import tree_walk_preorder2 from './tree_walk_preorder2';
 function print(items)
 {
     console.log(preorder(items));
-    console.log(tree_print2(tree_from_array(JSON.parse(JSON.stringify(items)))));
+    let s = tree_print2(tree_from_array(JSON.parse(JSON.stringify(items))));
+    s = s.replace('─ x', '─\x1b[32m x <<<<\x1b[0m');
+    console.log(s);
 }
 
 cli(main);
@@ -32,7 +34,7 @@ function preorder(items)
                     : ctx.node.parent_id);
         },
     });
-    return retval.join(',') + ' ' + parents.join(',');
+    return parents.join(',') + '\n' + retval.join(',');
 }
 async function main()
 {
@@ -271,7 +273,6 @@ function move_right(nodes, target)
 {
     const i = nodes.indexOf(target);
     for (let j = i; --j >= 0; ) {
-        console.log(j, nodes[j], target);
         if (nodes[j].parent_id === target.parent_id) {
             const prev = nodes[j];
             nodes.splice(i, 1);

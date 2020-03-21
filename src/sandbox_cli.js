@@ -65,6 +65,7 @@ readline.emitKeypressEvents(process.stdin);
 process.stdin.setRawMode(true);
 await new Promise(function (resolve) {
     process.stdin.on('keypress', (str, key) => {
+        console.log('\x1bc');
     switch (key.name) {
     case 'q':
     case 'esc':

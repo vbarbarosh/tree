@@ -33,9 +33,9 @@ following technique can be used:
 
     tree_from_array(items.map(tree_from_array_wrapper))
     tree_from_string(string)
-    tree_walk_preorder({nodes, visit})
-    tree_walk_postorder({nodes, visit})
-    tree_walk_inorder({nodes, visit})
+    tree_walk_preorder({nodes, visit, enter, leave})
+    tree_walk_postorder({nodes, visit, enter, leave})
+    tree_walk_inorder({nodes, visit, enter, leave})
     tree_move_before(nodes, selection, target, shift)
     tree_move_after(nodes, selection, target, shift)
     tree_remove(nodes, selection)

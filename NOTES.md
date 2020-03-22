@@ -40,4 +40,4 @@ following technique can be used:
     tree_move_after(nodes, selection, target, shift)
     tree_remove(nodes, selection)
     tree_insert(nodes, insertion, target, shift)
-    tree_select(nodes, selection)
+    tree_select(nodes, selection) or tree_intersection(nodes, selection)

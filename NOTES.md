@@ -38,4 +38,5 @@ following technique can be used:
     tree_walk_inorder({nodes, visit})
     tree_move_before(nodes, selection, target, shift)
     tree_move_after(nodes, selection, target, shift)
-
+    tree_remove(nodes, selection)
+    tree_insert(nodes, insertion, target, shift)

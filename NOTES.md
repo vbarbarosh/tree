@@ -28,3 +28,14 @@ following technique can be used:
     tree_from_array(nodes.map(function (node) {
         return {id: node.id, parent_id: node.parent_id, value: node};
     });
+
+## Possible APIs
+
+    tree_from_array(items.map(tree_from_array_wrapper))
+    tree_from_string(string)
+    tree_walk_preorder({nodes, visit})
+    tree_walk_postorder({nodes, visit})
+    tree_walk_inorder({nodes, visit})
+    tree_move_before(nodes, selection, target)
+    tree_move_after(nodes, selection, target)
+

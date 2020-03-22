@@ -6,13 +6,11 @@ import tree_walk_preorder2 from './tree_walk_preorder2';
  * Return all nodes with sub nodes presented both
  * in nodes and selection.
  *
- * XXX Consider name tree_intersection
- *
  * @param nodes
  * @param selection
  * @return {array}
  */
-function tree_select(nodes, selection)
+function tree_intersect(nodes, selection)
 {
     const retval = [];
     const selection_map = array_index(selection, v => v.id);
@@ -32,4 +30,4 @@ function tree_select(nodes, selection)
     return retval;
 }
 
-export default tree_select;
+export default tree_intersect;

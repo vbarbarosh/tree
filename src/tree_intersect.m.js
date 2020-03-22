@@ -1,10 +1,10 @@
 import tree_flatten from './tree_flatten';
 import tree_from_string2 from './tree_from_string2';
-import tree_select from './tree_select';
+import tree_intersect from './tree_intersect';
 
-describe('tree_select', function () {
+describe('tree_intersect', function () {
     it('should handle empty arrays', function () {
-        assert.deepEqual(tree_select([], []), []);
+        assert.deepEqual(tree_intersect([], []), []);
     });
     it('should handle basic input', function () {
         const a = tree(`
@@ -12,9 +12,9 @@ describe('tree_select', function () {
             b
             c
         `);
-        assert.deepEqual(tree_select(a, [{id:'a'}]), [{id:'a',parent_id:null}]);
-        assert.deepEqual(tree_select(a, [{id:'a'},{id:'b'}]), [{id:'a',parent_id:null},{id:'b',parent_id:null}]);
-        assert.deepEqual(tree_select(a, [{id:'b'},{id:'a'}]), [{id:'a',parent_id:null},{id:'b',parent_id:null}]);
+        assert.deepEqual(tree_intersect(a, [{id:'a'}]), [{id:'a',parent_id:null}]);
+        assert.deepEqual(tree_intersect(a, [{id:'a'},{id:'b'}]), [{id:'a',parent_id:null},{id:'b',parent_id:null}]);
+        assert.deepEqual(tree_intersect(a, [{id:'b'},{id:'a'}]), [{id:'a',parent_id:null},{id:'b',parent_id:null}]);
     });
     it('should return descendants', function () {
         const a = tree(`
@@ -24,7 +24,7 @@ describe('tree_select', function () {
             d
             e
         `);
-        assert.deepEqual(tree_select(a, [{id:'a'}]), [{id:'a',parent_id:null},{id:'b',parent_id:'a'},{id:'c',parent_id:'b'}]);
+        assert.deepEqual(tree_intersect(a, [{id:'a'}]), [{id:'a',parent_id:null},{id:'b',parent_id:'a'},{id:'c',parent_id:'b'}]);
     });
 });
 

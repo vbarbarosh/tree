@@ -241,7 +241,7 @@ function move_left(nodes, target)
         return;
     }
 
-    // Stop if there is next sibling
+    // Stop if target is not the last one among its siblings
     for (let j = i, end = nodes.length; ++j < end; ) {
         if (nodes[j].parent_id === target.parent_id) {
             // Middle nodes cannot be moved left
@@ -256,7 +256,7 @@ function move_left(nodes, target)
     }
 
     // Put target right after parent node, so it will be after it
-    // amont its siblings
+    // among its siblings
     target.parent_id = nodes[ii].parent_id;
     nodes.splice(i, 1);
     nodes.splice(ii + 1 - (i<ii), 0, target);

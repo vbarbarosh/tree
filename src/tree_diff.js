@@ -14,8 +14,8 @@ function tree_diff(nodes, selection)
     const keep = [];
     const selection_map = array_index(selection, v => v.id);
     tree_walk_preorder2({
-        nodes: tree_from_array(nodes.map(function (node, i) {
-            return {id: node.id, parent_id: node.parent_id, value: node, i};
+        nodes: tree_from_array(nodes.map(function (node) {
+            return {id: node.id, parent_id: node.parent_id, value: node};
         })),
         visit: function ({node}) {
             if (selection_map[node.parent_id]) {

@@ -41,3 +41,10 @@ following technique can be used:
     tree_remove(nodes, selection)
     tree_insert(nodes, insertion, target, shift)
     tree_select(nodes, selection) or tree_intersection(nodes, selection)
+
+## Drag & Drop
+
+1. Make a selection
+2. Remove selection from tree (`tree_diff`)
+3. Determine insertion point
+4. Move selection into a new location (`tree_insert`)

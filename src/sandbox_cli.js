@@ -1,10 +1,10 @@
-import tree_move from './tree_move';
-import tree_from_array from './tree_from_array';
-import tree_print2 from './tree_print2';
-import tree_from_string2 from './tree_from_string2';
-import tree_flatten from './tree_flatten';
-import readline from 'readline';
 import Promise from 'bluebird';
+import readline from 'readline';
+import tree_flatten from './tree_flatten';
+import tree_from_array from './tree_from_array';
+import tree_from_string2 from './tree_from_string2';
+import tree_move from './tree_move';
+import tree_print2 from './tree_print2';
 import tree_walk_preorder2 from './tree_walk_preorder2';
 
 // Case when node refers to undefined parent_id
@@ -64,6 +64,10 @@ async function main()
 `);
     let selection = nodes[0];
     let mode = 'select'; // move
+
+    console.log('\x1bc');
+    console.log(`mode: ${mode}`);
+    console.log();
     print(nodes, selection);
 
 // https://thisdavej.com/making-interactive-node-js-console-apps-that-listen-for-keypress-events/
@@ -78,6 +82,7 @@ async function main()
             console.log();
 
             switch (key.name) {
+            case 'return':
             case 'space':
                 mode = (mode == 'select') ? 'move' : 'select';
                 print(nodes, selection);
@@ -99,6 +104,7 @@ async function main()
             switch (mode) {
             case 'select':
                 switch (key.name) {
+                case 'k':
                 case 'up':
                     tmp = tree_walk_preorder2({
                         nodes: tree_from_array(JSON.parse(JSON.stringify(nodes))),
@@ -110,6 +116,7 @@ async function main()
                     tmp2 = (tmp[tmp.findIndex(v => v.id == selection.id)-1]||{}).id;
                     selection = nodes[nodes.findIndex(v => v.id == tmp2)]||selection;
                     break;
+                case 'j':
                 case 'down':
                     tmp = tree_walk_preorder2({
                         nodes: tree_from_array(JSON.parse(JSON.stringify(nodes))),
@@ -125,15 +132,19 @@ async function main()
                 break;
             case 'move':
                 switch (key.name) {
+                case 'k':
                 case 'up':
                     move_up2(nodes, nodes.find(v => v === selection));
                     break;
+                case 'j':
                 case 'down':
                     move_down2(nodes, nodes.find(v => v === selection));
                     break;
+                case 'h':
                 case 'left':
                     move_left(nodes, nodes.find(v => v === selection));
                     break;
+                case 'l':
                 case 'right':
                     move_right(nodes, nodes.find(v => v === selection));
                     break;
@@ -144,27 +155,6 @@ async function main()
             print(nodes, selection);
         });
     });
-
-    move_right(nodes, nodes.find(v => v.text == 'z'));
-    print(nodes);
-    move_right(nodes, nodes.find(v => v.text == 'z'));
-    print(nodes);
-    move_right(nodes, nodes.find(v => v.text == 'z'));
-    print(nodes);
-    nodes.unshift(nodes.pop());
-    print(nodes);
-
-    console.log('----------------');
-
-    move_left(nodes, nodes.find(v => v.text == 'z'));
-    print(nodes);
-    move_left(nodes, nodes.find(v => v.text == 'z'));
-    print(nodes);
-    move_left(nodes, nodes.find(v => v.text == 'z'));
-    print(nodes);
-    move_left(nodes, nodes.find(v => v.text == 'z'));
-    print(nodes);
-
 }
 
 // https://stackoverflow.com/a/57241059/1478566
@@ -180,116 +170,66 @@ function panic(error)
     process.exit(1);
 }
 
-// Move node up in its branch
-function move_up(nodes, target)
-{
-    const i = nodes.indexOf(target);
-    for (let j = i; --j >= 0;) {
-        if (nodes[j].parent_id === target.parent_id) {
-            nodes.splice(i, 1);
-            nodes.splice(j, 0, target);
-            break;
-        }
-    }
-}
-
 // Move node up
 function move_up2(nodes, target)
 {
-    const preorder = [];
+    let t = null;
+    let prev = null;
     tree_walk_preorder2({
-        nodes: tree_from_array(JSON.parse(JSON.stringify(nodes))),
+        nodes: tree_from_array(nodes.map(function ({id, parent_id}, i) {
+            return {id, parent_id, i};
+        })),
         visit: function (ctx) {
-            preorder.push(ctx.node);
+            if (ctx.node.id == target.id) {
+                t = ctx.node;
+                return 'END';
+            }
+            prev = ctx.node;
         },
     });
 
-    const p_i = preorder.findIndex(v => v.id === target.id);
-    if (p_i > 0) {
-        const prev_id = preorder[p_i - 1].id;
-        const j = nodes.findIndex(v => v.id === prev_id);
-        if (j >= 0) {
-            target.parent_id = preorder[p_i - 1].parent_id;
-            const i = nodes.indexOf(target);
-            nodes.splice(i, 1);
-            nodes.splice(j + (i < j), 0, target);
-        }
+    if (prev) {
+        target.parent_id = prev.parent_id;
+        nodes.splice(prev.i, 0, target);
+        nodes.splice(t.i+(prev.i<t.i), 1);
     }
-
-    // const i = nodes.indexOf(target);
-    // for (let j = i; --j >= 0; ) {
-    //     if (nodes[j].parent_id === target.parent_id) {
-    //         nodes.splice(i, 1);
-    //         nodes.splice(j, 0, target);
-    //         return;
-    //     }
-    // }
-    // const ii = nodes.findIndex(v => v.id === target.parent_id);
-    // if (ii == -1) {
-    //     return;
-    // }
-    // target.parent_id = nodes[ii].parent_id;
-    // nodes.splice(i, 1);
-    // nodes.splice(ii, 0, target);
 }
 
 // Move node down
 function move_down2(nodes, target)
 {
-    const preorder = [];
+    let t = null;
+    let next = null;
+    let nextnext = null;
     tree_walk_preorder2({
-        nodes: tree_from_array(JSON.parse(JSON.stringify(nodes))),
+        nodes: tree_from_array(nodes.map(function ({id, parent_id}, i) {
+            return {id, parent_id, i};
+        })),
         visit: function (ctx) {
-            preorder.push(ctx.node);
+            if (ctx.node.id == target.id) {
+                t = ctx.node;
+                return;
+            }
+            if (t && !next) {
+                next = ctx.node;
+                return;
+            }
+            if (t && next) {
+                nextnext = ctx.node;
+                return 'END';
+            }
         },
     });
 
-    const p_i = preorder.findIndex(v => v.id === target.id);
-    if (p_i >= 0 && p_i < preorder.length - 1) {
-        const next_id = preorder[p_i + 1].id;
-        const j = nodes.findIndex(v => v.id === next_id);
-        if (j >= 0) {
-            if (preorder[p_i + 2] && preorder[p_i + 2].parent_id == preorder[p_i + 1].id) {
-                target.parent_id = preorder[p_i + 1].id || null;
-                const i = nodes.indexOf(target);
-                nodes.splice(i, 1);
-                nodes.unshift(target);
-            } else {
-                target.parent_id = preorder[p_i + 1].parent_id || null;
-                const i = nodes.indexOf(target);
-                nodes.splice(i, 1);
-                nodes.push(target);
-            }
-        }
+    if (nextnext) {
+        target.parent_id = nextnext.parent_id;
+        nodes.splice(nextnext.i, 0, target);
+        nodes.splice(t.i+(nextnext.i<t.i), 1);
     }
-
-    // const i = nodes.indexOf(target);
-    // for (let j = i; --j >= 0; ) {
-    //     if (nodes[j].parent_id === target.parent_id) {
-    //         nodes.splice(i, 1);
-    //         nodes.splice(j, 0, target);
-    //         return;
-    //     }
-    // }
-    // const ii = nodes.findIndex(v => v.id === target.parent_id);
-    // if (ii == -1) {
-    //     return;
-    // }
-    // target.parent_id = nodes[ii].parent_id;
-    // nodes.splice(i, 1);
-    // nodes.splice(ii, 0, target);
-}
-
-// Move node down in its branch
-function move_down(nodes, target)
-{
-    const i = nodes.indexOf(target);
-    for (let j = i, end = nodes.length; ++j < end; ) {
-        if (nodes[j].parent_id === target.parent_id) {
-            nodes.splice(j + 1, 0, target);
-            nodes.splice(i, 1);
-            break;
-        }
+    else if (next) {
+        target.parent_id = next.parent_id;
+        nodes.splice(t.i, 1);
+        nodes.push(target);
     }
 }
 

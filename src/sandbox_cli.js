@@ -233,32 +233,33 @@ function move_down2(nodes, target)
     }
 }
 
-// Move node left in its subtree
+// Move node to the left (change parent to grandparent)
 function move_left(nodes, target)
 {
-    const end = nodes.length;
     const i = nodes.indexOf(target);
     if (i == -1) {
         return;
     }
-    // Find our next sibling
-    console.log(i, 'Found');
-    for (let j = i; ++j < end; ) {
+
+    // Stop if there is next sibling
+    for (let j = i, end = nodes.length; ++j < end; ) {
         if (nodes[j].parent_id === target.parent_id) {
             // Middle nodes cannot be moved left
-            console.log(i, j, nodes[j].id, 'Middle nodes cannot be moved left');
             return;
         }
     }
-    // Find next sibling of our parent
-    // target is a last one among its siblings (it can be moved left)
-    const ii = nodes.findIndex(v => v.id === target.parent_id);
+
+    // Find out parent node
+    const ii = nodes.findIndex(v => v.id == target.parent_id);
     if (ii == -1) {
         return;
     }
+
+    // Put target right after parent node, so it will be after it
+    // amont its siblings
     target.parent_id = nodes[ii].parent_id;
     nodes.splice(i, 1);
-    nodes.splice(ii + (ii < i), 0, target);
+    nodes.splice(ii + 1 - (i<ii), 0, target);
 }
 
 function move_right(nodes, target)

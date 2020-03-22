@@ -22,7 +22,7 @@ structure:
 Leaving `tree_from_array` as it is now seems to provide more
 generic approach. That way you can have nodes with properties
 whatever you want, except (`id`, `parent_id`, `parent`, and
-`children`). And if original nodes should'nt touched, the
+`children`). And if original nodes should'nt be touched, the
 following technique can be used:
 
     tree_from_array(nodes.map(function (node) {
@@ -36,6 +36,6 @@ following technique can be used:
     tree_walk_preorder({nodes, visit})
     tree_walk_postorder({nodes, visit})
     tree_walk_inorder({nodes, visit})
-    tree_move_before(nodes, selection, target)
-    tree_move_after(nodes, selection, target)
+    tree_move_before(nodes, selection, target, shift)
+    tree_move_after(nodes, selection, target, shift)
 

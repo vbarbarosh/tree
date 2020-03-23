@@ -1,4 +1,6 @@
+import tree_flatten from './tree_flatten';
 import tree_from_array from './tree_from_array';
+import tree_from_string2 from './tree_from_string2';
 import tree_walk_preorder2 from './tree_walk_preorder2';
 
 const valid = [
@@ -52,4 +54,58 @@ describe('tree_walk_preorder2', function () {
             },
         });
     });
+    it('should walk each node a particular order #2', function () {
+        const nodes = tree(`
+            a
+            b
+            c
+        `);
+        const preorder = [];
+        tree_walk_preorder2({
+            nodes: tree_from_array(nodes),
+            enter: function ({node}) {
+                preorder.push(`E[${node.id}]`);
+            },
+            leave: function ({node}) {
+                preorder.push(`L[${node.id}]`);
+            },
+            visit: function ({node}) {
+                preorder.push(`V[${node.id}]`);
+            },
+        });
+        assert.deepEqual(preorder, ['E[a]','V[a]','L[a]','E[b]','V[b]','L[b]','E[c]','V[c]','L[c]']);
+    });
+    it('should walk each node a particular order #3', function () {
+        const nodes = tree(`
+            a
+              b
+            c
+        `);
+        const preorder = [];
+        tree_walk_preorder2({
+            nodes: tree_from_array(nodes),
+            enter: function ({node}) {
+                preorder.push(`E[${node.id}]`);
+            },
+            leave: function ({node}) {
+                preorder.push(`L[${node.id}]`);
+            },
+            visit: function ({node}) {
+                preorder.push(`V[${node.id}]`);
+            },
+        });
+        assert.deepEqual(preorder, ['E[a]','V[a]','E[b]','V[b]','L[b]','L[a]','E[c]','V[c]','L[c]']);
+    });
 });
+
+function tree(text)
+{
+    const out = tree_flatten(tree_from_string2(text));
+    const ids = {};
+    out.forEach(v => ids[v.id] = v.text);
+    out.forEach(v => v.id = ids[v.id]);
+    out.forEach(v => v.parent_id = ids[v.parent_id]);
+    out.forEach(v => delete v.level);
+    out.forEach(v => delete v.text);
+    return out;
+}

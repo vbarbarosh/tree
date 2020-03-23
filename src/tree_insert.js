@@ -10,7 +10,7 @@ function tree_insert(nodes, insertion, target)
     const i = nodes.indexOf(target);
     if (i == -1) {
         insertion.forEach(v => v.parent_id = null);
-        nodes.push(...insertion);
+        nodes.unshift(...insertion);
     }
     else {
         insertion.forEach(v => v.parent_id = target.parent_id);

@@ -3,7 +3,6 @@ import readline from 'readline';
 import tree_flatten from './tree_flatten';
 import tree_from_array from './tree_from_array';
 import tree_from_string2 from './tree_from_string2';
-import tree_move from './tree_move';
 import tree_print2 from './tree_print2';
 import tree_walk_preorder2 from './tree_walk_preorder2';
 

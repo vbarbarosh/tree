@@ -13,6 +13,7 @@ import tree_walk_preorder2 from './tree_walk_preorder2';
 function tree_find(nodes, target, after, shift)
 {
     let end = false;
+    let prev_id = null;
     const retval = {i: 0, parent_id: null};
     tree_walk_preorder2({
         nodes: tree_from_array(nodes.map(function (node, i) {
@@ -21,10 +22,13 @@ function tree_find(nodes, target, after, shift)
         visit: function (ctx) {
             if (end) {
                 retval.i = ctx.node.i;
-                retval.parent_id = ctx.node.parent_id;
+                if (prev_id == ctx.node.parent_id) {
+                    retval.parent_id = ctx.node.parent_id;
+                }
                 return 'END';
             }
             if (ctx.node.id == target.id) {
+                prev_id = ctx.node.id;
                 if (after) {
                     retval.i = ctx.node.i + 1;
                     retval.parent_id = ctx.node.parent_id;

@@ -31,7 +31,7 @@ describe('tree_find', function () {
             c
         `);
         assert.deepEqual(tree_find(nodes, nodes[1], 0), {i: 1, parent_id: 'a'});
-        assert.deepEqual(tree_find(nodes, nodes[1], 1), {i: 2, parent_id: null});
+        assert.deepEqual(tree_find(nodes, nodes[1], 1), {i: 2, parent_id: 'a'});
     });
 });
 

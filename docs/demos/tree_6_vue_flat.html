@@ -428,7 +428,7 @@ group buttons
                     };
                     if (!insertion.includes(node)) {
                         const tmp = diff.slice();
-                        const {i, parent_id} = vbtree.tree_find(tmp, node, !_this.target.before);
+                        const {i, parent_id} = vbtree.tree_find(tmp, node, !_this.target.before, _this.target.shift);
                         insertion.forEach(v => v.parent_id = parent_id);
                         tmp.splice(i, 0, ...insertion);
                         _this.nodes = tmp;

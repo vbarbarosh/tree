@@ -277,10 +277,12 @@ function move_right(nodes, target)
 
 function tree(text)
 {
-    const ret = tree_flatten(tree_from_string2(text));
+    const out = tree_flatten(tree_from_string2(text));
     const ids = {};
-    ret.forEach(v => ids[v.id] = v.text);
-    ret.forEach(v => v.id = ids[v.id]);
-    ret.forEach(v => v.parent_id = ids[v.parent_id]||null);
-    return ret;
+    out.forEach(v => ids[v.id] = v.text);
+    out.forEach(v => v.id = ids[v.id]);
+    out.forEach(v => v.parent_id = ids[v.parent_id]||null);
+    out.forEach(v => delete v.level);
+    out.forEach(v => delete v.text);
+    return out;
 }

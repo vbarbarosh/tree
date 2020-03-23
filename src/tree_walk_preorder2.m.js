@@ -104,7 +104,7 @@ function tree(text)
     const ids = {};
     out.forEach(v => ids[v.id] = v.text);
     out.forEach(v => v.id = ids[v.id]);
-    out.forEach(v => v.parent_id = ids[v.parent_id]);
+    out.forEach(v => v.parent_id = ids[v.parent_id]||null);
     out.forEach(v => delete v.level);
     out.forEach(v => delete v.text);
     return out;

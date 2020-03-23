@@ -5,14 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://unpkg.com/@vbarbarosh/smcss@0.3.20/dist/sm.css" rel="stylesheet" />
     <title>A set of functions for working with trees &mdash; @vbarbarosh/tree</title>
+    <style>
+        body {
+            user-select: none;
+        }
+        .vue-tree-item:hover {
+            background: #ccc;
+        }
+    </style>
 </head>
 <body>
 
-<div class="p20 ma">
+<div class="p20">
     <p>Tree as an array</p>
 </div>
 
 <div id="app" class="p20 ma bs5">
+    <button v-on:click="save">save</button>
+    <button v-on:click="restore">restore</button>
+    <button v-on:click="find">find</button>
+    <br>
+    <br>
     <div v-if="outline_props" v-bind="outline_props"></div>
     <div class="flex-row mi15" style="min-height: 400px;">
         <div class="w0 flex-fluid dashed">
@@ -33,10 +46,6 @@
         </div>
     </div>
     <br>
-    <button v-on:click="save">save</button>
-    <button v-on:click="restore">restore</button>
-    <button v-on:click="find">find</button>
-    <br>
     selection:
     <pre class="dashed" style="white-space: normal;">{{ selection_ids }}</pre>
     Ancestor:
@@ -45,9 +54,12 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.min.js"></script>
-<script src="https://unpkg.com/@vbarbarosh/tree@0.2.3/dist/vbtree.js"></script>
 <script src="https://unpkg.com/vue@2.6.11/dist/vue.js"></script>
 <script src="https://unpkg.com/@vbarbarosh/dd@1.1.0/dist/dd.js"></script>
+<!--
+<script src="https://unpkg.com/@vbarbarosh/tree@0.2.3/dist/vbtree.js"></script>
+-->
+<script src="../../dist/vbtree.js"></script>
 
 <script id="templ-vue-tree" type="text/html">
     <ul v-if="tree_nodes.length">
@@ -58,7 +70,7 @@
     </ul>
 </script>
 <script id="templ-vue-tree-item" type="text/html">
-    <div class="pv5">
+    <div class="pv5 vue-tree-item">
         <button v-if="tree_node.value.is_closed" v-on:click="app.open(tree_node.value)" v-bind:disabled="tree_node.children.length == 0">+</button>
         <button v-if="!tree_node.value.is_closed" v-on:click="app.close(tree_node.value)" v-bind:disabled="tree_node.children.length == 0">−</button>
         <input type="checkbox" v-model="tree_node.value.is_selected">
@@ -377,8 +389,22 @@ group buttons
         },
         find: function (event) {
             const _this = this;
+            const orig = this.nodes;
+            const diff = vbtree.tree_diff(_this.nodes, _this.selection);
+            const insertion = this.selection.slice();
+            console.log(insertion);
             dd({
                 event,
+                begin: function () {
+                    // _this.nodes = vbtree.tree_diff(_this.nodes, _this.selection);
+                },
+                end: function () {
+                    if (!_this.target) {
+                        return;
+                    }
+                    _this.move(_this.target.node, _this.target.before, _this.target.shift);
+                    _this.target = null;
+                },
                 update: function ({x, y}) {
                     let rect = null;
                     let node = null;
@@ -400,13 +426,12 @@ group buttons
                         shift: Math.round((x - rect.left)/50),
                         node,
                     };
-                },
-                end: function () {
-                    if (!_this.target) {
-                        return;
+                    if (!insertion.includes(node)) {
+                        const tmp = diff.slice();
+                        console.log(insertion);
+                        vbtree.tree_insert(tmp, insertion, node);
+                        _this.nodes = tmp;
                     }
-                    _this.move(_this.target.node, _this.target.before, _this.target.shift);
-                    _this.target = null;
                 },
             });
         },

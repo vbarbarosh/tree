@@ -55,3 +55,29 @@ following technique can be used:
 4. For each mouse movement find the closest rect; determine is_above/is_below and shift values
 5. Repeat until mose get released
 6. Drag and drop ends
+
+### Finding insertion point
+
+This can be done in several ways.
+
+1. A movement of a mouse for 10px could mean changing position up/down/left/right. That way
+   selected items could be moved to a new position with less mouse distance, but users might
+   find this counter-intuitive.
+2. Insertion point can be selected as a nearest to a mouse. That way things could
+   be more intuitive but harder to implement.
+
+Finding insertion point can be treated as finding a closest side of an element to
+a cursor.
+
+Basically, we have a list of rectangles. From top to bottom. And what is necessary is to
+find such a rectangle and its side (top or bottom) which is closer to a point.
+
+Further. Having a bunch of DOM elements, find one which is closer to a point.
+
+### Why it is necessary to remove selected items before begin
+
+Removing 10 consecutive items from list of 100 items will make insertion point
+more sensitive to mouse movement. Keeping this items in a list would require
+to remove them in a process of fetching rectangles. Keeping items on the list
+will lead to moving mouse for a very long distance in order to move items one
+position up or down.

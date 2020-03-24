@@ -48,3 +48,10 @@ following technique can be used:
 2. Remove selection from tree (`tree_diff`)
 3. Determine insertion point
 4. Move selection into a new location (`tree_insert`)
+
+1. Drag and drop begins
+2. Remove selected nodes from DOM
+3. Capture rectangles from remained nodes
+4. For each mouse movement find the closest rect; determine is_above/is_below and shift values
+5. Repeat until mose get released
+6. Drag and drop ends

@@ -91,6 +91,11 @@ position up or down.
   - Objects can be of different types (e.g. rect, circle, triangle)
   - Objects has properties
   - Objects can be grouped
+- tree_walk_postorder
+  - is useful for calculating size of files; because leafs/children are
+    visited first, when an node is visited it is guaranteed that all
+    of its children was visited also and calculating size of a directory
+    would be just `children.reduce((a,v) => a+v.size, 0)`
 
 ## Representation in UI
 

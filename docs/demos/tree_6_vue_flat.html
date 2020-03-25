@@ -155,33 +155,9 @@ function px(v)
     return v ? `${v}px` : 0;
 }
 
-function rect_from_bcr({top, left, width, height, right, bottom})
+function rect_from_bcr({top, left, right, bottom})
 {
     return {x: left, y: top, w: right - left, h: bottom - top};
-}
-
-function rects_from_elems(elems)
-{
-    const out = [];
-    for (let i = 0, end = elems.length; i < end; ++i) {
-        out.push(rect_from_bcr(elems[i].getBoundingClientRect()));
-    }
-    return out;
-}
-
-function rects_closest_to_point(rects, p)
-{
-    let min_d = Number.MAX_SAFE_INTEGER;
-    let min_i = null;
-    for (let i = 0, end = rects.length; i < end; ++i) {
-        const r = rects[i];
-        const d = Math.hypot(r.x + r.w/2 - p.x, r.y + r.h/2 - p.y);
-        if (min_d >= d) {
-            min_d = d;
-            min_i = i;
-        }
-    }
-    return min_i;
 }
 
 // https://brilliant.org/wiki/dot-product-distance-between-point-and-a-line/
@@ -548,7 +524,7 @@ group buttons
                 update: function ({x, y}) {
                     const components = Object.values(_this.tree_nodes_map);
                     const elements = components.map(v => v.$el);
-                    const rects = rects_from_elems(elements);
+                    const rects = elements.map(v => rect_from_bcr(v.getBoundingClientRect()));
                     const closest = closest_vside(rects, {x,y});
                     const rect = closest.r;
                     _this.target = {

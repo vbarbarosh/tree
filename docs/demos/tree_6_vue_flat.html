@@ -82,9 +82,6 @@
         <span v-if="app.target_before === tree_node.value" class="abs white p5 bs5">
             !!!
         </span>
-        <button v-on:click="app.move_before(tree_node.value)">⬆</button>
-        <button v-on:click="app.move_after(tree_node.value)">⬇</button>
-        <button v-on:click="app.move_inside(tree_node.value)">⤷</button>
     </div>
 </script>
 
@@ -400,96 +397,6 @@ group buttons
                 throw new Error('Too many iterations');
             }
             return this.nodes_map[target.parent_id];
-        },
-        move: function (target, before, shift) {
-            // 1. Установить того же предка
-            // 2. Переместить сразу после
-
-            const next = this.nodes.filter(v => !this.selection_map[v.id]);
-            const i = next.indexOf(target);
-            // noinspection EqualityComparisonWithCoercionJS
-            if (i == -1) {
-                console.log('Insertion point was not found. Moving selection to the very top.');
-                this.selection.forEach(v => v.parent_id = null);
-                this.nodes = this.selection.concat(...next);
-            }
-            else {
-                this.selection.forEach(v => v.parent_id = target.parent_id);
-                next.splice(i + 1, i, ...this.selection);
-                this.nodes = next;
-            }
-            // const next = this.nodes.filter(v => !this.selection_map[v.id]);
-            // let i = next.indexOf(target);
-            // if (i == -1) {
-            //     console.log('Insertion point was not found. Moving selection to the very top.');
-            //     this.selection.forEach(v => v.parent_id = null);
-            //     this.nodes = this.selection.concat(...next);
-            //     return;
-            // }
-            // const children = array_group_map(next, v => v.parent_id);
-            // if (shift > 0 || children[target.id]) {
-            //     console.log('Moving selection inside of insertion point.');
-            //     this.selection.forEach(v => v.parent_id = target.id);
-            // }
-            // else {
-            //     const node_from_id = array_index(next, v => v.id);
-            //     let p = target;
-            //     for (let i = shift; i < 0; ++i) {
-            //         console.log(i, p.text);
-            //         const tmp = node_from_id[p.parent_id];
-            //         if (!tmp) {
-            //             break;
-            //         }
-            //         p = tmp;
-            //     }
-            //     this.selection.forEach(v => v.parent_id = p.parent_id);
-            //     i = next.indexOf(p);
-            // }
-            // next.splice(i + 1, 0, ...this.selection);
-            // this.nodes = next;
-        },
-        move_before: function (target) {
-            const nodes = this.nodes.filter(v => !this.selection_map[v.id]);
-            const i = nodes.indexOf(target);
-            if (i < 0) {
-                return;
-            }
-            this.selection.forEach(v => v.parent_id = target.parent_id);
-            nodes.splice(i, 0, ...this.selection);
-            this.nodes = nodes;
-        },
-        move_after: function (target, inside = false) {
-            const nodes = this.nodes.filter(v => !this.selection_map[v.id]);
-            const i = nodes.indexOf(target);
-            if (i < 0) {
-                return;
-            }
-            if (!target.is_closed && (inside || this.nodes_children[target.id])) {
-                this.selection.forEach(v => v.parent_id = target.id);
-            }
-            else {
-                this.selection.forEach(v => v.parent_id = target.parent_id);
-            }
-            nodes.splice(i + 1, 0, ...this.selection);
-            this.nodes = nodes;
-        },
-        move_after_outside: function (target) {
-            const nodes = this.nodes.filter(v => !this.selection_map[v.id]);
-            const i = nodes.indexOf(target);
-            if (i < 0) {
-                return;
-            }
-            if (!target.is_closed && this.nodes_children[target.id]) {
-                this.selection.forEach(v => v.parent_id = target.id);
-            }
-            else {
-                this.selection.forEach(v => v.parent_id = this.nodes_map[target.parent_id] ? this.nodes_map[target.parent_id].parent_id : null);
-            }
-            nodes.splice(i + 1, 0, ...this.selection);
-            this.nodes = nodes;
-        },
-        move_inside: function (node) {
-            // vbtree.tree_move_inside(this.selection, node);
         },
         open: function (node) {
             node.is_closed = false;

@@ -6,6 +6,9 @@ import tree_walk_preorder2 from './tree_walk_preorder2';
  * Return all nodes with sub nodes presented both
  * in nodes and selection.
  *
+ * Return nodes present in both sides (descendants
+ * are counted).
+ *
  * @param nodes
  * @param selection
  * @return {array}

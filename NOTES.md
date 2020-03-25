@@ -81,3 +81,35 @@ more sensitive to mouse movement. Keeping this items in a list would require
 to remove them in a process of fetching rectangles. Keeping items on the list
 will lead to moving mouse for a very long distance in order to move items one
 position up or down.
+
+## Use cases
+
+- Mimic file system (e.g. file manager)
+  - Here you can have files and folders
+  - Folders can have files and folders in it; files couldn't
+- Kind of an object editor
+  - Objects can be of different types (e.g. rect, circle, triangle)
+  - Objects has properties
+  - Objects can be grouped
+
+## Representation in UI
+
+- As OL/UL list
+  - nodes are rendered from top to bottom
+  - a child node is shifted one position to the right
+- As dropdown menu
+  - all siblings are rendered from top to bottom in a single list
+  - child nodes are rendered in a new container next to its parent
+
+## Workflow for drag and drop
+
+1. Find insertion point
+   - insertion point can be represented as `[i,parent_id]`
+2. Move/insert nodes into insertion point
+   - diff = tree_diff(nodes, selection)
+   - selection.forEach(v => v.parent_id = ip.parent_id)
+   - diff.splice(ip.i, 0, ...selection)
+
+## Representation for trees
+- an array of items `{id,parent_id}`
+- an array of roots `{id,parent_id,parent,children}`

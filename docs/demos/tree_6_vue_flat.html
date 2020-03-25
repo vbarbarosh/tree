@@ -75,9 +75,9 @@
         <button v-if="!tree_node.value.is_closed" v-on:click="app.close(tree_node.value)" v-bind:disabled="tree_node.children.length == 0">−</button>
         <input type="checkbox" v-model="tree_node.value.is_selected">
         {{ tree_node.value.text }}
-        <template v-if="app.target_before === tree_node.value">
+        <span v-if="app.target_before === tree_node.value" class="abs white p5 bs5">
             !!!
-        </template>
+        </span>
         <button v-on:click="app.move_before(tree_node.value)">⬆</button>
         <button v-on:click="app.move_after(tree_node.value)">⬇</button>
         <button v-on:click="app.move_inside(tree_node.value)">⤷</button>
@@ -506,43 +506,39 @@ group buttons
         },
         find: function (event) {
             const _this = this;
-            const orig = this.nodes;
-            const diff = vbtree.tree_diff(_this.nodes, _this.selection);
-            const insertion = this.selection.slice();
             dd({
                 event,
-                begin: function () {
-                    // _this.nodes = vbtree.tree_diff(_this.nodes, _this.selection);
-                },
                 end: function () {
                     if (!_this.target) {
                         return;
                     }
-                    _this.move(_this.target.node, _this.target.before, _this.target.shift);
+                    const diff = vbtree.tree_diff(_this.nodes, _this.selection);
+                    const {i, parent_id} = vbtree.tree_find(diff, _this.target.node, !_this.target.before, _this.target.shift);
+                    const sel = vbtree.tree_intersect(_this.nodes, _this.selection);
+                    _this.selection.forEach(v => v.parent_id = parent_id);
+                    diff.splice(i, 0, ...sel);
+                    _this.nodes = diff;
                     _this.target = null;
                 },
                 update: function ({x, y}) {
-                    const components = Object.values(_this.tree_nodes_map);
+                    const selection_map = array_index(vbtree.tree_intersect(_this.nodes, _this.selection), v => v.id);
+                    const components = Object.values(_this.tree_nodes_map).filter(v => !selection_map[v.tree_node.value.id]);
                     const elements = components.map(v => v.$el);
                     const rects = elements.map(v => rect_from_bcr(v.getBoundingClientRect()));
                     const closest = closest_vside(rects, {x,y});
                     const rect = closest.r;
+                    const node = components[closest.i].tree_node.value;
+                    const ancestors = vbtree.tree_ancestors(_this.nodes, node);
+                    const shift = Math.max(-ancestors.length, Math.min(1, Math.round((x-rect.x)/40)));
                     _this.target = {
-                        x: rect.x,
+                        x: rect.x + shift*40,
                         y: rect.y,
-                        w: rect.w,
+                        w: rect.w - shift*40,
                         h: rect.h,
                         before: closest.top,
-                        shift: Math.round((x - rect.x)/50),
+                        shift,
                         node: components[closest.i].tree_node.value,
                     };
-                    if (!insertion.includes(_this.target.node)) {
-                        const tmp = diff.slice();
-                        const {i, parent_id} = vbtree.tree_find(tmp, _this.target.node, !_this.target.before, _this.target.shift);
-                        insertion.forEach(v => v.parent_id = parent_id);
-                        tmp.splice(i, 0, ...insertion);
-                        _this.nodes = tmp;
-                    }
                 },
             });
         },

@@ -27,7 +27,7 @@
     <br>
     <br>
     <div v-if="outline_props" v-bind="outline_props"></div>
-    <div class="flex-row mi15" style="min-height: 400px;">
+    <div class="flex-row mi15" style="min-height: 400px;" v-bind:style="{pointerEvents: outline_props ? 'none' : null}">
         <div class="w0 flex-fluid dashed">
             <ul>
                 <li v-for="node in nodes">
@@ -299,12 +299,12 @@ group buttons
             return {
                 style: {
                     position: 'fixed',
-                    background: 'red',
+                    background: 'none',
                     opacity: 0.5,
-                    border: '1px solid',
+                    //border: '1px solid',
                     borderTop: this.target.before ? '5px solid' : null,
-                    borderLeft: this.target.shift < 0 ? '5px solid' : null,
-                    borderRight: this.target.shift > 0 ? '5px solid' : null,
+                    //borderLeft: this.target.shift < 0 ? '5px solid' : null,
+                    //borderRight: this.target.shift > 0 ? '5px solid' : null,
                     borderBottom: !this.target.before ? '5px solid' : null,
                     boxSizing: 'border-box',
                     pointerEvents: 'none',

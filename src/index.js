@@ -1,4 +1,5 @@
 import tree_ancestor from './tree_ancestor';
+import tree_ancestors from './tree_ancestors';
 import tree_diff from './tree_diff';
 import tree_find from './tree_find';
 import tree_flatten from './tree_flatten';
@@ -21,6 +22,7 @@ import tree_walk_preorder2 from './tree_walk_preorder2';
 
 export {
     tree_ancestor,
+    tree_ancestors,
     tree_diff,
     tree_find,
     tree_flatten,

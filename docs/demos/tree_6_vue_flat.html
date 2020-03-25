@@ -433,14 +433,9 @@ group buttons
                         return {
                             style: {
                                 position: 'fixed',
-                                background: 'none',
-                                opacity: 0.5,
-                                //border: '1px solid',
                                 borderTop: this.target.before ? '5px solid' : null,
-                                //borderLeft: this.target.shift < 0 ? '5px solid' : null,
-                                //borderRight: this.target.shift > 0 ? '5px solid' : null,
                                 borderBottom: !this.target.before ? '5px solid' : null,
-                                boxSizing: 'border-box',
+                                opacity: 0.5,
                                 pointerEvents: 'none',
                                 top: px(y),
                                 left: px(x),

@@ -155,12 +155,153 @@ function px(v)
     return v ? `${v}px` : 0;
 }
 
+function rect_from_bcr({top, left, width, height, right, bottom})
+{
+    return {x: left, y: top, w: right - left, h: bottom - top};
+}
+
+function rects_from_elems(elems)
+{
+    const out = [];
+    for (let i = 0, end = elems.length; i < end; ++i) {
+        out.push(rect_from_bcr(elems[i].getBoundingClientRect()));
+    }
+    return out;
+}
+
+function rects_closest_to_point(rects, p)
+{
+    let min_d = Number.MAX_SAFE_INTEGER;
+    let min_i = null;
+    for (let i = 0, end = rects.length; i < end; ++i) {
+        const r = rects[i];
+        const d = Math.hypot(r.x + r.w/2 - p.x, r.y + r.h/2 - p.y);
+        if (min_d >= d) {
+            min_d = d;
+            min_i = i;
+        }
+    }
+    return min_i;
+}
+
+// https://brilliant.org/wiki/dot-product-distance-between-point-and-a-line/
+function distance_between_a_point_and_a_line(a, b, c, x0, y0)
+{
+    return Math.abs(a*x0 + b*y0 + c)/Math.sqrt(a*a + b*b);
+}
+
+// https://en.wikipedia.org/wiki/Distance_from_a_point_to_a_line
+function distance_between_a_point_and_a_line2(x1, y1, x2, y2, x0, y0)
+{
+    return Math.abs((y2 - y1)*x0 - (x2 - x1)*y0 + x2*y1 - y2*x1)/Math.hypot(y2 - y1, x2 - x1);
+}
+
+// Find a rectangle closest to a point.
+//
+// 1) Prefer those intersected by a point
+// 2) Use only y coordinates
+//
+// +--------+
+// | rect 1 |
+// +--------+
+// | rect 2 |
+// +--------+
+//
+function closest_vside(rects, p)
+{
+    const y = p.y;
+    let inside = null;
+    let outside = null;
+    for (let i = 0, end = rects.length; i < end; ++i) {
+        const r = rects[i];
+        const top = r.y;
+        const bottom = r.y + r.h;
+        if (y >= top && y < bottom) {
+            // Point is inside. This is preferable rectangle.
+            const d1 = y - top;
+            const d2 = bottom - y;
+            if (inside === null) {
+                if (d1 <= d2) {
+                    inside = {i, r, d1, d2, top: true, bottom: false};
+                }
+                else {
+                    inside = {i, r, d1, d2, top: false, bottom: true};
+                }
+                continue;
+            }
+            // Preferable rectangle was already found.
+            // Check if this one is more suitable.
+            if (d1 <= d2) {
+                // Top side is closer to a cursor
+                if (inside.top && inside.d1 > d1) {
+                    // Top of a new rectangle is closer to a cursor
+                    inside = {i, r, d1, d2, top: true, bottom: false};
+                    continue;
+                }
+                if (inside.bottom && inside.d2 > d1) {
+                    inside = {i, r, d1, d2, top: true, bottom: false};
+                    continue;
+                }
+                // Previously found rect has border closer to a cursor
+            }
+            else {
+                // Bottom side is closer to a cursor
+                if (inside.top && inside.d1 > d2) {
+                    inside = {i, r, d1, d2, top: false, bottom: true};
+                    continue;
+                }
+                if (inside.bottom && inside.d2 > d2) {
+                    inside = {i, r, d1, d2, top: false, bottom: true};
+                    continue;
+                }
+                // Previously found rect has border closer to a cursor
+            }
+            continue;
+        }
+        if (inside !== null) {
+            // Point is outside of a current rect.
+            // But preferable rect was already found.
+            // Ignore this one.
+            continue;
+        }
+        const d1 = Math.abs(top - y);
+        const d2 = Math.abs(bottom - y);
+        if (outside === null) {
+            if (d1 <= d2) {
+                outside = {i, r, d1, d2, top: true, bottom: false};
+            }
+            else {
+                outside = {i, r, d1, d2, top: false, bottom: true};
+            }
+            continue;
+        }
+        if (d1 <= d2) {
+            if (outside.top && outside.d1 > d1) {
+                outside = {i, r, d1, d2, top: true, bottom: false};
+                continue;
+            }
+            if (outside.bottom && outside.d2 > d1) {
+                outside = {i, r, d1, d2, top: true, bottom: false};
+            }
+        }
+        else {
+            if (outside.top && outside.d1 > d2) {
+                outside = {i, r, d1, d2, top: false, bottom: true};
+                continue;
+            }
+            if (outside.bottom && outside.d2 > d2) {
+                outside = {i, r, d1, d2, top: false, bottom: true};
+            }
+        }
+    }
+    return inside || outside;
+}
+
 new Vue({
     el: '#app',
     data: {
         target: null,
         saved: null,
-        foo: 1,
         nodes: [],
         tree_nodes_map: {},
         tree: `
@@ -392,7 +533,6 @@ group buttons
             const orig = this.nodes;
             const diff = vbtree.tree_diff(_this.nodes, _this.selection);
             const insertion = this.selection.slice();
-            console.log(insertion);
             dd({
                 event,
                 begin: function () {
@@ -406,36 +546,26 @@ group buttons
                     _this.target = null;
                 },
                 update: function ({x, y}) {
-                    let rect = null;
-                    let node = null;
-                    const ref = Object.values(_this.tree_nodes_map).find(function (ref) {
-                        const {top, left, right, bottom} = rect = ref.$el.getBoundingClientRect();
-                        node = ref.tree_node.value;
-                        return (y >= top && y < bottom);
-                    });
-                    if (!ref) {
-                        _this.target = null;
-                        return;
-                    }
+                    const components = Object.values(_this.tree_nodes_map);
+                    const elements = components.map(v => v.$el);
+                    const rects = rects_from_elems(elements);
+                    const closest = closest_vside(rects, {x,y});
+                    const rect = closest.r;
                     _this.target = {
-                        x: rect.left,
-                        y: rect.top,
-                        w: rect.right - rect.left,
-                        h: rect.bottom - rect.top,
-                        before: (y - rect.top) < (rect.bottom - y),
-                        shift: Math.round((x - rect.left)/50),
-                        node,
+                        x: rect.x,
+                        y: rect.y,
+                        w: rect.w,
+                        h: rect.h,
+                        before: closest.top,
+                        shift: Math.round((x - rect.x)/50),
+                        node: components[closest.i].tree_node.value,
                     };
-                    if (!insertion.includes(node)) {
+                    if (!insertion.includes(_this.target.node)) {
                         const tmp = diff.slice();
-                        const {i, parent_id} = vbtree.tree_find(tmp, node, !_this.target.before, _this.target.shift);
+                        const {i, parent_id} = vbtree.tree_find(tmp, _this.target.node, !_this.target.before, _this.target.shift);
                         insertion.forEach(v => v.parent_id = parent_id);
                         tmp.splice(i, 0, ...insertion);
                         _this.nodes = tmp;
-                        // const tmp = diff.slice();
-                        // console.log(insertion);
-                        // vbtree.tree_insert(tmp, insertion, node);
-                        // _this.nodes = tmp;
                     }
                 },
             });

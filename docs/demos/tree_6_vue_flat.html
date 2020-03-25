@@ -457,6 +457,7 @@ group buttons
             dd({
                 event,
                 end: function () {
+                    // Perform insertion/movement
                     feedback.end();
                     if (!_this.target) {
                         return;
@@ -470,6 +471,8 @@ group buttons
                     _this.target = null;
                 },
                 update: function ({x, y}) {
+                    // Find insertion point
+                    // Find closest node
                     const selection_map = array_index(vbtree.tree_intersect(_this.nodes, _this.selection), v => v.id);
                     const components = Object.values(_this.tree_nodes_map).filter(v => !selection_map[v.tree_node.value.id]);
                     const elements = components.map(v => v.$el);

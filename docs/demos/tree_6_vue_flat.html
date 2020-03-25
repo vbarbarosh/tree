@@ -26,7 +26,9 @@
     <button v-on:click="find">find</button>
     <br>
     <br>
+<!--
     <div v-if="outline_props" v-bind="outline_props"></div>
+-->
     <div class="flex-row mi15" style="min-height: 400px;" v-bind:style="{pointerEvents: outline_props ? 'none' : null}">
         <div class="w0 flex-fluid dashed">
             <ul>
@@ -63,7 +65,7 @@
 
 <script id="templ-vue-tree" type="text/html">
     <ul v-if="tree_nodes.length">
-        <li v-for="tree_node in tree_nodes" v-bind:key="tree_node.id" v-on:mousedown="app.mousedown($event, tree_node.value)">
+        <li v-for="tree_node in tree_nodes" v-bind:key="tree_node.id">
             <vue-tree-item v-bind:value="tree_node" />
             <vue-tree v-if="!tree_node.value.is_closed" v-model="tree_node.children" />
         </li>
@@ -74,7 +76,9 @@
         <button v-if="tree_node.value.is_closed" v-on:click="app.open(tree_node.value)" v-bind:disabled="tree_node.children.length == 0">+</button>
         <button v-if="!tree_node.value.is_closed" v-on:click="app.close(tree_node.value)" v-bind:disabled="tree_node.children.length == 0">−</button>
         <input type="checkbox" v-model="tree_node.value.is_selected">
-        {{ tree_node.value.text }}
+        <span v-on:mousedown="app.mousedown($event, tree_node.value)">
+            {{ tree_node.value.text }}
+        </span>
         <span v-if="app.target_before === tree_node.value" class="abs white p5 bs5">
             !!!
         </span>
@@ -498,13 +502,69 @@ group buttons
                 return;
             }
             event.__VUE_TREE_HANDLED__ = true;
-            // console.log(this.tree_nodes_map[node.id].$el.getBoundingClientRect());
-        },
-        find: function (event) {
+            let wait = true;
             const _this = this;
             dd({
                 event,
+                move: function (ctx) {
+                    if (wait) {
+                        wait = false;
+                        if (!_this.selection.includes(node)) {
+                            _this.selection.forEach(v => v.is_selected = false);
+                            node.is_selected = true;
+                        }
+                        _this.find(ctx.event);
+                    }
+                },
+            });
+        },
+        find: function (event) {
+            const _this = this;
+            const feedback = new Vue({
+                el: document.body.appendChild(document.createElement('DIV')),
+                template: '<div v-bind="feedback"></div>',
+                data: {
+                    target: null,
+                },
+                computed: {
+                    feedback: function () {
+                        if (!this.target) {
+                            return null;
+                        }
+                        const {x, y, w, h} = this.target;
+                        return {
+                            style: {
+                                position: 'fixed',
+                                background: 'none',
+                                opacity: 0.5,
+                                //border: '1px solid',
+                                borderTop: this.target.before ? '5px solid' : null,
+                                //borderLeft: this.target.shift < 0 ? '5px solid' : null,
+                                //borderRight: this.target.shift > 0 ? '5px solid' : null,
+                                borderBottom: !this.target.before ? '5px solid' : null,
+                                boxSizing: 'border-box',
+                                pointerEvents: 'none',
+                                top: px(y),
+                                left: px(x),
+                                width: px(w),
+                                height: px(h),
+                            },
+                        };
+                    },
+                },
+                methods: {
+                    end: function () {
+                        this.$destroy();
+                    },
+                },
+                beforeDestroy: function () {
+                    document.body.removeChild(this.$el);
+                },
+            });
+            dd({
+                event,
                 end: function () {
+                    feedback.end();
                     if (!_this.target) {
                         return;
                     }
@@ -526,7 +586,7 @@ group buttons
                     const node = components[closest.i].tree_node.value;
                     const ancestors = vbtree.tree_ancestors(_this.nodes, node);
                     const shift = Math.max(-ancestors.length, Math.min(1, Math.round((x-rect.x)/40)));
-                    _this.target = {
+                    feedback.target = _this.target = {
                         x: rect.x + shift*40,
                         y: rect.y,
                         w: rect.w - shift*40,

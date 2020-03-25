@@ -50,8 +50,6 @@
     <br>
     selection:
     <pre class="dashed" style="white-space: normal;">{{ selection_ids }}</pre>
-    Ancestor:
-    <pre class="dashed" style="white-space: normal;">{{ ancestor_id }}</pre>
     <pre v-if="saved" class="dashed" style="white-space: normal;">{{ saved }}</pre>
 </div>
 
@@ -180,9 +178,8 @@ function distance_between_a_point_and_a_line2(x1, y1, x2, y2, x0, y0)
 // | rect 2 |
 // +--------+
 //
-function closest_vside(rects, p)
+function rects_closest_y(rects, y)
 {
-    const y = p.y;
     let inside = null;
     let outside = null;
     for (let i = 0, end = rects.length; i < end; ++i) {
@@ -339,12 +336,6 @@ group buttons
         selection_ids: function () {
             return this.selection.map(v => v.id);
         },
-        ancestor: function () {
-            // return vbtree.tree_ancestor(this.selection);
-        },
-        ancestor_id: function () {
-            // return this.ancestor ? this.ancestor.id : null;
-        },
     },
     watch: {
         tree: {
@@ -488,7 +479,7 @@ group buttons
                     const components = Object.values(_this.tree_nodes_map).filter(v => !selection_map[v.tree_node.value.id]);
                     const elements = components.map(v => v.$el);
                     const rects = elements.map(v => rect_from_bcr(v.getBoundingClientRect()));
-                    const closest = closest_vside(rects, {x,y});
+                    const closest = rects_closest_y(rects, y);
                     const rect = closest.r;
                     const node = components[closest.i].tree_node.value;
                     const ancestors = vbtree.tree_ancestors(_this.nodes, node);

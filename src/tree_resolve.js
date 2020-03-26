@@ -7,12 +7,12 @@ import tree_walk_preorder2 from './tree_walk_preorder2';
  * an offset you'll get target point.
  *
  * @param nodes
- * @param target
- * @param after
- * @param shift
+ * @param start
+ * @param one_down
+ * @param horizontal_shift
  * @return {{i, parent_id}}
  */
-function tree_resolve(nodes, target, after, shift)
+function tree_resolve(nodes, start, one_down, horizontal_shift)
 {
     let end = false;
     let prev_id = null;
@@ -30,9 +30,9 @@ function tree_resolve(nodes, target, after, shift)
                 }
                 return 'END';
             }
-            if (ctx.node.id == target.id) {
+            if (ctx.node.id == start.id) {
                 prev_id = ctx.node.id;
-                if (after) {
+                if (one_down) {
                     retval.i = ctx.node.i + 1;
                     retval.parent_id = ctx.node.parent_id;
                     end = true;
@@ -46,13 +46,13 @@ function tree_resolve(nodes, target, after, shift)
         },
     });
 
-    if (shift > 0) {
+    if (horizontal_shift > 0) {
         const tmp = tree_find_shifts(nodes, retval);
-        return tmp.shift_right[Math.min(shift, tmp.shift_right.length)-1]||retval;
+        return tmp.shift_right[Math.min(horizontal_shift, tmp.shift_right.length)-1]||retval;
     }
-    if (shift < 0) {
+    if (horizontal_shift < 0) {
         const tmp = tree_find_shifts(nodes, retval);
-        return tmp.shift_left[Math.min(-shift, tmp.shift_left.length)-1]||retval;
+        return tmp.shift_left[Math.min(-horizontal_shift, tmp.shift_left.length)-1]||retval;
     }
 
     return retval;

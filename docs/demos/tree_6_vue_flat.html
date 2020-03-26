@@ -463,7 +463,7 @@ group buttons
                         return;
                     }
                     const diff = vbtree.tree_diff(_this.nodes, _this.selection);
-                    const {i, parent_id} = vbtree.tree_find(diff, _this.target.node, !_this.target.before, _this.target.shift);
+                    const {i, parent_id} = vbtree.tree_resolve(diff, _this.target.node, !_this.target.before, _this.target.shift);
                     const sel = vbtree.tree_intersect(_this.nodes, _this.selection);
                     _this.selection.forEach(v => v.parent_id = parent_id);
                     diff.splice(i, 0, ...sel);

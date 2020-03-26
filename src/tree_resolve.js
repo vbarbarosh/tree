@@ -3,19 +3,16 @@ import tree_from_array from './tree_from_array';
 import tree_walk_preorder2 from './tree_walk_preorder2';
 
 /**
- * Find a place in a tree.
- *
- * TODO Rename to tree_resolve. Like `path.resolve`.
- *      Given a starting point and an offset you'll
- *      get target point.
+ * Like `path.resolve`. Given a starting point and
+ * an offset you'll get target point.
  *
  * @param nodes
  * @param target
  * @param after
  * @param shift
- * @return {i, parent_id}
+ * @return {{i, parent_id}}
  */
-function tree_find(nodes, target, after, shift)
+function tree_resolve(nodes, target, after, shift)
 {
     let end = false;
     let prev_id = null;
@@ -75,4 +72,4 @@ function tree_find(nodes, target, after, shift)
     // }
 }
 
-export default tree_find;
+export default tree_resolve;

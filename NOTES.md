@@ -116,5 +116,31 @@ position up or down.
    - diff.splice(ip.i, 0, ...selection)
 
 ## Representation for trees
+
 - an array of items `{id,parent_id}`
 - an array of roots `{id,parent_id,parent,children}`
+
+## Insertion point
+
+- find insertion point without any validation
+- determine if it is valid, e.g.
+  - it is not allowed to put something under files,
+    in other words, only directories are allowed to
+    have children
+  - it is not allowed to insert into subtree of
+    selected items
+  - sometimes nested level should be limited
+- given an insertion point, it is good to know
+  answers to the following questions:
+  - is it allowed to insert `selection` into specified place?
+  - what is allowed insertion points to insert a `selection`
+  - what is the closest insertion points to insert a `selection`
+  - is there enough space (on particular fs) to insert `selection` here?
+  - is it possible to insert a `selection` without modification?
+  - which transformations can be applied to a `selection` in order
+    to allow it suitable to insert into an insertion point?
+- if folder is closed
+  - insert after it
+  - insert before it
+  - insert into it (to the end)
+  - open folder to choose where to insert exactly

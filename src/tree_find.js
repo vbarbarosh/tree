@@ -5,6 +5,10 @@ import tree_walk_preorder2 from './tree_walk_preorder2';
 /**
  * Find a place in a tree.
  *
+ * TODO Rename to tree_resolve. Like `path.resolve`.
+ *      Given a starting point and an offset you'll
+ *      get target point.
+ *
  * @param nodes
  * @param target
  * @param after

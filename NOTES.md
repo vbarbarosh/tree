@@ -144,3 +144,11 @@ position up or down.
   - insert before it
   - insert into it (to the end)
   - open folder to choose where to insert exactly
+
+- given a node, before/after sign, and a shift - find
+  most suitable insertion point
+  - when node is closed and marker is after it, new
+    nodes should be inserted after it whether or not
+    it has children
+  - when node is file, insertion into it is not allowed,
+    but could be done before or after it

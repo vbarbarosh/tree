@@ -8,6 +8,7 @@ import tree_from_string from './tree_from_string';
 import tree_from_string2 from './tree_from_string2';
 import tree_insert from './tree_insert';
 import tree_intersect from './tree_intersect';
+import tree_move from './tree_move';
 import tree_move_after from './tree_move_after';
 import tree_move_before from './tree_move_before';
 import tree_move_inside from './tree_move_inside';
@@ -32,6 +33,7 @@ export {
     tree_from_string2,
     tree_insert,
     tree_intersect,
+    tree_move,
     tree_move_after,
     tree_move_before,
     tree_move_inside,

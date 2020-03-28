@@ -1,4 +1,4 @@
-function tree_move_inside(nodes, target)
+function tree_move_into(nodes, target)
 {
     nodes.forEach(function (node) {
         if (node.parent) {
@@ -14,4 +14,4 @@ function tree_move_inside(nodes, target)
     });
 }
 
-export default tree_move_inside;
+export default tree_move_into;

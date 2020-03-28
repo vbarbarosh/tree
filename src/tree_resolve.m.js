@@ -57,6 +57,18 @@ describe('tree_resolve', function () {
         // assert.deepEqual(tree_resolve(nodes, nodes[2], 0, 1), {i: 2, parent_id: 'a'});
         // assert.deepEqual(tree_resolve(nodes, nodes[2], 0, 2), {i: 2, parent_id: 'b'});
     });
+    it('should handle tree with node refs to invalid nodes', function () {
+        const nodes = [
+            {id: 'i1', parent_id: null, text: 'a'},
+            {id: 'i2', parent_id: null, text: 'aa'},
+            {id: 'i6', parent_id: 'XXX', text: '22'},
+            {id: 'i4', parent_id: 'XXX', text: 'c'},
+            {id: 'i5', parent_id: 'i2', text: '11'},
+            {id: 'i3', parent_id: 'i2', text: 'b'},
+            {id: 'i7', parent_id: 'i2', text: '33'},
+        ];
+        assert.deepEqual(tree_resolve(nodes, {id:'i6'}, 1, 1), {i: 7, parent_id: 'i2'});
+    });
 });
 
 function tree(text)

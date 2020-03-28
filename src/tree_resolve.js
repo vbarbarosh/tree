@@ -1,3 +1,4 @@
+import array_index from './array_index';
 import tree_find_shifts from './tree_find_shifts';
 import tree_from_array from './tree_from_array';
 import tree_walk_preorder2 from './tree_walk_preorder2';
@@ -17,8 +18,9 @@ function tree_resolve(nodes, start, one_down, horizontal_shift)
     let end = false;
     let prev_id = null;
     const retval = {i: 0, parent_id: null};
+    const nodes_map = array_index(nodes, v => v.id);
     const roots = tree_from_array(nodes.map(function (node, i) {
-        return {id: node.id, parent_id: node.parent_id, value: node, i};
+        return {id: node.id, parent_id: nodes_map[node.parent_id] ? node.parent_id : null, value: node, i};
     }));
     tree_walk_preorder2({
         nodes: roots,

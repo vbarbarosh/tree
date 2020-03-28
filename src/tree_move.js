@@ -3,8 +3,8 @@ import tree_intersect from './tree_intersect';
 
 /**
  * Move nodes into a new place. Basically - set new
- * parent for all `selection` and move them a new
- * place `i`.
+ * parent for all `selection` and move them into a
+ * new place `i`.
  *
  * @param nodes
  * @param selection
@@ -30,7 +30,7 @@ function tree_move(nodes, selection, i, parent_id)
                 next.push(node);
             }
         }
-        next.splice(i-sub, 0, ...subsel);
+        next.splice(i - sub, 0, ...subsel);
         nodes.splice(0, nodes.length, ...next);
     }
     return nodes;

@@ -36,7 +36,7 @@ describe('tree_shift', function () {
         ];
         assert.deepEqual(tree_shift(nodes, 1, 1), {i:3,parent_id:'a'});
     });
-    it('should handle shift to the left', function () {
+    it('should handle shift to the left #1', function () {
         const nodes = tree(`
             a
               b
@@ -48,6 +48,17 @@ describe('tree_shift', function () {
         assert.deepEqual(tree_shift(nodes, 2, -1), {i:2,parent_id:'a'});
         assert.deepEqual(tree_shift(nodes, 2, -2), {i:2,parent_id:null});
         assert.deepEqual(tree_shift(nodes, 2, -3), {i:2,parent_id:null});
+    });
+    it('should handle shift to the left #2', function () {
+        const nodes = tree(`
+            a
+              b
+              c
+              d
+            e
+            f
+        `);
+        assert.deepEqual(tree_shift(nodes, 2, -2), {i:2,parent_id:'a'});
     });
 });
 

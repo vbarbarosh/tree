@@ -38,19 +38,23 @@ function tree_shift(nodes, i, shift)
     }
 
     while (shift < 0) {
+        let end = false;
         // смещение влево (только для последних потомков)
         // поменять родителя на деда и обновить позицию так, чтобы быть после своего текущего родителя
-        for (let j = i; ++j < nodes.length; ) {
+        for (let j = reti; ++j < nodes.length; ) {
             if (nodes[j].parent_id == parent_id) {
-                shift = 0;
+                end = true;
                 break;
             }
         }
-        let end = true;
+        if (end) {
+            break;
+        }
+        end = true;
         for (let j = 0; j < nodes.length; ++j) {
             if (nodes[j].id == parent_id) {
                 ++shift;
-                if (j < i) {
+                if (j < reti) {
                     parent_id = nodes[j].parent_id;
                     end = false;
                     break;

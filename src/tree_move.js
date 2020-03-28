@@ -1,3 +1,4 @@
+import array_index from './array_index';
 import tree_intersect from './tree_intersect';
 
 /**
@@ -27,9 +28,10 @@ function tree_move(nodes, selection, i, parent_id)
                 next.push(node);
             }
         }
-        next.splice(i, 0, ...subsel);
+        next.splice(i-sub, 0, ...subsel);
         nodes.splice(0, nodes.length, ...next);
     }
+    return nodes;
 }
 
 export default tree_move;

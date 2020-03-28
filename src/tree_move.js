@@ -2,7 +2,9 @@ import array_index from './array_index';
 import tree_intersect from './tree_intersect';
 
 /**
- * Move nodes into a new place
+ * Move nodes into a new place. Basically - set new
+ * parent for all `selection` and move them a new
+ * place `i`.
  *
  * @param nodes
  * @param selection

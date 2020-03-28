@@ -16,6 +16,7 @@ import tree_print from './tree_print';
 import tree_print2 from './tree_print2';
 import tree_random from './tree_random';
 import tree_resolve from './tree_resolve';
+import tree_shift from './tree_shift';
 import tree_sort_preorder from './tree_sort_preorder';
 import tree_stringify from './tree_stringify';
 import tree_walk2 from './tree_walk2';
@@ -41,6 +42,7 @@ export {
     tree_print2,
     tree_random,
     tree_resolve,
+    tree_shift,
     tree_sort_preorder,
     tree_stringify,
     tree_walk2,

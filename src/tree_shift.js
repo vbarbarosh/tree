@@ -17,7 +17,7 @@ function tree_shift(nodes, i, shift)
     while (shift > 0) {
         // смещение вправо (только для не первого потомка)
         // войти внутрь предыдущего элемента и стать его последним потомком
-        let j = i;
+        let j = reti;
         while (--j >= 0) {
             if (nodes[j].parent_id == parent_id) {
                 // previous sibling was found

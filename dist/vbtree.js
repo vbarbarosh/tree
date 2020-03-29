@@ -1352,12 +1352,17 @@ function tree_resolve(nodes, start, one_down, horizontal_shift) {
 __webpack_require__.r(__webpack_exports__);
 /**
  *
- * @param nodes
- * @param i
- * @param shift
+ * @param {Array} nodes
+ * @param {Number} i
+ * @param {Number} shift
+ * @param {Function} is_shift_allowed
  * @return {{i, parent_id}}
  */
 function tree_shift(nodes, i, shift) {
+  var is_shift_allowed = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : function () {
+    return true;
+  };
+
   if (nodes.length == 0) {
     return {
       i: i,
@@ -1371,12 +1376,18 @@ function tree_shift(nodes, i, shift) {
   while (shift > 0) {
     // смещение вправо (только для не первого потомка)
     // войти внутрь предыдущего элемента и стать его последним потомком
-    var j = reti;
+    var i_sibl = reti;
 
-    while (--j >= 0) {
-      if (nodes[j].parent_id == parent_id) {
+    while (--i_sibl >= 0) {
+      if (nodes[i_sibl].parent_id == parent_id) {
         // previous sibling was found
-        parent_id = nodes[j].id;
+        if (!is_shift_allowed(i_sibl, nodes)) {
+          // its not allowed to shift into it
+          i_sibl = -1;
+          break;
+        }
+
+        parent_id = nodes[i_sibl].id;
 
         for (var ii = nodes.length; --ii >= 0;) {
           if (nodes[ii].parent_id == parent_id) {
@@ -1390,7 +1401,7 @@ function tree_shift(nodes, i, shift) {
       }
     }
 
-    if (j == -1) {
+    if (i_sibl == -1) {
       break;
     }
   } // смещение влево (только для последних потомков)
@@ -1401,8 +1412,8 @@ function tree_shift(nodes, i, shift) {
   while (shift < 0) {
     var end = false; // 1) нужно найти следующий элемент
 
-    for (var _j = reti; ++_j < nodes.length;) {
-      if (nodes[_j].parent_id == parent_id) {
+    for (var j = reti; ++j < nodes.length;) {
+      if (nodes[j].parent_id == parent_id) {
         // 2) если таковой найден - конец
         end = true;
         break;

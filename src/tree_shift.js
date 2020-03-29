@@ -1,6 +1,7 @@
 /**
+ * Вычисляет новое положение узла после его смещения влево либо вправо.
  *
- * @param {Array} nodes
+ * @param {Array<{id:string,parent_id:string|null}>} nodes
  * @param {Number} i
  * @param {Number} shift
  * @param {Function} is_shift_allowed
@@ -12,7 +13,7 @@ function tree_shift(nodes, i, shift, is_shift_allowed = () => true)
         return {i,parent_id:null};
     }
 
-    let parent_id = nodes[i].parent_id;
+    let parent_id = (i==nodes.length)  ? null : nodes[i].parent_id;
     let reti = i;
 
     while (shift > 0) {

@@ -1,11 +1,12 @@
 /**
  *
- * @param nodes
- * @param i
- * @param shift
+ * @param {Array} nodes
+ * @param {Number} i
+ * @param {Number} shift
+ * @param {Function} is_shift_allowed
  * @return {{i, parent_id}}
  */
-function tree_shift(nodes, i, shift)
+function tree_shift(nodes, i, shift, is_shift_allowed = () => true)
 {
     if (nodes.length == 0) {
         return {i,parent_id:null};
@@ -17,11 +18,16 @@ function tree_shift(nodes, i, shift)
     while (shift > 0) {
         // смещение вправо (только для не первого потомка)
         // войти внутрь предыдущего элемента и стать его последним потомком
-        let j = reti;
-        while (--j >= 0) {
-            if (nodes[j].parent_id == parent_id) {
+        let i_sibl = reti;
+        while (--i_sibl >= 0) {
+            if (nodes[i_sibl].parent_id == parent_id) {
                 // previous sibling was found
-                parent_id = nodes[j].id;
+                if (!is_shift_allowed(i_sibl, nodes)) {
+                    // its not allowed to shift into it
+                    i_sibl = -1;
+                    break;
+                }
+                parent_id = nodes[i_sibl].id;
                 for (let ii = nodes.length; --ii >= 0; ) {
                     if (nodes[ii].parent_id == parent_id) {
                         reti = ii + 1;
@@ -32,7 +38,7 @@ function tree_shift(nodes, i, shift)
                 break;
             }
         }
-        if (j == -1) {
+        if (i_sibl == -1) {
             break;
         }
     }

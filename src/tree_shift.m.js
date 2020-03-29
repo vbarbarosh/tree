@@ -83,6 +83,15 @@ describe('tree_shift', function () {
         `);
         assert.deepEqual(tree_shift(nodes, 2, -2), {i:2,parent_id:'a'});
     });
+    it('should handle shift to the left #3', function () {
+        const nodes = [
+            {id:'a',parent_id:null},
+            {id:'b',parent_id:null},
+            {id:'c',parent_id:'a'},
+            {id:'d',parent_id:'a'},
+        ];
+        assert.deepEqual(tree_shift(nodes, 3, -1), {i:1,parent_id:null});
+    });
 });
 
 function tree(text)

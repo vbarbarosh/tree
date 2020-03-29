@@ -37,12 +37,15 @@ function tree_shift(nodes, i, shift)
         }
     }
 
+    // смещение влево (только для последних потомков)
+    // поменять родителя на деда и обновить позицию так,
+    // чтобы быть после своего текущего родителя, но перед его следующим братом
     while (shift < 0) {
         let end = false;
-        // смещение влево (только для последних потомков)
-        // поменять родителя на деда и обновить позицию так, чтобы быть после своего текущего родителя
+        // 1) нужно найти следующий элемент
         for (let j = reti; ++j < nodes.length; ) {
             if (nodes[j].parent_id == parent_id) {
+                // 2) если таковой найден - конец
                 end = true;
                 break;
             }
@@ -51,16 +54,31 @@ function tree_shift(nodes, i, shift)
             break;
         }
         end = true;
-        for (let j = 0; j < nodes.length; ++j) {
-            if (nodes[j].id == parent_id) {
+        // 3) нужно найти своего родителя
+        // 4) если его нет - конец
+        for (let i_parent = 0; i_parent < nodes.length; ++i_parent) {
+            if (nodes[i_parent].id == parent_id) {
                 ++shift;
-                if (j < reti) {
-                    parent_id = nodes[j].parent_id;
+                // 5) если он находится передо мной, тогда мое место остается
+                //    тем же (только если его сл. брат после меня); а мой дед
+                //    становится моим родителем
+                if (i_parent < reti) {
+                    parent_id = nodes[i_parent].parent_id;
+                    // The following is just an optimization to keep reti.
+                    // It is always safe to use `reti=j+1`.
+                    for (let k = i_parent; ++k < reti; ) {
+                        if (nodes[k].parent_id == parent_id) {
+                            reti = k;
+                            break;
+                        }
+                    }
                     end = false;
                     break;
                 }
-                reti = j + 1;
-                parent_id = nodes[j].parent_id;
+                // 6) иначе (он находится после меня), мое место будет сразу
+                //    после него; а мой дед становится моим родителем
+                reti = i_parent + 1;
+                parent_id = nodes[i_parent].parent_id;
                 end = false;
                 break;
             }

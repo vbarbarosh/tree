@@ -112,7 +112,7 @@ function array_index(array, fn) {
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
-/*! exports provided: tree_ancestor, tree_ancestors, tree_descendants, tree_diff, tree_flatten, tree_from_array, tree_from_string, tree_from_string2, tree_insert, tree_intersect, tree_move, tree_move_after, tree_move_before, tree_move_into, tree_print, tree_print2, tree_random, tree_resolve, tree_sort_preorder, tree_stringify, tree_walk2, tree_walk_preorder, tree_walk_preorder2 */
+/*! exports provided: tree_ancestor, tree_ancestors, tree_descendants, tree_diff, tree_flatten, tree_from_array, tree_from_string, tree_from_string2, tree_insert, tree_intersect, tree_move, tree_move_after, tree_move_before, tree_move_into, tree_print, tree_print2, tree_random, tree_resolve, tree_shift, tree_sort_preorder, tree_stringify, tree_walk2, tree_walk_preorder, tree_walk_preorder2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -171,20 +171,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _tree_resolve__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./tree_resolve */ "./src/tree_resolve.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_resolve", function() { return _tree_resolve__WEBPACK_IMPORTED_MODULE_17__["default"]; });
 
-/* harmony import */ var _tree_sort_preorder__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./tree_sort_preorder */ "./src/tree_sort_preorder.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_sort_preorder", function() { return _tree_sort_preorder__WEBPACK_IMPORTED_MODULE_18__["default"]; });
+/* harmony import */ var _tree_shift__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./tree_shift */ "./src/tree_shift.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_shift", function() { return _tree_shift__WEBPACK_IMPORTED_MODULE_18__["default"]; });
 
-/* harmony import */ var _tree_stringify__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./tree_stringify */ "./src/tree_stringify.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_stringify", function() { return _tree_stringify__WEBPACK_IMPORTED_MODULE_19__["default"]; });
+/* harmony import */ var _tree_sort_preorder__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./tree_sort_preorder */ "./src/tree_sort_preorder.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_sort_preorder", function() { return _tree_sort_preorder__WEBPACK_IMPORTED_MODULE_19__["default"]; });
 
-/* harmony import */ var _tree_walk2__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./tree_walk2 */ "./src/tree_walk2.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_walk2", function() { return _tree_walk2__WEBPACK_IMPORTED_MODULE_20__["default"]; });
+/* harmony import */ var _tree_stringify__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./tree_stringify */ "./src/tree_stringify.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_stringify", function() { return _tree_stringify__WEBPACK_IMPORTED_MODULE_20__["default"]; });
 
-/* harmony import */ var _tree_walk_preorder__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./tree_walk_preorder */ "./src/tree_walk_preorder.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_walk_preorder", function() { return _tree_walk_preorder__WEBPACK_IMPORTED_MODULE_21__["default"]; });
+/* harmony import */ var _tree_walk2__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./tree_walk2 */ "./src/tree_walk2.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_walk2", function() { return _tree_walk2__WEBPACK_IMPORTED_MODULE_21__["default"]; });
 
-/* harmony import */ var _tree_walk_preorder2__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./tree_walk_preorder2 */ "./src/tree_walk_preorder2.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_walk_preorder2", function() { return _tree_walk_preorder2__WEBPACK_IMPORTED_MODULE_22__["default"]; });
+/* harmony import */ var _tree_walk_preorder__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./tree_walk_preorder */ "./src/tree_walk_preorder.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_walk_preorder", function() { return _tree_walk_preorder__WEBPACK_IMPORTED_MODULE_22__["default"]; });
+
+/* harmony import */ var _tree_walk_preorder2__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./tree_walk_preorder2 */ "./src/tree_walk_preorder2.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_walk_preorder2", function() { return _tree_walk_preorder2__WEBPACK_IMPORTED_MODULE_23__["default"]; });
+
 
 
 
@@ -947,7 +951,9 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 
 /**
- * Move nodes into a new place
+ * Move nodes into a new place. Basically - set new
+ * parent for all `selection` and move them into a
+ * new place `i`.
  *
  * @param nodes
  * @param selection
@@ -1332,6 +1338,126 @@ function tree_resolve(nodes, start, one_down, horizontal_shift) {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (tree_resolve);
+
+/***/ }),
+
+/***/ "./src/tree_shift.js":
+/*!***************************!*\
+  !*** ./src/tree_shift.js ***!
+  \***************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/**
+ *
+ * @param nodes
+ * @param i
+ * @param shift
+ * @return {{i, parent_id}}
+ */
+function tree_shift(nodes, i, shift) {
+  if (nodes.length == 0) {
+    return {
+      i: i,
+      parent_id: null
+    };
+  }
+
+  var parent_id = nodes[i].parent_id;
+  var reti = i;
+
+  while (shift > 0) {
+    // смещение вправо (только для не первого потомка)
+    // войти внутрь предыдущего элемента и стать его последним потомком
+    var j = reti;
+
+    while (--j >= 0) {
+      if (nodes[j].parent_id == parent_id) {
+        // previous sibling was found
+        parent_id = nodes[j].id;
+
+        for (var ii = nodes.length; --ii >= 0;) {
+          if (nodes[ii].parent_id == parent_id) {
+            reti = ii + 1;
+            break;
+          }
+        }
+
+        --shift;
+        break;
+      }
+    }
+
+    if (j == -1) {
+      break;
+    }
+  } // смещение влево (только для последних потомков)
+  // поменять родителя на деда и обновить позицию так,
+  // чтобы быть после своего текущего родителя, но перед его следующим братом
+
+
+  while (shift < 0) {
+    var end = false; // 1) нужно найти следующий элемент
+
+    for (var _j = reti; ++_j < nodes.length;) {
+      if (nodes[_j].parent_id == parent_id) {
+        // 2) если таковой найден - конец
+        end = true;
+        break;
+      }
+    }
+
+    if (end) {
+      break;
+    }
+
+    end = true; // 3) нужно найти своего родителя
+    // 4) если его нет - конец
+
+    for (var i_parent = 0; i_parent < nodes.length; ++i_parent) {
+      if (nodes[i_parent].id == parent_id) {
+        ++shift; // 5) если он находится передо мной, тогда мое место остается
+        //    тем же (только если его сл. брат после меня); а мой дед
+        //    становится моим родителем
+
+        if (i_parent < reti) {
+          parent_id = nodes[i_parent].parent_id; // The following is just an optimization to keep reti.
+          // It is always safe to use `reti=j+1`.
+
+          for (var k = i_parent; ++k < reti;) {
+            if (nodes[k].parent_id == parent_id) {
+              reti = k;
+              break;
+            }
+          }
+
+          end = false;
+          break;
+        } // 6) иначе (он находится после меня), мое место будет сразу
+        //    после него; а мой дед становится моим родителем
+
+
+        reti = i_parent + 1;
+        parent_id = nodes[i_parent].parent_id;
+        end = false;
+        break;
+      }
+    }
+
+    if (end) {
+      break;
+    }
+  }
+
+  return {
+    i: reti,
+    parent_id: parent_id
+  };
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (tree_shift);
 
 /***/ }),
 

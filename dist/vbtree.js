@@ -1371,6 +1371,7 @@ function tree_shift(nodes, i, shift) {
     };
   }
 
+  var shift_real = 0;
   var parent_id = i == nodes.length ? null : nodes[i].parent_id;
   var reti = i;
 
@@ -1398,6 +1399,7 @@ function tree_shift(nodes, i, shift) {
         }
 
         --shift;
+        ++shift_real;
         break;
       }
     }
@@ -1430,7 +1432,8 @@ function tree_shift(nodes, i, shift) {
 
     for (var i_parent = 0; i_parent < nodes.length; ++i_parent) {
       if (nodes[i_parent].id == parent_id) {
-        ++shift; // 5) если он находится передо мной, тогда мое место остается
+        ++shift;
+        --shift_real; // 5) если он находится передо мной, тогда мое место остается
         //    тем же (только если его сл. брат после меня); а мой дед
         //    становится моим родителем
 
@@ -1465,7 +1468,8 @@ function tree_shift(nodes, i, shift) {
 
   return {
     i: reti,
-    parent_id: parent_id
+    parent_id: parent_id,
+    shift_real: shift_real
   };
 }
 

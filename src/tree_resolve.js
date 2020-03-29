@@ -12,6 +12,8 @@ import tree_walk_preorder2 from './tree_walk_preorder2';
  * @param one_down
  * @param horizontal_shift
  * @return {{i, parent_id}}
+ *
+ * @deprecated Deprecated in favor of tree_shift
  */
 function tree_resolve(nodes, start, one_down, horizontal_shift)
 {

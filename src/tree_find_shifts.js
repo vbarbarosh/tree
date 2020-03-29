@@ -1,12 +1,11 @@
-import tree_from_array from './tree_from_array';
-import tree_walk_preorder2 from './tree_walk_preorder2';
-
 /**
  * Return all possible shifts for the specified node pointer.
  *
  * @param nodes
  * @param pointer
  * @return {{shift_left, shift_right}}
+ *
+ * @deprecated Deprecated in favor of tree_shift
  */
 function tree_find_shifts(nodes, pointer)
 {

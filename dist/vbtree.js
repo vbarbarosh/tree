@@ -1351,8 +1351,9 @@ function tree_resolve(nodes, start, one_down, horizontal_shift) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /**
+ * Вычисляет новое положение узла после его смещения влево либо вправо.
  *
- * @param {Array} nodes
+ * @param {Array<{id:string,parent_id:string|null}>} nodes
  * @param {Number} i
  * @param {Number} shift
  * @param {Function} is_shift_allowed
@@ -1370,7 +1371,7 @@ function tree_shift(nodes, i, shift) {
     };
   }
 
-  var parent_id = nodes[i].parent_id;
+  var parent_id = i == nodes.length ? null : nodes[i].parent_id;
   var reti = i;
 
   while (shift > 0) {

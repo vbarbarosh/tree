@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://unpkg.com/@vbarbarosh/smcss@0.3.20/dist/sm.css" rel="stylesheet" />
+    <title>A set of functions for working with trees &mdash; @vbarbarosh/tree</title>
+    <style>
+        body {
+            user-select: none;
+        }
+        .vue-tree-item:hover {
+            background: #ccc;
+        }
+    </style>
+</head>
+<body>
+
+<div class="p20">
+    <p>Rudimentary file manager</p>
+</div>
+
+<div id="app" class="p20 ma bs5">
+    <button v-on:click="save">save</button>
+    <button v-on:click="restore">restore</button>
+    <button v-on:click="find">find</button>
+    <br>
+    <br>
+<!--
+    <div v-if="outline_props" v-bind="outline_props"></div>
+-->
+    <div class="flex-row mi15" style="min-height: 400px;" v-bind:style="{pointerEvents: outline_props ? 'none' : null}">
+        <div class="w0 flex-fluid dashed">
+            <ul>
+                <li v-for="node in nodes">
+                    <small><small>{{ node.type }}:{{ node.name }}</small></small>
+                    <template v-if="node.title">
+                        &mdash; {{ node.title }}
+                    </template>
+                </li>
+            </ul>
+        </div>
+        <div class="w0 flex-fluid dashed">
+            <vue-tree ref="tree" v-bind:value="nodes_tree"></vue-tree>
+        </div>
+        <div class="w0 flex-fluid dashed">
+            <textarea v-model="tree" class="xborder p10 xm ww hh bbox"></textarea>
+        </div>
+    </div>
+    <br>
+    selection:
+    <pre class="dashed" style="white-space: normal;">{{ selection_ids }}</pre>
+    <pre v-if="saved" class="dashed" style="white-space: normal;">{{ saved }}</pre>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.min.js"></script>
+<script src="https://unpkg.com/vue@2.6.11/dist/vue.js"></script>
+<script src="https://unpkg.com/@vbarbarosh/dd@1.1.0/dist/dd.js"></script>
+<script src="https://unpkg.com/axios@0.19.2/dist/axios.js"></script>
+<!--
+<script src="https://unpkg.com/@vbarbarosh/tree@0.2.3/dist/vbtree.js"></script>
+-->
+<script src="../../dist/vbtree.js?r=1"></script>
+
+<script id="templ-vue-tree" type="text/html">
+    <ul v-if="tree_nodes.length">
+        <li v-for="tree_node in tree_nodes" v-bind:key="tree_node.id">
+            <vue-tree-item v-bind:value="tree_node" />
+            <vue-tree v-if="!tree_node.value.is_closed" v-model="tree_node.children" />
+        </li>
+    </ul>
+</script>
+<script id="templ-vue-tree-item" type="text/html">
+    <div class="pv5 vue-tree-item">
+        <template v-if="tree_node.value.is_directory">
+            <button v-if="tree_node.value.is_closed" v-on:click="app.open(tree_node.value)" v-bind:disabled="tree_node.children.length == 0">+</button>
+            <button v-if="!tree_node.value.is_closed" v-on:click="app.close(tree_node.value)" v-bind:disabled="tree_node.children.length == 0">−</button>
+        </template>
+        <input type="checkbox" v-model="tree_node.value.is_selected">
+        <span v-on:mousedown="app.mousedown($event, tree_node.value)">
+            {{ tree_node.value.text }}
+        </span>
+        <span v-if="app.target_before === tree_node.value" class="abs white p5 bs5">
+            !!!
+        </span>
+    </div>
+</script>
+
+<script>
+const app = new Vue({
+    data: {
+        inst: null,
+    },
+});
+
+Vue.mixin({
+    computed: {
+        app: function () {
+            return app.inst;
+        },
+    }
+});
+
+Vue.component('vue-tree', {
+    template: '#templ-vue-tree',
+    props: ['value'],
+    computed: {
+        tree_nodes: function () {
+            return this.value;
+        },
+    },
+});
+// The only reason for this component is to automatically register ref to it
+Vue.component('vue-tree-item', {
+    template: '#templ-vue-tree-item',
+    props: ['value'],
+    computed: {
+        tree_node: function () {
+            return this.value;
+        },
+    },
+    created: function () {
+        this.app.tree_nodes_map[this.tree_node.id] = this;
+    },
+    beforeDestroy: function () {
+        // In case `beforeDestroy` is called after `created`
+        if (this.app.tree_nodes_map[this.tree_node.id] === this) {
+            delete this.app.tree_nodes_map[this.tree_node.id];
+        }
+    },
+});
+
+function array_index(array, fn)
+{
+    const out = {};
+    array.forEach(v => out[fn(v)] = v);
+    return out;
+}
+
+function array_group_map(array, fn)
+{
+    const out = {};
+    array.forEach(function (item) {
+        const key = fn(item);
+        out[key] = out[key] || [];
+        out[key].push(item);
+    });
+    return out;
+}
+
+function px(v)
+{
+    return v ? `${v}px` : 0;
+}
+
+function rect_from_bcr({top, left, right, bottom})
+{
+    return {x: left, y: top, w: right - left, h: bottom - top};
+}
+
+// https://brilliant.org/wiki/dot-product-distance-between-point-and-a-line/
+function distance_between_a_point_and_a_line(a, b, c, x0, y0)
+{
+    return Math.abs(a*x0 + b*y0 + c)/Math.sqrt(a*a + b*b);
+}
+
+// https://en.wikipedia.org/wiki/Distance_from_a_point_to_a_line
+function distance_between_a_point_and_a_line2(x1, y1, x2, y2, x0, y0)
+{
+    return Math.abs((y2 - y1)*x0 - (x2 - x1)*y0 + x2*y1 - y2*x1)/Math.hypot(y2 - y1, x2 - x1);
+}
+
+function numbers_closest(numbers, v)
+{
+    let min_d = Number.MAX_VALUE;
+    let min_i = 0;
+    for (let i = 0, end = numbers.length; i < end; ++i) {
+        const d = Math.abs(v - numbers[i]);
+        if (min_d > d) {
+            min_d = d;
+            min_i = i;
+        }
+    }
+    return min_i;
+}
+
+// Find a rectangle closest to a point.
+//
+// 1) Prefer those intersected by a point
+// 2) Use only y coordinates
+//
+// +--------+
+// | rect 1 |
+// +--------+
+// | rect 2 |
+// +--------+
+//
+function rects_closest_y(rects, y)
+{
+    let inside = null;
+    let outside = null;
+    for (let i = 0, end = rects.length; i < end; ++i) {
+        const r = rects[i];
+        const top = r.y;
+        const bottom = r.y + r.h;
+        if (y >= top && y < bottom) {
+            // Point is inside. This is preferable rectangle.
+            const d1 = y - top;
+            const d2 = bottom - y;
+            if (inside === null) {
+                if (d1 <= d2) {
+                    inside = {i, r, d1, d2, top: true, bottom: false};
+                }
+                else {
+                    inside = {i, r, d1, d2, top: false, bottom: true};
+                }
+                continue;
+            }
+            // Preferable rectangle was already found.
+            // Check if this one is more suitable.
+            if (d1 <= d2) {
+                // Top side is closer to a cursor
+                if (inside.top && inside.d1 > d1) {
+                    // Top of a new rectangle is closer to a cursor
+                    inside = {i, r, d1, d2, top: true, bottom: false};
+                    continue;
+                }
+                if (inside.bottom && inside.d2 > d1) {
+                    inside = {i, r, d1, d2, top: true, bottom: false};
+                    continue;
+                }
+                // Previously found rect has border closer to a cursor
+            }
+            else {
+                // Bottom side is closer to a cursor
+                if (inside.top && inside.d1 > d2) {
+                    inside = {i, r, d1, d2, top: false, bottom: true};
+                    continue;
+                }
+                if (inside.bottom && inside.d2 > d2) {
+                    inside = {i, r, d1, d2, top: false, bottom: true};
+                    continue;
+                }
+                // Previously found rect has border closer to a cursor
+            }
+            continue;
+        }
+        if (inside !== null) {
+            // Point is outside of a current rect.
+            // But preferable rect was already found.
+            // Ignore this one.
+            continue;
+        }
+        const d1 = Math.abs(top - y);
+        const d2 = Math.abs(bottom - y);
+        if (outside === null) {
+            if (d1 <= d2) {
+                outside = {i, r, d1, d2, top: true, bottom: false};
+            }
+            else {
+                outside = {i, r, d1, d2, top: false, bottom: true};
+            }
+            continue;
+        }
+        if (d1 <= d2) {
+            if (outside.top && outside.d1 > d1) {
+                outside = {i, r, d1, d2, top: true, bottom: false};
+                continue;
+            }
+            if (outside.bottom && outside.d2 > d1) {
+                outside = {i, r, d1, d2, top: true, bottom: false};
+            }
+        }
+        else {
+            if (outside.top && outside.d1 > d2) {
+                outside = {i, r, d1, d2, top: false, bottom: true};
+                continue;
+            }
+            if (outside.bottom && outside.d2 > d2) {
+                outside = {i, r, d1, d2, top: false, bottom: true};
+            }
+        }
+    }
+    return inside || outside;
+}
+
+new Vue({
+    el: '#app',
+    data: {
+        target: null,
+        saved: null,
+        nodes: [],
+        tree_nodes_map: {},
+        tree: `
+group images
+    image bg
+    image logo
+group texts
+    text safari Safari road
+    text savannah African savannah
+       xxx
+          yyy
+             zzz
+group buttons
+    button Book Now
+`.trimLeft(),
+    },
+    computed: {
+        outline_props: function () {
+            if (!this.target) {
+                return null;
+            }
+            const {x, y, w, h} = this.target;
+            return {
+                style: {
+                    position: 'fixed',
+                    background: 'none',
+                    opacity: 0.5,
+                    //border: '1px solid',
+                    borderTop: this.target.before ? '5px solid' : null,
+                    //borderLeft: this.target.shift < 0 ? '5px solid' : null,
+                    //borderRight: this.target.shift > 0 ? '5px solid' : null,
+                    borderBottom: !this.target.before ? '5px solid' : null,
+                    boxSizing: 'border-box',
+                    pointerEvents: 'none',
+                    top: px(y),
+                    left: px(x),
+                    width: px(w),
+                    height: px(h),
+                },
+            };
+        },
+        target_before: function () {
+            return this.find_before(this.target && this.target.node);
+        },
+        nodes_map: function () {
+            return array_index(this.nodes, v => v.id);
+        },
+        nodes_tree: function () {
+            return vbtree.tree_from_array(this.nodes.map(function (node) {
+                return {id: node.id, parent_id: node.parent_id, value: node};
+            }));
+        },
+        nodes_children: function () {
+            return array_group_map(this.nodes, v => v.parent_id);
+        },
+        selection: function () {
+            return this.nodes.filter(v => v.is_selected);
+        },
+        selection_map: function () {
+            return array_index(this.selection, v => v.id);
+        },
+        selection_ids: function () {
+            return this.selection.map(v => v.id);
+        },
+    },
+    watch: {
+        tree: {
+            handler: function () {
+                const _this = this;
+                const nodes = vbtree.tree_flatten(vbtree.tree_from_string2(this.tree));
+                nodes.forEach(function (node) {
+                    const [type, name, ...other] = node.text.split(' ');
+                    node.type = type;
+                    node.name = name;
+                    node.title = other.join(' ').trim();
+                    node.is_closed = _this.nodes_map[node.id] ? _this.nodes_map[node.id].is_closed : false;
+                    node.is_selected = _this.nodes_map[node.id] ? _this.nodes_map[node.id].is_selected : false;
+                });
+                this.nodes = nodes;
+            },
+            immediate: true,
+        },
+    },
+    methods: {
+        save: function () {
+            this.saved = JSON.stringify(this.nodes);
+        },
+        restore: function () {
+            this.nodes = JSON.parse(this.saved);
+        },
+        find_before: function (target) {
+            if (!target) {
+                return null;
+            }
+            const _this = this;
+            let prev = null;
+            this.nodes.find(function (node) {
+                if (node === target) {
+                    return true;
+                }
+                // noinspection EqualityComparisonWithCoercionJS
+                if (node.parent_id == target.parent_id) {
+                    prev = node;
+                }
+            });
+            if (prev) {
+                for (let p = prev, i = 0; i < 100; ++i) {
+                    const tmp = this.nodes_children[p.id];
+                    if (!tmp) {
+                        return p;
+                    }
+                    p = tmp[tmp.length - 1];
+                }
+                throw new Error('Too many iterations');
+            }
+            return this.nodes_map[target.parent_id];
+        },
+        open: function (node) {
+            node.is_closed = false;
+        },
+        close: function (node) {
+            node.is_closed = true;
+        },
+        mousedown: function (event, node) {
+            if (event.__VUE_TREE_HANDLED__) {
+                return;
+            }
+            event.__VUE_TREE_HANDLED__ = true;
+            let wait = true;
+            const _this = this;
+            dd({
+                event,
+                move: function (ctx) {
+                    if (wait) {
+                        wait = false;
+                        if (!_this.selection.includes(node)) {
+                            _this.selection.forEach(v => v.is_selected = false);
+                            node.is_selected = true;
+                        }
+                        _this.find(ctx.event);
+                    }
+                },
+            });
+        },
+        find: function (event) {
+            const __SHIFT__ = 40;
+            const _this = this;
+            const feedback = new Vue({
+                el: document.body.appendChild(document.createElement('DIV')),
+                template: '<div v-bind="feedback"></div>',
+                data: {
+                    target: null,
+                },
+                computed: {
+                    feedback: function () {
+                        if (!this.target) {
+                            return null;
+                        }
+                        const {x, y, w, h} = this.target;
+                        return {
+                            style: {
+                                position: 'fixed',
+                                borderTop: this.target.before ? '5px solid' : null,
+                                borderBottom: !this.target.before ? '5px solid' : null,
+                                opacity: 0.5,
+                                pointerEvents: 'none',
+                                top: px(y),
+                                left: px(x),
+                                width: px(w),
+                                height: px(h),
+                            },
+                        };
+                    },
+                },
+                methods: {
+                    end: function () {
+                        this.$destroy();
+                    },
+                },
+                beforeDestroy: function () {
+                    document.body.removeChild(this.$el);
+                },
+            });
+            dd({
+                event,
+                end: function () {
+                    // Ну а здесь, по хорошему, мне остается только вызывать `tree_move`
+
+                    //const diff = vbtree.tree_diff(_this.nodes, []);
+                    feedback.end();
+                    // do_not_allow_shift_into_files();
+                    insert_after_closed_directory();
+                    function do_not_allow_shift_into_files() {
+                        // const {i, parent_id} = vbtree.tree_resolve(diff, _this.target.node, !_this.target.before, _this.target.shift);
+                        // if (_this.nodes_map[parent_id] && !_this.nodes_map[parent_id].is_directory) {
+                        //     if (_this.target.shift > 0) {
+                        //         console.log('decreasing shift');
+                        //         _this.target.shift--;
+                        //     }
+                        // }
+                    }
+                    function insert_after_closed_directory() {
+                        // const {i, parent_id} = vbtree.tree_resolve(_this.nodes, _this.target.node, !_this.target.before, _this.target.shift);
+                        // const {i, parent_id} = vbtree.tree_shift(_this.nodes, _this.nodes.indexOf(_this.target.node), _this.target.shift);
+                        //console.log('insert_after_closed_directory',i,parent_id);
+                        vbtree.tree_move(_this.nodes, _this.selection, _this.target.i, _this.target.parent_id);
+                        _this.target = null;
+                    }
+                },
+                begin: function (ctx) {
+                    const components = Object.values(_this.tree_nodes_map);
+                    const rects = components.map(v => rect_from_bcr(v.$el.getBoundingClientRect()));
+                    const tmp = _this.$refs.tree.$el.getBoundingClientRect();
+                    rects.push({x: tmp.left+__SHIFT__, y: tmp.bottom, w: tmp.right-tmp.left-__SHIFT__, h: 0});
+                    const closest = rects_closest_y(rects, ctx.y);
+                    ctx.xx0 = rects[closest.i].x;
+                },
+                update: function ({x, y, dx,xx0}) {
+                    // 1. Создаю массив из узлов, которые сейчас отображены
+                    //    (все, что closed - не отображается и в этот массив
+                    //    не попадет)
+                    const components = Object.values(_this.tree_nodes_map);
+                    // 2. Превращаю массив компонентов в массив прямоугольников
+                    const rects = components.map(v => rect_from_bcr(v.$el.getBoundingClientRect()));
+                    // Special case
+                    const tmp = _this.$refs.tree.$el.getBoundingClientRect();
+                    rects.push({x: tmp.left+__SHIFT__, y: tmp.bottom, w: tmp.right-tmp.left-__SHIFT__, h: 0});
+                    // 3. Нахожу прямоугольник верх которого максимально близко
+                    //    расположен к курсуро
+                    const closest = {i: numbers_closest(rects.map(v => v.y), y)};
+                    closest.r = rects[closest.i];
+                    closest.top = true;
+                    closest.bottom = false;
+                    // 4. Зная узел прямоугольника, могу получить узел перед которым
+                    //    должна быть сделана вставка
+                    const node = (closest.i < rects.length-1) ? components[closest.i].tree_node.value : null;
+                    // Find out horizontal_shift
+                    // const ancestors = vbtree.tree_ancestors(_this.nodes, node);
+                    const shift1 = Math.round((xx0-closest.r.x+dx)/__SHIFT__);
+                    const ii = _this.nodes.indexOf(node);
+                    const sel = array_index(vbtree.tree_intersect(_this.nodes, _this.selection), v => v.id);
+                    const shift = (node&&sel[node.id]) ? shift1 : Math.max(0, shift1);
+
+                    // 5. Перевожу найденный узел в адрес места для вставки
+                    const {i, parent_id, shift_real} = vbtree.tree_shift(_this.nodes, (ii==-1?_this.nodes.length:ii), shift, function (i) {
+                        console.log('is_shift_allowed', i, _this.nodes[i]);
+                        return _this.nodes[i].is_directory && !_this.nodes[i].is_closed;
+                    });
+                    console.log('update', {ii, shift, shift_real, i, parent_id});
+
+                    // const shift = 0;
+                    feedback.target = _this.target = {
+                        x: closest.r.x + shift_real*__SHIFT__,
+                        y: closest.r.y,
+                        w: closest.r.w - shift_real*__SHIFT__,
+                        h: closest.r.h,
+                        before: true,// closest.top,
+                        shift: shift_real,
+                        node,
+                        i,parent_id,
+                    };
+                },
+            });
+        },
+    },
+    created: async function () {
+        app.inst = this;
+        const tmp = await axios.get('files.json').then(v => v.data);
+        tmp.forEach(function (node) {
+            node.text = node.fi.basename;
+            node.title = node.fi.basename;
+            node.type = node.fi.flags.join();
+            node.is_closed = false;//node.fi.flags_map.is_directory;
+            node.is_selected = false;
+            node.is_directory = node.fi.flags_map.is_directory;
+        });
+        this.nodes = tmp;
+    },
+});
+</script>
+
+</body>
+</html>

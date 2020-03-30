@@ -1,0 +1,2146 @@
+[
+    {
+        "parent_id": null,
+        "fi": {
+            "dev": 66306,
+            "mode": 17901,
+            "nlink": 2,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2466152,
+            "size": 4096,
+            "blocks": 8,
+            "atimeMs": 1585507397762.86,
+            "mtimeMs": 1582746459153.742,
+            "ctimeMs": 1582746459153.742,
+            "birthtimeMs": 1582746459153.742,
+            "atime": "2020-03-29T18:43:17.763Z",
+            "mtime": "2020-02-26T19:47:39.154Z",
+            "ctime": "2020-02-26T19:47:39.154Z",
+            "birthtime": "2020-02-26T19:47:39.154Z",
+            "pathname": "bin",
+            "basename": "bin",
+            "flags": [
+                "is_directory"
+            ],
+            "flags_map": {
+                "is_directory": true
+            }
+        },
+        "id": "i0"
+    },
+    {
+        "parent_id": null,
+        "fi": {
+            "dev": 66306,
+            "mode": 17901,
+            "nlink": 2,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2467157,
+            "size": 4096,
+            "blocks": 8,
+            "atimeMs": 1585494932483.7583,
+            "mtimeMs": 1585220308666.9038,
+            "ctimeMs": 1585220308666.9038,
+            "birthtimeMs": 1585220308666.9038,
+            "atime": "2020-03-29T15:15:32.484Z",
+            "mtime": "2020-03-26T10:58:28.667Z",
+            "ctime": "2020-03-26T10:58:28.667Z",
+            "birthtime": "2020-03-26T10:58:28.667Z",
+            "pathname": "dist",
+            "basename": "dist",
+            "flags": [
+                "is_directory"
+            ],
+            "flags_map": {
+                "is_directory": true
+            }
+        },
+        "id": "i1"
+    },
+    {
+        "parent_id": null,
+        "fi": {
+            "dev": 66306,
+            "mode": 17901,
+            "nlink": 3,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2465866,
+            "size": 4096,
+            "blocks": 8,
+            "atimeMs": 1585506194842.6006,
+            "mtimeMs": 1584336764492.6204,
+            "ctimeMs": 1584336764492.6204,
+            "birthtimeMs": 1584336764492.6204,
+            "atime": "2020-03-29T18:23:14.843Z",
+            "mtime": "2020-03-16T05:32:44.493Z",
+            "ctime": "2020-03-16T05:32:44.493Z",
+            "birthtime": "2020-03-16T05:32:44.493Z",
+            "pathname": "docs",
+            "basename": "docs",
+            "flags": [
+                "is_directory"
+            ],
+            "flags_map": {
+                "is_directory": true
+            }
+        },
+        "id": "i2"
+    },
+    {
+        "parent_id": null,
+        "fi": {
+            "dev": 66306,
+            "mode": 17901,
+            "nlink": 2,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2458962,
+            "size": 4096,
+            "blocks": 8,
+            "atimeMs": 1585508354110.2207,
+            "mtimeMs": 1585508350910.193,
+            "ctimeMs": 1585508350910.193,
+            "birthtimeMs": 1585508350910.193,
+            "atime": "2020-03-29T18:59:14.110Z",
+            "mtime": "2020-03-29T18:59:10.910Z",
+            "ctime": "2020-03-29T18:59:10.910Z",
+            "birthtime": "2020-03-29T18:59:10.910Z",
+            "pathname": "src",
+            "basename": "src",
+            "flags": [
+                "is_directory"
+            ],
+            "flags_map": {
+                "is_directory": true
+            }
+        },
+        "id": "i3"
+    },
+    {
+        "parent_id": null,
+        "fi": {
+            "dev": 66306,
+            "mode": 33204,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2462263,
+            "size": 5585,
+            "blocks": 16,
+            "atimeMs": 1585508256545.3875,
+            "mtimeMs": 1585248054726.7058,
+            "ctimeMs": 1585248054726.7058,
+            "birthtimeMs": 1585248054726.7058,
+            "atime": "2020-03-29T18:57:36.545Z",
+            "mtime": "2020-03-26T18:40:54.727Z",
+            "ctime": "2020-03-26T18:40:54.727Z",
+            "birthtime": "2020-03-26T18:40:54.727Z",
+            "pathname": "NOTES.md",
+            "basename": "NOTES.md",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i4"
+    },
+    {
+        "parent_id": null,
+        "fi": {
+            "dev": 66306,
+            "mode": 33188,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2384719,
+            "size": 616,
+            "blocks": 8,
+            "atimeMs": 1585496810419.0444,
+            "mtimeMs": 1584799589024.7732,
+            "ctimeMs": 1584799589024.7732,
+            "birthtimeMs": 1584799589024.7732,
+            "atime": "2020-03-29T15:46:50.419Z",
+            "mtime": "2020-03-21T14:06:29.025Z",
+            "ctime": "2020-03-21T14:06:29.025Z",
+            "birthtime": "2020-03-21T14:06:29.025Z",
+            "pathname": "README.md",
+            "basename": "README.md",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i5"
+    },
+    {
+        "parent_id": null,
+        "fi": {
+            "dev": 66306,
+            "mode": 33188,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2448153,
+            "size": 954,
+            "blocks": 8,
+            "atimeMs": 1585496810411.0442,
+            "mtimeMs": 1584336616879.1191,
+            "ctimeMs": 1584336616883.1191,
+            "birthtimeMs": 1584336616883.1191,
+            "atime": "2020-03-29T15:46:50.411Z",
+            "mtime": "2020-03-16T05:30:16.879Z",
+            "ctime": "2020-03-16T05:30:16.883Z",
+            "birthtime": "2020-03-16T05:30:16.883Z",
+            "pathname": "package.json",
+            "basename": "package.json",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i6"
+    },
+    {
+        "parent_id": null,
+        "fi": {
+            "dev": 66306,
+            "mode": 33188,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2448157,
+            "size": 236386,
+            "blocks": 464,
+            "atimeMs": 1585508256545.3875,
+            "mtimeMs": 1584336616903.1194,
+            "ctimeMs": 1584336616907.1194,
+            "birthtimeMs": 1584336616907.1194,
+            "atime": "2020-03-29T18:57:36.545Z",
+            "mtime": "2020-03-16T05:30:16.903Z",
+            "ctime": "2020-03-16T05:30:16.907Z",
+            "birthtime": "2020-03-16T05:30:16.907Z",
+            "pathname": "package-lock.json",
+            "basename": "package-lock.json",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i7"
+    },
+    {
+        "parent_id": null,
+        "fi": {
+            "dev": 66306,
+            "mode": 33188,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2455197,
+            "size": 972,
+            "blocks": 8,
+            "atimeMs": 1585496811071.0544,
+            "mtimeMs": 1582744697263.4653,
+            "ctimeMs": 1582744697267.4653,
+            "birthtimeMs": 1582744697267.4653,
+            "atime": "2020-03-29T15:46:51.071Z",
+            "mtime": "2020-02-26T19:18:17.263Z",
+            "ctime": "2020-02-26T19:18:17.267Z",
+            "birthtime": "2020-02-26T19:18:17.267Z",
+            "pathname": "webpack.config.js",
+            "basename": "webpack.config.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i8"
+    },
+    {
+        "parent_id": "i0",
+        "fi": {
+            "dev": 66306,
+            "mode": 33261,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2461425,
+            "size": 293,
+            "blocks": 8,
+            "atimeMs": 1585496810011.038,
+            "mtimeMs": 1582742108289.2769,
+            "ctimeMs": 1582742108289.2769,
+            "birthtimeMs": 1582742108289.2769,
+            "atime": "2020-03-29T15:46:50.011Z",
+            "mtime": "2020-02-26T18:35:08.289Z",
+            "ctime": "2020-02-26T18:35:08.289Z",
+            "birthtime": "2020-02-26T18:35:08.289Z",
+            "pathname": "bin/build",
+            "basename": "build",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i9"
+    },
+    {
+        "parent_id": "i0",
+        "fi": {
+            "dev": 66306,
+            "mode": 33261,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2460250,
+            "size": 1249,
+            "blocks": 8,
+            "atimeMs": 1585508256549.3877,
+            "mtimeMs": 1582746198683.0786,
+            "ctimeMs": 1582746198687.0786,
+            "birthtimeMs": 1582746198687.0786,
+            "atime": "2020-03-29T18:57:36.549Z",
+            "mtime": "2020-02-26T19:43:18.683Z",
+            "ctime": "2020-02-26T19:43:18.687Z",
+            "birthtime": "2020-02-26T19:43:18.687Z",
+            "pathname": "bin/release",
+            "basename": "release",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i10"
+    },
+    {
+        "parent_id": "i0",
+        "fi": {
+            "dev": 66306,
+            "mode": 33261,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2462717,
+            "size": 292,
+            "blocks": 8,
+            "atimeMs": 1585508256545.3875,
+            "mtimeMs": 1582742108289.2769,
+            "ctimeMs": 1582742108289.2769,
+            "birthtimeMs": 1582742108289.2769,
+            "atime": "2020-03-29T18:57:36.545Z",
+            "mtime": "2020-02-26T18:35:08.289Z",
+            "ctime": "2020-02-26T18:35:08.289Z",
+            "birthtime": "2020-02-26T18:35:08.289Z",
+            "pathname": "bin/test",
+            "basename": "test",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i11"
+    },
+    {
+        "parent_id": "i1",
+        "fi": {
+            "dev": 66306,
+            "mode": 33188,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2462855,
+            "size": 54782,
+            "blocks": 112,
+            "atimeMs": 1585499880649.1245,
+            "mtimeMs": 1585499878189.126,
+            "ctimeMs": 1585499878189.126,
+            "birthtimeMs": 1585499878189.126,
+            "atime": "2020-03-29T16:38:00.649Z",
+            "mtime": "2020-03-29T16:37:58.189Z",
+            "ctime": "2020-03-29T16:37:58.189Z",
+            "birthtime": "2020-03-29T16:37:58.189Z",
+            "pathname": "dist/vbtree.js",
+            "basename": "vbtree.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i12"
+    },
+    {
+        "parent_id": "i1",
+        "fi": {
+            "dev": 66306,
+            "mode": 33188,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2462857,
+            "size": 13187,
+            "blocks": 32,
+            "atimeMs": 1585499880649.1245,
+            "mtimeMs": 1585499878197.126,
+            "ctimeMs": 1585499878197.126,
+            "birthtimeMs": 1585499878197.126,
+            "atime": "2020-03-29T16:38:00.649Z",
+            "mtime": "2020-03-29T16:37:58.197Z",
+            "ctime": "2020-03-29T16:37:58.197Z",
+            "birthtime": "2020-03-29T16:37:58.197Z",
+            "pathname": "dist/vbtree.min.js",
+            "basename": "vbtree.min.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i13"
+    },
+    {
+        "parent_id": "i2",
+        "fi": {
+            "dev": 66306,
+            "mode": 33188,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2461611,
+            "size": 19,
+            "blocks": 8,
+            "atimeMs": 1585508256545.3875,
+            "mtimeMs": 1582746435045.4956,
+            "ctimeMs": 1582746435045.4956,
+            "birthtimeMs": 1582746435045.4956,
+            "atime": "2020-03-29T18:57:36.545Z",
+            "mtime": "2020-02-26T19:47:15.045Z",
+            "ctime": "2020-02-26T19:47:15.045Z",
+            "birthtime": "2020-02-26T19:47:15.045Z",
+            "pathname": "docs/CNAME",
+            "basename": "CNAME",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i14"
+    },
+    {
+        "parent_id": "i2",
+        "fi": {
+            "dev": 66306,
+            "mode": 17901,
+            "nlink": 2,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2466524,
+            "size": 4096,
+            "blocks": 8,
+            "atimeMs": 1585574501076.9468,
+            "mtimeMs": 1585574500128.9182,
+            "ctimeMs": 1585574500128.9182,
+            "birthtimeMs": 1585574500128.9182,
+            "atime": "2020-03-30T13:21:41.077Z",
+            "mtime": "2020-03-30T13:21:40.129Z",
+            "ctime": "2020-03-30T13:21:40.129Z",
+            "birthtime": "2020-03-30T13:21:40.129Z",
+            "pathname": "docs/demos",
+            "basename": "demos",
+            "flags": [
+                "is_directory"
+            ],
+            "flags_map": {
+                "is_directory": true
+            }
+        },
+        "id": "i15"
+    },
+    {
+        "parent_id": "i2",
+        "fi": {
+            "dev": 66306,
+            "mode": 33188,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2448657,
+            "size": 1835,
+            "blocks": 8,
+            "atimeMs": 1585508256545.3875,
+            "mtimeMs": 1584336764484.62,
+            "ctimeMs": 1584336764484.62,
+            "birthtimeMs": 1584336764484.62,
+            "atime": "2020-03-29T18:57:36.545Z",
+            "mtime": "2020-03-16T05:32:44.485Z",
+            "ctime": "2020-03-16T05:32:44.485Z",
+            "birthtime": "2020-03-16T05:32:44.485Z",
+            "pathname": "docs/index.html",
+            "basename": "index.html",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i16"
+    },
+    {
+        "parent_id": "i3",
+        "fi": {
+            "dev": 66306,
+            "mode": 33204,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2462290,
+            "size": 141,
+            "blocks": 8,
+            "atimeMs": 1585496813071.0854,
+            "mtimeMs": 1584914309044.8599,
+            "ctimeMs": 1584914309044.8599,
+            "birthtimeMs": 1584914309044.8599,
+            "atime": "2020-03-29T15:46:53.071Z",
+            "mtime": "2020-03-22T21:58:29.045Z",
+            "ctime": "2020-03-22T21:58:29.045Z",
+            "birthtime": "2020-03-22T21:58:29.045Z",
+            "pathname": "src/array_index.js",
+            "basename": "array_index.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i17"
+    },
+    {
+        "parent_id": "i3",
+        "fi": {
+            "dev": 66306,
+            "mode": 33204,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2462317,
+            "size": 595,
+            "blocks": 8,
+            "atimeMs": 1585508256549.3877,
+            "mtimeMs": 1584918557480.3586,
+            "ctimeMs": 1584918557480.3586,
+            "birthtimeMs": 1584918557480.3586,
+            "atime": "2020-03-29T18:57:36.549Z",
+            "mtime": "2020-03-22T23:09:17.480Z",
+            "ctime": "2020-03-22T23:09:17.480Z",
+            "birthtime": "2020-03-22T23:09:17.480Z",
+            "pathname": "src/array_permutations.js",
+            "basename": "array_permutations.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i18"
+    },
+    {
+        "parent_id": "i3",
+        "fi": {
+            "dev": 66306,
+            "mode": 33204,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2462758,
+            "size": 1585,
+            "blocks": 8,
+            "atimeMs": 1585425614902.7468,
+            "mtimeMs": 1585425609974.6704,
+            "ctimeMs": 1585425609974.6704,
+            "birthtimeMs": 1585425609974.6704,
+            "atime": "2020-03-28T20:00:14.903Z",
+            "mtime": "2020-03-28T20:00:09.975Z",
+            "ctime": "2020-03-28T20:00:09.975Z",
+            "birthtime": "2020-03-28T20:00:09.975Z",
+            "pathname": "src/index.js",
+            "basename": "index.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i19"
+    },
+    {
+        "parent_id": "i3",
+        "fi": {
+            "dev": 66306,
+            "mode": 33188,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2462395,
+            "size": 8287,
+            "blocks": 24,
+            "atimeMs": 1585508256549.3877,
+            "mtimeMs": 1585004159832.9556,
+            "ctimeMs": 1585004159832.9556,
+            "birthtimeMs": 1585004159832.9556,
+            "atime": "2020-03-29T18:57:36.549Z",
+            "mtime": "2020-03-23T22:55:59.833Z",
+            "ctime": "2020-03-23T22:55:59.833Z",
+            "birthtime": "2020-03-23T22:55:59.833Z",
+            "pathname": "src/sandbox_cli.js",
+            "basename": "sandbox_cli.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i20"
+    },
+    {
+        "parent_id": "i3",
+        "fi": {
+            "dev": 66306,
+            "mode": 33204,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2448162,
+            "size": 777,
+            "blocks": 8,
+            "atimeMs": 1585496812159.0713,
+            "mtimeMs": 1584329544914.6377,
+            "ctimeMs": 1584329544914.6377,
+            "birthtimeMs": 1584329544914.6377,
+            "atime": "2020-03-29T15:46:52.159Z",
+            "mtime": "2020-03-16T03:32:24.915Z",
+            "ctime": "2020-03-16T03:32:24.915Z",
+            "birthtime": "2020-03-16T03:32:24.915Z",
+            "pathname": "src/tree_ancestor.js",
+            "basename": "tree_ancestor.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i21"
+    },
+    {
+        "parent_id": "i3",
+        "fi": {
+            "dev": 66306,
+            "mode": 33204,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2462525,
+            "size": 719,
+            "blocks": 8,
+            "atimeMs": 1585496812159.0713,
+            "mtimeMs": 1585159079931.4248,
+            "ctimeMs": 1585159079931.4248,
+            "birthtimeMs": 1585159079931.4248,
+            "atime": "2020-03-29T15:46:52.159Z",
+            "mtime": "2020-03-25T17:57:59.931Z",
+            "ctime": "2020-03-25T17:57:59.931Z",
+            "birthtime": "2020-03-25T17:57:59.931Z",
+            "pathname": "src/tree_ancestors.js",
+            "basename": "tree_ancestors.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i22"
+    },
+    {
+        "parent_id": "i3",
+        "fi": {
+            "dev": 66306,
+            "mode": 33204,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2462836,
+            "size": 968,
+            "blocks": 8,
+            "atimeMs": 1585508256549.3877,
+            "mtimeMs": 1585219597678.1018,
+            "ctimeMs": 1585219597678.1018,
+            "birthtimeMs": 1585219597678.1018,
+            "atime": "2020-03-29T18:57:36.549Z",
+            "mtime": "2020-03-26T10:46:37.678Z",
+            "ctime": "2020-03-26T10:46:37.678Z",
+            "birthtime": "2020-03-26T10:46:37.678Z",
+            "pathname": "src/tree_descendants.js",
+            "basename": "tree_descendants.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i23"
+    },
+    {
+        "parent_id": "i3",
+        "fi": {
+            "dev": 66306,
+            "mode": 33204,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2462614,
+            "size": 1410,
+            "blocks": 8,
+            "atimeMs": 1585508256549.3877,
+            "mtimeMs": 1585219631561.2153,
+            "ctimeMs": 1585219631561.2153,
+            "birthtimeMs": 1585219631561.2153,
+            "atime": "2020-03-29T18:57:36.549Z",
+            "mtime": "2020-03-26T10:47:11.561Z",
+            "ctime": "2020-03-26T10:47:11.561Z",
+            "birthtime": "2020-03-26T10:47:11.561Z",
+            "pathname": "src/tree_descendants.m.js",
+            "basename": "tree_descendants.m.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i24"
+    },
+    {
+        "parent_id": "i3",
+        "fi": {
+            "dev": 66306,
+            "mode": 33204,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2462307,
+            "size": 910,
+            "blocks": 8,
+            "atimeMs": 1585496812159.0713,
+            "mtimeMs": 1584917205750.501,
+            "ctimeMs": 1584917205750.501,
+            "birthtimeMs": 1584917205750.501,
+            "atime": "2020-03-29T15:46:52.159Z",
+            "mtime": "2020-03-22T22:46:45.751Z",
+            "ctime": "2020-03-22T22:46:45.751Z",
+            "birthtime": "2020-03-22T22:46:45.751Z",
+            "pathname": "src/tree_diff.js",
+            "basename": "tree_diff.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i25"
+    },
+    {
+        "parent_id": "i3",
+        "fi": {
+            "dev": 66306,
+            "mode": 33204,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2462330,
+            "size": 1304,
+            "blocks": 8,
+            "atimeMs": 1585508256549.3877,
+            "mtimeMs": 1585004159836.9553,
+            "ctimeMs": 1585004159836.9553,
+            "birthtimeMs": 1585004159836.9553,
+            "atime": "2020-03-29T18:57:36.549Z",
+            "mtime": "2020-03-23T22:55:59.837Z",
+            "ctime": "2020-03-23T22:55:59.837Z",
+            "birthtime": "2020-03-23T22:55:59.837Z",
+            "pathname": "src/tree_diff.m.js",
+            "basename": "tree_diff.m.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i26"
+    },
+    {
+        "parent_id": "i3",
+        "fi": {
+            "dev": 66306,
+            "mode": 33204,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2383582,
+            "size": 2389,
+            "blocks": 8,
+            "atimeMs": 1585508361742.2861,
+            "mtimeMs": 1585508350906.193,
+            "ctimeMs": 1585508350906.193,
+            "birthtimeMs": 1585508350906.193,
+            "atime": "2020-03-29T18:59:21.742Z",
+            "mtime": "2020-03-29T18:59:10.906Z",
+            "ctime": "2020-03-29T18:59:10.906Z",
+            "birthtime": "2020-03-29T18:59:10.906Z",
+            "pathname": "src/tree_find_shifts.js",
+            "basename": "tree_find_shifts.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i27"
+    },
+    {
+        "parent_id": "i3",
+        "fi": {
+            "dev": 66306,
+            "mode": 33204,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2462419,
+            "size": 1817,
+            "blocks": 8,
+            "atimeMs": 1585508256549.3877,
+            "mtimeMs": 1585003935060.1633,
+            "ctimeMs": 1585003935060.1633,
+            "birthtimeMs": 1585003935060.1633,
+            "atime": "2020-03-29T18:57:36.549Z",
+            "mtime": "2020-03-23T22:52:15.060Z",
+            "ctime": "2020-03-23T22:52:15.060Z",
+            "birthtime": "2020-03-23T22:52:15.060Z",
+            "pathname": "src/tree_find_shifts.m.js",
+            "basename": "tree_find_shifts.m.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i28"
+    },
+    {
+        "parent_id": "i3",
+        "fi": {
+            "dev": 66306,
+            "mode": 33204,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 1000,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 1966889,
+            "size": 405,
+            "blocks": 8,
+            "atimeMs": 1585496812159.0713,
+            "mtimeMs": 1584320337368.2603,
+            "ctimeMs": 1584320337368.2603,
+            "birthtimeMs": 1584320337368.2603,
+            "atime": "2020-03-29T15:46:52.159Z",
+            "mtime": "2020-03-16T00:58:57.368Z",
+            "ctime": "2020-03-16T00:58:57.368Z",
+            "birthtime": "2020-03-16T00:58:57.368Z",
+            "pathname": "src/tree_flatten.js",
+            "basename": "tree_flatten.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i29"
+    },
+    {
+        "parent_id": "i3",
+        "fi": {
+            "dev": 66306,
+            "mode": 33188,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 1000,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 1983402,
+            "size": 2381,
+            "blocks": 8,
+            "atimeMs": 1585496812159.0713,
+            "mtimeMs": 1584785782172.9016,
+            "ctimeMs": 1584785782172.9016,
+            "birthtimeMs": 1584785782172.9016,
+            "atime": "2020-03-29T15:46:52.159Z",
+            "mtime": "2020-03-21T10:16:22.173Z",
+            "ctime": "2020-03-21T10:16:22.173Z",
+            "birthtime": "2020-03-21T10:16:22.173Z",
+            "pathname": "src/tree_from_array.js",
+            "basename": "tree_from_array.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i30"
+    },
+    {
+        "parent_id": "i3",
+        "fi": {
+            "dev": 66306,
+            "mode": 33204,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 1000,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 1969666,
+            "size": 10091,
+            "blocks": 24,
+            "atimeMs": 1585508256549.3877,
+            "mtimeMs": 1584918557492.3586,
+            "ctimeMs": 1584918557492.3586,
+            "birthtimeMs": 1584918557492.3586,
+            "atime": "2020-03-29T18:57:36.549Z",
+            "mtime": "2020-03-22T23:09:17.492Z",
+            "ctime": "2020-03-22T23:09:17.492Z",
+            "birthtime": "2020-03-22T23:09:17.492Z",
+            "pathname": "src/tree_from_array.m.js",
+            "basename": "tree_from_array.m.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i31"
+    },
+    {
+        "parent_id": "i3",
+        "fi": {
+            "dev": 66306,
+            "mode": 33188,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 1000,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2461448,
+            "size": 2127,
+            "blocks": 8,
+            "atimeMs": 1585496812159.0713,
+            "mtimeMs": 1582741830629.6606,
+            "ctimeMs": 1582741830629.6606,
+            "birthtimeMs": 1582741830629.6606,
+            "atime": "2020-03-29T15:46:52.159Z",
+            "mtime": "2020-02-26T18:30:30.630Z",
+            "ctime": "2020-02-26T18:30:30.630Z",
+            "birthtime": "2020-02-26T18:30:30.630Z",
+            "pathname": "src/tree_from_string.js",
+            "basename": "tree_from_string.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i32"
+    },
+    {
+        "parent_id": "i3",
+        "fi": {
+            "dev": 66306,
+            "mode": 33204,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 1000,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 1985598,
+            "size": 482,
+            "blocks": 8,
+            "atimeMs": 1585508256549.3877,
+            "mtimeMs": 1584307589438.8823,
+            "ctimeMs": 1584307589438.8823,
+            "birthtimeMs": 1584307589438.8823,
+            "atime": "2020-03-29T18:57:36.549Z",
+            "mtime": "2020-03-15T21:26:29.439Z",
+            "ctime": "2020-03-15T21:26:29.439Z",
+            "birthtime": "2020-03-15T21:26:29.439Z",
+            "pathname": "src/tree_from_string.m.js",
+            "basename": "tree_from_string.m.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i33"
+    },
+    {
+        "parent_id": "i3",
+        "fi": {
+            "dev": 66306,
+            "mode": 33204,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2383690,
+            "size": 1217,
+            "blocks": 8,
+            "atimeMs": 1585496812159.0713,
+            "mtimeMs": 1584320337352.26,
+            "ctimeMs": 1584320337352.26,
+            "birthtimeMs": 1584320337352.26,
+            "atime": "2020-03-29T15:46:52.159Z",
+            "mtime": "2020-03-16T00:58:57.352Z",
+            "ctime": "2020-03-16T00:58:57.352Z",
+            "birthtime": "2020-03-16T00:58:57.352Z",
+            "pathname": "src/tree_from_string2.js",
+            "basename": "tree_from_string2.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i34"
+    },
+    {
+        "parent_id": "i3",
+        "fi": {
+            "dev": 66306,
+            "mode": 33204,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2462365,
+            "size": 455,
+            "blocks": 8,
+            "atimeMs": 1585496812159.0713,
+            "mtimeMs": 1584963872629.5015,
+            "ctimeMs": 1584963872629.5015,
+            "birthtimeMs": 1584963872629.5015,
+            "atime": "2020-03-29T15:46:52.159Z",
+            "mtime": "2020-03-23T11:44:32.630Z",
+            "ctime": "2020-03-23T11:44:32.630Z",
+            "birthtime": "2020-03-23T11:44:32.630Z",
+            "pathname": "src/tree_insert.js",
+            "basename": "tree_insert.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i35"
+    },
+    {
+        "parent_id": "i3",
+        "fi": {
+            "dev": 66306,
+            "mode": 33204,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2462332,
+            "size": 232,
+            "blocks": 8,
+            "atimeMs": 1585508256549.3877,
+            "mtimeMs": 1585004159820.9558,
+            "ctimeMs": 1585004159820.9558,
+            "birthtimeMs": 1585004159820.9558,
+            "atime": "2020-03-29T18:57:36.549Z",
+            "mtime": "2020-03-23T22:55:59.821Z",
+            "ctime": "2020-03-23T22:55:59.821Z",
+            "birthtime": "2020-03-23T22:55:59.821Z",
+            "pathname": "src/tree_insert.m.js",
+            "basename": "tree_insert.m.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i36"
+    },
+    {
+        "parent_id": "i3",
+        "fi": {
+            "dev": 66306,
+            "mode": 33204,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2384640,
+            "size": 976,
+            "blocks": 8,
+            "atimeMs": 1585496812159.0713,
+            "mtimeMs": 1585156513617.2332,
+            "ctimeMs": 1585156513617.2332,
+            "birthtimeMs": 1585156513617.2332,
+            "atime": "2020-03-29T15:46:52.159Z",
+            "mtime": "2020-03-25T17:15:13.617Z",
+            "ctime": "2020-03-25T17:15:13.617Z",
+            "birthtime": "2020-03-25T17:15:13.617Z",
+            "pathname": "src/tree_intersect.js",
+            "basename": "tree_intersect.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i37"
+    },
+    {
+        "parent_id": "i3",
+        "fi": {
+            "dev": 66306,
+            "mode": 33204,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2462318,
+            "size": 1391,
+            "blocks": 8,
+            "atimeMs": 1585508256549.3877,
+            "mtimeMs": 1585004159840.9553,
+            "ctimeMs": 1585004159840.9553,
+            "birthtimeMs": 1585004159840.9553,
+            "atime": "2020-03-29T18:57:36.549Z",
+            "mtime": "2020-03-23T22:55:59.841Z",
+            "ctime": "2020-03-23T22:55:59.841Z",
+            "birthtime": "2020-03-23T22:55:59.841Z",
+            "pathname": "src/tree_intersect.m.js",
+            "basename": "tree_intersect.m.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i38"
+    },
+    {
+        "parent_id": "i3",
+        "fi": {
+            "dev": 66306,
+            "mode": 33188,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2456286,
+            "size": 1019,
+            "blocks": 8,
+            "atimeMs": 1585508256549.3877,
+            "mtimeMs": 1585419067467.8474,
+            "ctimeMs": 1585419067467.8474,
+            "birthtimeMs": 1585419067467.8474,
+            "atime": "2020-03-29T18:57:36.549Z",
+            "mtime": "2020-03-28T18:11:07.468Z",
+            "ctime": "2020-03-28T18:11:07.468Z",
+            "birthtime": "2020-03-28T18:11:07.468Z",
+            "pathname": "src/tree_move.js",
+            "basename": "tree_move.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i39"
+    },
+    {
+        "parent_id": "i3",
+        "fi": {
+            "dev": 66306,
+            "mode": 33204,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2456293,
+            "size": 2344,
+            "blocks": 8,
+            "atimeMs": 1585508256549.3877,
+            "mtimeMs": 1585396794450.2163,
+            "ctimeMs": 1585396794450.2163,
+            "birthtimeMs": 1585396794450.2163,
+            "atime": "2020-03-29T18:57:36.549Z",
+            "mtime": "2020-03-28T11:59:54.450Z",
+            "ctime": "2020-03-28T11:59:54.450Z",
+            "birthtime": "2020-03-28T11:59:54.450Z",
+            "pathname": "src/tree_move.m.js",
+            "basename": "tree_move.m.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i40"
+    },
+    {
+        "parent_id": "i3",
+        "fi": {
+            "dev": 66306,
+            "mode": 33204,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2449537,
+            "size": 536,
+            "blocks": 8,
+            "atimeMs": 1585496812159.0713,
+            "mtimeMs": 1584334888398.4482,
+            "ctimeMs": 1584334888398.4482,
+            "birthtimeMs": 1584334888398.4482,
+            "atime": "2020-03-29T15:46:52.159Z",
+            "mtime": "2020-03-16T05:01:28.398Z",
+            "ctime": "2020-03-16T05:01:28.398Z",
+            "birthtime": "2020-03-16T05:01:28.398Z",
+            "pathname": "src/tree_move_after.js",
+            "basename": "tree_move_after.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i41"
+    },
+    {
+        "parent_id": "i3",
+        "fi": {
+            "dev": 66306,
+            "mode": 33204,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2383595,
+            "size": 536,
+            "blocks": 8,
+            "atimeMs": 1585496812159.0713,
+            "mtimeMs": 1584334640320.037,
+            "ctimeMs": 1584334640320.037,
+            "birthtimeMs": 1584334640320.037,
+            "atime": "2020-03-29T15:46:52.159Z",
+            "mtime": "2020-03-16T04:57:20.320Z",
+            "ctime": "2020-03-16T04:57:20.320Z",
+            "birthtime": "2020-03-16T04:57:20.320Z",
+            "pathname": "src/tree_move_before.js",
+            "basename": "tree_move_before.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i42"
+    },
+    {
+        "parent_id": "i3",
+        "fi": {
+            "dev": 66306,
+            "mode": 33204,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2449591,
+            "size": 457,
+            "blocks": 8,
+            "atimeMs": 1585496812159.0713,
+            "mtimeMs": 1585333757689.5066,
+            "ctimeMs": 1585333757689.5066,
+            "birthtimeMs": 1585333757689.5066,
+            "atime": "2020-03-29T15:46:52.159Z",
+            "mtime": "2020-03-27T18:29:17.690Z",
+            "ctime": "2020-03-27T18:29:17.690Z",
+            "birthtime": "2020-03-27T18:29:17.690Z",
+            "pathname": "src/tree_move_into.js",
+            "basename": "tree_move_into.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i43"
+    },
+    {
+        "parent_id": "i3",
+        "fi": {
+            "dev": 66306,
+            "mode": 33204,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2384654,
+            "size": 837,
+            "blocks": 8,
+            "atimeMs": 1585508256549.3877,
+            "mtimeMs": 1585420605347.0852,
+            "ctimeMs": 1585420605347.0852,
+            "birthtimeMs": 1585420605347.0852,
+            "atime": "2020-03-29T18:57:36.549Z",
+            "mtime": "2020-03-28T18:36:45.347Z",
+            "ctime": "2020-03-28T18:36:45.347Z",
+            "birthtime": "2020-03-28T18:36:45.347Z",
+            "pathname": "src/tree_move_v2.js",
+            "basename": "tree_move_v2.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i44"
+    },
+    {
+        "parent_id": "i3",
+        "fi": {
+            "dev": 66306,
+            "mode": 33204,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2456790,
+            "size": 1267,
+            "blocks": 8,
+            "atimeMs": 1585422368623.0276,
+            "mtimeMs": 1585407271435.2747,
+            "ctimeMs": 1585407271435.2747,
+            "birthtimeMs": 1585407271435.2747,
+            "atime": "2020-03-28T19:06:08.623Z",
+            "mtime": "2020-03-28T14:54:31.435Z",
+            "ctime": "2020-03-28T14:54:31.435Z",
+            "birthtime": "2020-03-28T14:54:31.435Z",
+            "pathname": "src/tree_move_v2.m.js",
+            "basename": "tree_move_v2.m.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i45"
+    },
+    {
+        "parent_id": "i3",
+        "fi": {
+            "dev": 66306,
+            "mode": 33188,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 1000,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 1983277,
+            "size": 279,
+            "blocks": 8,
+            "atimeMs": 1585496812159.0713,
+            "mtimeMs": 1529826023607.3496,
+            "ctimeMs": 1582741096317.9104,
+            "birthtimeMs": 1582741096317.9104,
+            "atime": "2020-03-29T15:46:52.159Z",
+            "mtime": "2018-06-24T07:40:23.607Z",
+            "ctime": "2020-02-26T18:18:16.318Z",
+            "birthtime": "2020-02-26T18:18:16.318Z",
+            "pathname": "src/tree_print.js",
+            "basename": "tree_print.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i46"
+    },
+    {
+        "parent_id": "i3",
+        "fi": {
+            "dev": 66306,
+            "mode": 33204,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2383599,
+            "size": 1179,
+            "blocks": 8,
+            "atimeMs": 1585496812159.0713,
+            "mtimeMs": 1584784783208.7651,
+            "ctimeMs": 1584784783208.7651,
+            "birthtimeMs": 1584784783208.7651,
+            "atime": "2020-03-29T15:46:52.159Z",
+            "mtime": "2020-03-21T09:59:43.209Z",
+            "ctime": "2020-03-21T09:59:43.209Z",
+            "birthtime": "2020-03-21T09:59:43.209Z",
+            "pathname": "src/tree_print2.js",
+            "basename": "tree_print2.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i47"
+    },
+    {
+        "parent_id": "i3",
+        "fi": {
+            "dev": 66306,
+            "mode": 33204,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 1000,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 1967878,
+            "size": 711,
+            "blocks": 8,
+            "atimeMs": 1585496812159.0713,
+            "mtimeMs": 1584313436637.6963,
+            "ctimeMs": 1584313436637.6963,
+            "birthtimeMs": 1584313436637.6963,
+            "atime": "2020-03-29T15:46:52.159Z",
+            "mtime": "2020-03-15T23:03:56.638Z",
+            "ctime": "2020-03-15T23:03:56.638Z",
+            "birthtime": "2020-03-15T23:03:56.638Z",
+            "pathname": "src/tree_random.js",
+            "basename": "tree_random.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i48"
+    },
+    {
+        "parent_id": "i3",
+        "fi": {
+            "dev": 66306,
+            "mode": 33204,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2462358,
+            "size": 2516,
+            "blocks": 8,
+            "atimeMs": 1585508365682.32,
+            "mtimeMs": 1585508295429.7185,
+            "ctimeMs": 1585508295429.7185,
+            "birthtimeMs": 1585508295429.7185,
+            "atime": "2020-03-29T18:59:25.682Z",
+            "mtime": "2020-03-29T18:58:15.430Z",
+            "ctime": "2020-03-29T18:58:15.430Z",
+            "birthtime": "2020-03-29T18:58:15.430Z",
+            "pathname": "src/tree_resolve.js",
+            "basename": "tree_resolve.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i49"
+    },
+    {
+        "parent_id": "i3",
+        "fi": {
+            "dev": 66306,
+            "mode": 33204,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2383704,
+            "size": 3315,
+            "blocks": 8,
+            "atimeMs": 1585508256549.3877,
+            "mtimeMs": 1585399106123.2126,
+            "ctimeMs": 1585399106123.2126,
+            "birthtimeMs": 1585399106123.2126,
+            "atime": "2020-03-29T18:57:36.549Z",
+            "mtime": "2020-03-28T12:38:26.123Z",
+            "ctime": "2020-03-28T12:38:26.123Z",
+            "birthtime": "2020-03-28T12:38:26.123Z",
+            "pathname": "src/tree_resolve.m.js",
+            "basename": "tree_resolve.m.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i50"
+    },
+    {
+        "parent_id": "i3",
+        "fi": {
+            "dev": 66306,
+            "mode": 33204,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2439862,
+            "size": 4064,
+            "blocks": 8,
+            "atimeMs": 1585499638117.6133,
+            "mtimeMs": 1585499635409.6235,
+            "ctimeMs": 1585499635409.6235,
+            "birthtimeMs": 1585499635409.6235,
+            "atime": "2020-03-29T16:33:58.118Z",
+            "mtime": "2020-03-29T16:33:55.410Z",
+            "ctime": "2020-03-29T16:33:55.410Z",
+            "birthtime": "2020-03-29T16:33:55.410Z",
+            "pathname": "src/tree_shift.js",
+            "basename": "tree_shift.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i51"
+    },
+    {
+        "parent_id": "i3",
+        "fi": {
+            "dev": 66306,
+            "mode": 33204,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2384677,
+            "size": 3830,
+            "blocks": 8,
+            "atimeMs": 1585471811035.5884,
+            "mtimeMs": 1585471809783.602,
+            "ctimeMs": 1585471809783.602,
+            "birthtimeMs": 1585471809783.602,
+            "atime": "2020-03-29T08:50:11.036Z",
+            "mtime": "2020-03-29T08:50:09.784Z",
+            "ctime": "2020-03-29T08:50:09.784Z",
+            "birthtime": "2020-03-29T08:50:09.784Z",
+            "pathname": "src/tree_shift.m.js",
+            "basename": "tree_shift.m.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i52"
+    },
+    {
+        "parent_id": "i3",
+        "fi": {
+            "dev": 66306,
+            "mode": 33204,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 1000,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 1998033,
+            "size": 268,
+            "blocks": 8,
+            "atimeMs": 1585496812159.0713,
+            "mtimeMs": 1584307262527.618,
+            "ctimeMs": 1584307262527.618,
+            "birthtimeMs": 1584307262527.618,
+            "atime": "2020-03-29T15:46:52.159Z",
+            "mtime": "2020-03-15T21:21:02.528Z",
+            "ctime": "2020-03-15T21:21:02.528Z",
+            "birthtime": "2020-03-15T21:21:02.528Z",
+            "pathname": "src/tree_sort_preorder.js",
+            "basename": "tree_sort_preorder.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i53"
+    },
+    {
+        "parent_id": "i3",
+        "fi": {
+            "dev": 66306,
+            "mode": 33204,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 1000,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 1983881,
+            "size": 335,
+            "blocks": 8,
+            "atimeMs": 1585496812159.0713,
+            "mtimeMs": 1530638494369.7605,
+            "ctimeMs": 1582741096317.9104,
+            "birthtimeMs": 1582741096317.9104,
+            "atime": "2020-03-29T15:46:52.159Z",
+            "mtime": "2018-07-03T17:21:34.370Z",
+            "ctime": "2020-02-26T18:18:16.318Z",
+            "birthtime": "2020-02-26T18:18:16.318Z",
+            "pathname": "src/tree_stringify.js",
+            "basename": "tree_stringify.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i54"
+    },
+    {
+        "parent_id": "i3",
+        "fi": {
+            "dev": 66306,
+            "mode": 33204,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 1000,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 1966590,
+            "size": 300,
+            "blocks": 8,
+            "atimeMs": 1585496812159.0713,
+            "mtimeMs": 1582743710823.5217,
+            "ctimeMs": 1582743710823.5217,
+            "birthtimeMs": 1582743710823.5217,
+            "atime": "2020-03-29T15:46:52.159Z",
+            "mtime": "2020-02-26T19:01:50.824Z",
+            "ctime": "2020-02-26T19:01:50.824Z",
+            "birthtime": "2020-02-26T19:01:50.824Z",
+            "pathname": "src/tree_walk2.js",
+            "basename": "tree_walk2.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i55"
+    },
+    {
+        "parent_id": "i3",
+        "fi": {
+            "dev": 66306,
+            "mode": 33188,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 1000,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 1966771,
+            "size": 455,
+            "blocks": 8,
+            "atimeMs": 1585496812159.0713,
+            "mtimeMs": 1584305871133.9587,
+            "ctimeMs": 1584305871133.9587,
+            "birthtimeMs": 1584305871133.9587,
+            "atime": "2020-03-29T15:46:52.159Z",
+            "mtime": "2020-03-15T20:57:51.134Z",
+            "ctime": "2020-03-15T20:57:51.134Z",
+            "birthtime": "2020-03-15T20:57:51.134Z",
+            "pathname": "src/tree_walk_preorder.js",
+            "basename": "tree_walk_preorder.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i56"
+    },
+    {
+        "parent_id": "i3",
+        "fi": {
+            "dev": 66306,
+            "mode": 33204,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2384822,
+            "size": 1638,
+            "blocks": 8,
+            "atimeMs": 1585496812159.0713,
+            "mtimeMs": 1584997643788.2388,
+            "ctimeMs": 1584997643788.2388,
+            "birthtimeMs": 1584997643788.2388,
+            "atime": "2020-03-29T15:46:52.159Z",
+            "mtime": "2020-03-23T21:07:23.788Z",
+            "ctime": "2020-03-23T21:07:23.788Z",
+            "birthtime": "2020-03-23T21:07:23.788Z",
+            "pathname": "src/tree_walk_preorder2.js",
+            "basename": "tree_walk_preorder2.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i57"
+    },
+    {
+        "parent_id": "i3",
+        "fi": {
+            "dev": 66306,
+            "mode": 33204,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2461602,
+            "size": 9142,
+            "blocks": 24,
+            "atimeMs": 1585508256549.3877,
+            "mtimeMs": 1585004159848.955,
+            "ctimeMs": 1585004159848.955,
+            "birthtimeMs": 1585004159848.955,
+            "atime": "2020-03-29T18:57:36.549Z",
+            "mtime": "2020-03-23T22:55:59.849Z",
+            "ctime": "2020-03-23T22:55:59.849Z",
+            "birthtime": "2020-03-23T22:55:59.849Z",
+            "pathname": "src/tree_walk_preorder2.m.js",
+            "basename": "tree_walk_preorder2.m.js",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i58"
+    },
+    {
+        "parent_id": "i15",
+        "fi": {
+            "dev": 66306,
+            "mode": 33188,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2444469,
+            "size": 63410,
+            "blocks": 128,
+            "atimeMs": 1585574496072.7952,
+            "mtimeMs": 1585574496076.7952,
+            "ctimeMs": 1585574500128.9182,
+            "birthtimeMs": 1585574500128.9182,
+            "atime": "2020-03-30T13:21:36.073Z",
+            "mtime": "2020-03-30T13:21:36.077Z",
+            "ctime": "2020-03-30T13:21:40.129Z",
+            "birthtime": "2020-03-30T13:21:40.129Z",
+            "pathname": "docs/demos/files.json",
+            "basename": "files.json",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i59"
+    },
+    {
+        "parent_id": "i15",
+        "fi": {
+            "dev": 66306,
+            "mode": 33204,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2459849,
+            "size": 783,
+            "blocks": 8,
+            "atimeMs": 1585508256545.3875,
+            "mtimeMs": 1582746614459.3281,
+            "ctimeMs": 1582746614459.3281,
+            "birthtimeMs": 1582746614459.3281,
+            "atime": "2020-03-29T18:57:36.545Z",
+            "mtime": "2020-02-26T19:50:14.459Z",
+            "ctime": "2020-02-26T19:50:14.459Z",
+            "birthtime": "2020-02-26T19:50:14.459Z",
+            "pathname": "docs/demos/tree_1_hello.html",
+            "basename": "tree_1_hello.html",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i60"
+    },
+    {
+        "parent_id": "i15",
+        "fi": {
+            "dev": 66306,
+            "mode": 33188,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2463659,
+            "size": 2940,
+            "blocks": 8,
+            "atimeMs": 1585508256545.3875,
+            "mtimeMs": 1584336524398.1802,
+            "ctimeMs": 1584336524398.1802,
+            "birthtimeMs": 1584336524398.1802,
+            "atime": "2020-03-29T18:57:36.545Z",
+            "mtime": "2020-03-16T05:28:44.398Z",
+            "ctime": "2020-03-16T05:28:44.398Z",
+            "birthtime": "2020-03-16T05:28:44.398Z",
+            "pathname": "docs/demos/tree_2_vue_tree.html",
+            "basename": "tree_2_vue_tree.html",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i61"
+    },
+    {
+        "parent_id": "i15",
+        "fi": {
+            "dev": 66306,
+            "mode": 33188,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2383607,
+            "size": 4733,
+            "blocks": 16,
+            "atimeMs": 1585508256545.3875,
+            "mtimeMs": 1584336524394.1802,
+            "ctimeMs": 1584336524394.1802,
+            "birthtimeMs": 1584336524394.1802,
+            "atime": "2020-03-29T18:57:36.545Z",
+            "mtime": "2020-03-16T05:28:44.394Z",
+            "ctime": "2020-03-16T05:28:44.394Z",
+            "birthtime": "2020-03-16T05:28:44.394Z",
+            "pathname": "docs/demos/tree_3_vue_selecting.html",
+            "basename": "tree_3_vue_selecting.html",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i62"
+    },
+    {
+        "parent_id": "i15",
+        "fi": {
+            "dev": 66306,
+            "mode": 33204,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2448643,
+            "size": 5464,
+            "blocks": 16,
+            "atimeMs": 1585508256545.3875,
+            "mtimeMs": 1584336524402.1802,
+            "ctimeMs": 1584336524402.1802,
+            "birthtimeMs": 1584336524402.1802,
+            "atime": "2020-03-29T18:57:36.545Z",
+            "mtime": "2020-03-16T05:28:44.402Z",
+            "ctime": "2020-03-16T05:28:44.402Z",
+            "birthtime": "2020-03-16T05:28:44.402Z",
+            "pathname": "docs/demos/tree_4_vue_ancestor.html",
+            "basename": "tree_4_vue_ancestor.html",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i63"
+    },
+    {
+        "parent_id": "i15",
+        "fi": {
+            "dev": 66306,
+            "mode": 33204,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2449494,
+            "size": 5988,
+            "blocks": 16,
+            "atimeMs": 1585508256545.3875,
+            "mtimeMs": 1584336524382.18,
+            "ctimeMs": 1584336524382.18,
+            "birthtimeMs": 1584336524382.18,
+            "atime": "2020-03-29T18:57:36.545Z",
+            "mtime": "2020-03-16T05:28:44.382Z",
+            "ctime": "2020-03-16T05:28:44.382Z",
+            "birthtime": "2020-03-16T05:28:44.382Z",
+            "pathname": "docs/demos/tree_5_vue_move.html",
+            "basename": "tree_5_vue_move.html",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i64"
+    },
+    {
+        "parent_id": "i15",
+        "fi": {
+            "dev": 66306,
+            "mode": 33188,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2439852,
+            "size": 17228,
+            "blocks": 40,
+            "atimeMs": 1585500287969.579,
+            "mtimeMs": 1585500287657.5784,
+            "ctimeMs": 1585500287657.5784,
+            "birthtimeMs": 1585500287657.5784,
+            "atime": "2020-03-29T16:44:47.970Z",
+            "mtime": "2020-03-29T16:44:47.658Z",
+            "ctime": "2020-03-29T16:44:47.658Z",
+            "birthtime": "2020-03-29T16:44:47.658Z",
+            "pathname": "docs/demos/tree_6_vue_flat.html",
+            "basename": "tree_6_vue_flat.html",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i65"
+    },
+    {
+        "parent_id": "i15",
+        "fi": {
+            "dev": 66306,
+            "mode": 33204,
+            "nlink": 1,
+            "uid": 1000,
+            "gid": 33,
+            "rdev": 0,
+            "blksize": 4096,
+            "ino": 2462589,
+            "size": 21261,
+            "blocks": 48,
+            "atimeMs": 1585574383017.1655,
+            "mtimeMs": 1585574382733.156,
+            "ctimeMs": 1585574382733.156,
+            "birthtimeMs": 1585574382733.156,
+            "atime": "2020-03-30T13:19:43.017Z",
+            "mtime": "2020-03-30T13:19:42.733Z",
+            "ctime": "2020-03-30T13:19:42.733Z",
+            "birthtime": "2020-03-30T13:19:42.733Z",
+            "pathname": "docs/demos/tree_7_vue_file_manager.html",
+            "basename": "tree_7_vue_file_manager.html",
+            "flags": [
+                "is_file"
+            ],
+            "flags_map": {
+                "is_file": true
+            }
+        },
+        "id": "i66"
+    }
+]

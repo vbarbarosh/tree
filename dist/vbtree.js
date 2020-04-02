@@ -620,13 +620,13 @@ function update(ctx, x, y) {
   y += sy;
   var closest_i = numbers_closest_i_first(ctx.node_rects.map(function (v) {
     return v.y;
-  }).concat(ctx.container_rect.y + ctx.container_rect.h), y);
+  }).concat(ctx.container_rect0.y + ctx.container_rect.h), y);
   var closest_rect = ctx.node_rects[closest_i] || {
     x: (ctx.node_rects[numbers_min_i_first(ctx.node_rects.map(function (v) {
       return v.y;
-    }))] || ctx.container_rect).x,
-    y: ctx.container_rect.y + ctx.container_rect.h,
-    w: ctx.container_rect.w,
+    }))] || ctx.container_rect0).x,
+    y: ctx.container_rect0.y + ctx.container_rect.h,
+    w: ctx.container_rect0.w,
     h: 0,
     node: null
   };

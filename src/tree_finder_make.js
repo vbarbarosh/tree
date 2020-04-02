@@ -1,25 +1,27 @@
+import tree_pointer_shift from './tree_pointer_shift';
+
 function tree_finder_make(ctx)
 {
-    ctx.container_rect0 = ctx.container_rect;
+    ctx.selection_map = array_index(ctx.selection, v => v.id);
 
     ctx.i = null;
     ctx.parent_id = null;
-    ctx.shift_size = ctx.shift_size || 50;
+    ctx.shift_width = ctx.shift_width || 50;
     ctx.update = (...args) => update(ctx, ...args);
-    begin(ctx);
     return ctx;
-}
-
-function begin(ctx)
-{
-    const closest = rects_closest_y(ctx.node_rects, ctx.y);
-    ctx.x0 = ctx.x;
-    ctx.y0 = ctx.y;
-    ctx.xx0 = ctx.node_rects[closest.i].x;
 }
 
 function update(ctx, x, y, container_rect = ctx.container_rect)
 {
+    if (ctx.i === null) {
+        // Update for the first time
+        const closest = rects_closest_y(ctx.node_rects, y);
+        ctx.x0 = x;
+        ctx.y0 = y;
+        ctx.xx0 = ctx.node_rects[closest.i].x;
+        ctx.container_rect0 = container_rect;
+    }
+
     ctx.dx = x - ctx.x0;
     ctx.dy = y - ctx.y0;
     ctx.container_rect = container_rect;
@@ -38,17 +40,18 @@ function update(ctx, x, y, container_rect = ctx.container_rect)
         node: null,
     };
     const closest_node_i = ctx.nodes.indexOf(closest_rect.node);
-    const shift = Math.round((ctx.xx0 - closest_rect.x + ctx.dx)/ctx.shift_size);
+    const shift = Math.round((ctx.xx0 - closest_rect.x + ctx.dx)/ctx.shift_width);
 
-    const tmp = vbtree.tree_shift(ctx.nodes, (closest_node_i==-1?ctx.nodes.length:closest_node_i), shift, ctx.is_shift_allowed);
+    const i = (closest_node_i==-1?ctx.nodes.length:closest_node_i);
+    const tmp = tree_pointer_shift(ctx.nodes, ctx.selection_map, i, shift, ctx.is_shift_allowed);
     ctx.i = tmp.i;
     ctx.parent_id = tmp.parent_id;
-    ctx.shift = tmp.shift_real;
+    ctx.shift = tmp.shift_happened;
 
     return {
-        x: closest_rect.x + ctx.shift*ctx.shift_size - sx,
+        x: closest_rect.x + ctx.shift*ctx.shift_width - sx,
         y: closest_rect.y - sy,
-        w: closest_rect.w - ctx.shift*ctx.shift_size,
+        w: closest_rect.w - ctx.shift*ctx.shift_width,
         h: closest_rect.h,
         before: true,
         shift: ctx.shift,

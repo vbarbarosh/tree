@@ -13,6 +13,7 @@ import tree_move from './tree_move';
 import tree_move_after from './tree_move_after';
 import tree_move_before from './tree_move_before';
 import tree_move_into from './tree_move_into';
+import tree_pointer_shift from './tree_pointer_shift';
 import tree_print from './tree_print';
 import tree_print2 from './tree_print2';
 import tree_random from './tree_random';
@@ -40,6 +41,7 @@ export {
     tree_move_after,
     tree_move_before,
     tree_move_into,
+    tree_pointer_shift,
     tree_print,
     tree_print2,
     tree_random,

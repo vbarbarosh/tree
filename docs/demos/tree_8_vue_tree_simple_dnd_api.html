@@ -433,37 +433,6 @@ group buttons
                 },
             });
         },
-        dnd: function (event) {
-            const _this = this;
-            dd({
-                event,
-                begin: function (ctx) {
-                    const components = Object.values(_this.tree_nodes_map);
-                    ctx.finder = vbtree.tree_finder_make({
-                        nodes: _this.nodes,
-                        node_rects: components.map(function (ref) {
-                            const out = rect_from_bcr(ref.$el.getBoundingClientRect());
-                            out.node = ref.tree_node.node;
-                            return out;
-                        }),
-                        container_rect_fn: function () {
-                            return rect_from_bcr(_this.$refs.tree.$el.getBoundingClientRect());
-                        },
-                    });
-                },
-                end: function ({finder}) {
-                    tree_move(_this.nodes, _this.selection, finder.i, finder.parent_id);
-                    feedback.end();
-                },
-                update: function ({finder, x, y}) {
-                    finder.update(x, y);
-                    feedback.target = {
-                        rect: finder.closest_rect,
-                        before: true,
-                    };
-                },
-            });
-        },
         find: function (event) {
             const _this = this;
             const feedback = new Vue({
@@ -507,28 +476,23 @@ group buttons
                 begin: function (ctx) {
                     const components = Object.values(_this.tree_nodes_map);
                     ctx.finder = vbtree.tree_finder_make({
-                        x: ctx.x,
-                        y: ctx.y,
                         nodes: _this.nodes,
+                        selection: _this.selection,
                         node_rects: components.map(function (ref) {
                             const rect = rect_from_bcr(ref.$el.getBoundingClientRect());
                             rect.node = ref.tree_node.value;
                             return rect;
                         }),
-                        container_rect: rect_from_bcr(_this.$refs.tree.$el.getBoundingClientRect()),
-                        // tree_shift: function (nodes, i, shift) {
-                        //     return vbtree.tree_shift(nodes, i, shift, function (i) {
-                        //         return _this.nodes[i].is_directory && !_this.nodes[i].is_closed;
-                        //     });
-                        // },
-                        // is_shift_allowed: function (i) {
-                        //     console.log('is_shift_allowed', i, _this.nodes[i]);
-                        //     return _this.nodes[i].is_directory && !_this.nodes[i].is_closed;
-                        // },
+                        // XXX `is_shift_allowed` should be replaced by more generic `is_position_allowed`
+                        is_shift_allowed: function (i_parent) {
+                            const node = _this.nodes[i_parent];
+                            console.log('is_shift_allowed', i_parent, node);
+                            return (i_parent == -1) || node.is_directory && !node.is_closed && node.title != 'dist';
+                        },
                     });
                 },
                 end: function ({finder}) {
-                    vbtree.tree_move(_this.nodes, _this.selection, finder.i, finder.parent_id);
+                    vbtree.tree_move(finder.nodes, finder.selection, finder.i, finder.parent_id);
                     feedback.end();
                     _this.target = null;
                 },

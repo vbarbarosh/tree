@@ -378,10 +378,9 @@ new Vue({
                             rect.node = ref.tree_node.value;
                             return rect;
                         }),
-                        // XXX `is_shift_allowed` should be replaced by more generic `is_position_allowed`
-                        is_shift_allowed: function (i_parent) {
+                        is_position_allowed: function (i_parent) {
                             const node = _this.nodes[i_parent];
-                            console.log('is_shift_allowed', i_parent, node);
+                            console.log('is_position_allowed', i_parent, node);
                             return (i_parent == -1) || node.is_directory && !node.is_closed && node.title != 'dist';
                         },
                     });
@@ -470,7 +469,6 @@ new Vue({
                 },
                 update: function ({finder, x, y}) {
                     const container_rect = rect_from_bcr(_this.$refs.table.getBoundingClientRect());
-                    console.log('container_rect', container_rect);
                     feedback.target = _this.target = finder.update(x, y, container_rect);
                 },
             });

@@ -43,7 +43,7 @@ function update(ctx, x, y, container_rect = ctx.container_rect)
     const shift = Math.round((ctx.xx0 - closest_rect.x + ctx.dx)/ctx.shift_width);
 
     const i = (closest_node_i==-1?ctx.nodes.length:closest_node_i);
-    const tmp = tree_pointer_shift(ctx.nodes, ctx.selection_map, i, shift, ctx.is_shift_allowed);
+    const tmp = tree_pointer_shift(ctx.nodes, ctx.selection_map, i, shift, ctx.is_position_allowed);
     ctx.i = tmp.i;
     ctx.parent_id = tmp.parent_id;
     ctx.shift = tmp.shift_happened;

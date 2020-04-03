@@ -34,9 +34,11 @@
     <button v-on:click="find">find</button>
     <br>
     <br>
-<!--
-    <div v-if="outline_props" v-bind="outline_props"></div>
--->
+
+    <div v-if="outline_props" v-bind="outline_props">
+        <ul-tree v-bind:value="outline_tree" />
+    </div>
+
     <div class="flex-row mi15" style="min-height: 400px;" v-bind:style="{pointerEvents: outline_props ? 'none' : null}">
         <div class="w0 flex-fluid dashed">
             <ul>
@@ -123,6 +125,15 @@ Vue.mixin({
     }
 });
 
+Vue.component('ul-tree', {
+    template: '<ul v-if="tree_nodes.length"><li v-for="node in tree_nodes" v-bind:key="node.id">{{ node.value.text }}<ul-tree v-bind:value="node.children" /></li></ul>',
+    props: ['value'],
+    computed: {
+        tree_nodes: function () {
+            return this.value;
+        },
+    },
+});
 Vue.component('vue-tree', {
     template: '#templ-vue-tree',
     props: ['value'],
@@ -201,29 +212,36 @@ new Vue({
         nodes: [],
         tree_nodes_map: {},
         table_refs_map: {},
+        cursor: null,
     },
     computed: {
+        outline_tree: function () {
+            const sel_all = vbtree.tree_intersect(this.nodes, this.selection);
+            return vbtree.tree_from_array(sel_all.map(function (node) {
+                return {id: node.id, parent_id: node.parent_id, value: node};
+            }));
+        },
         outline_props: function () {
             if (!this.target) {
                 return null;
             }
-            const {x, y, w, h} = this.target;
+            const {x, y} = this.cursor;
             return {
                 style: {
                     position: 'fixed',
-                    background: 'none',
-                    opacity: 0.5,
+                    opacity: 0.75,
+                    background: 'rgba(128,255,128,0.5)',
                     //border: '1px solid',
-                    borderTop: this.target.before ? '5px solid' : null,
+                    //borderTop: this.target.before ? '5px solid' : null,
                     //borderLeft: this.target.shift < 0 ? '5px solid' : null,
                     //borderRight: this.target.shift > 0 ? '5px solid' : null,
-                    borderBottom: !this.target.before ? '5px solid' : null,
+                    //borderBottom: !this.target.before ? '5px solid' : null,
                     boxSizing: 'border-box',
                     pointerEvents: 'none',
                     top: px(y),
                     left: px(x),
-                    width: px(w),
-                    height: px(h),
+                    // width: px(w),
+                    // height: px(h),
                 },
             };
         },
@@ -387,8 +405,10 @@ new Vue({
                     vbtree.tree_move(finder.nodes, finder.selection, finder.i, finder.parent_id);
                     feedback.end();
                     _this.target = null;
+                    _this.cursor = null;
                 },
                 update: function ({finder, x, y}) {
+                    _this.cursor = {x, y};
                     feedback.target = _this.target = finder.update(x, y, rect_from_bcr(_this.$refs.tree.$el.getBoundingClientRect()));
                 },
             });
@@ -469,9 +489,11 @@ new Vue({
                     vbtree.tree_move(finder.nodes, finder.selection, finder.i, finder.parent_id);
                     feedback.end();
                     _this.target = null;
+                    _this.cursor = null;
                 },
                 update: function ({finder, x, y}) {
                     const container_rect = rect_from_bcr(_this.$refs.table.getBoundingClientRect());
+                    _this.cursor = {x, y};
                     feedback.target = _this.target = finder.update(x, y, container_rect);
                 },
             });

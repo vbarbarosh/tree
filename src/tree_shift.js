@@ -10,7 +10,7 @@
 function tree_shift(nodes, i, shift, is_shift_allowed = () => true)
 {
     if (nodes.length == 0) {
-        return {i,parent_id:null};
+        return {i,parent_id:null,shift_real:0};
     }
 
     let shift_real = 0;

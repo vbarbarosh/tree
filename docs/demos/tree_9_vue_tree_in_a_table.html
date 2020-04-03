@@ -332,28 +332,26 @@ new Vue({
             const _this = this;
             const feedback = new Vue({
                 el: document.body.appendChild(document.createElement('DIV')),
-                template: '<div v-bind="feedback"></div>',
+                template: '<div v-bind:style="style"></div>',
                 data: {
                     target: null,
                 },
                 computed: {
-                    feedback: function () {
+                    style: function () {
                         if (!this.target) {
                             return null;
                         }
                         const {x, y, w, h} = this.target;
                         return {
-                            style: {
-                                position: 'fixed',
-                                borderTop: this.target.before ? '5px solid' : null,
-                                borderBottom: !this.target.before ? '5px solid' : null,
-                                opacity: 0.5,
-                                pointerEvents: 'none',
-                                top: px(y),
-                                left: px(x),
-                                width: px(w),
-                                height: px(h),
-                            },
+                            position: 'fixed',
+                            borderTop: this.target.before ? '5px solid' : null,
+                            borderBottom: !this.target.before ? '5px solid' : null,
+                            opacity: 0.5,
+                            pointerEvents: 'none',
+                            top: px(y),
+                            left: px(x),
+                            width: px(w),
+                            height: px(h),
                         };
                     },
                 },
@@ -401,28 +399,26 @@ new Vue({
             const _this = this;
             const feedback = new Vue({
                 el: document.body.appendChild(document.createElement('DIV')),
-                template: '<div v-bind="feedback"></div>',
+                template: '<div v-bind:style="style"></div>',
                 data: {
                     target: null,
                 },
                 computed: {
-                    feedback: function () {
+                    style: function () {
                         if (!this.target) {
                             return null;
                         }
                         const {x, y, w, h} = this.target;
                         return {
-                            style: {
-                                position: 'fixed',
-                                borderTop: this.target.before ? '5px solid' : null,
-                                borderBottom: !this.target.before ? '5px solid' : null,
-                                opacity: 0.5,
-                                pointerEvents: 'none',
-                                top: px(y),
-                                left: px(x),
-                                width: px(w),
-                                height: px(h),
-                            },
+                            position: 'fixed',
+                            borderTop: this.target.before ? '5px solid' : null,
+                            borderBottom: !this.target.before ? '5px solid' : null,
+                            opacity: 0.5,
+                            pointerEvents: 'none',
+                            top: px(y),
+                            left: px(x),
+                            width: px(w),
+                            height: px(h),
                         };
                     },
                 },
@@ -445,6 +441,8 @@ new Vue({
                 event,
                 begin: function (ctx) {
                     const components = Object.values(_this.table_refs_map);
+                    // const nodes_map = array_index(_this.nodes, v => v.id);
+                    // const selection_map = array_index(vbtree.tree_descendants(_this.nodes, _this.selection), v => v.id);
                     ctx.finder = vbtree.tree_finder_make({
                         nodes: _this.nodes,
                         selection: _this.selection,
@@ -454,6 +452,12 @@ new Vue({
                             return rect;
                         }),
                         shift_width: 25,
+                        // is_position_allowed: function (i, parent_id) {
+                        //     if (parent_id === null) {
+                        //         return true;
+                        //     }
+                        //     return !selection_map[parent_id] && nodes_map[parent_id].is_directory && !nodes_map[parent_id].is_closed;
+                        // },
                         is_position_allowed: function (i_parent) {
                             const node = _this.nodes[i_parent];
                             console.log('is_position_allowed', i_parent, node);

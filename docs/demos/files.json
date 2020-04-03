@@ -1844,8 +1844,8 @@
             "mtime": "2020-03-23T21:07:23.788Z",
             "ctime": "2020-03-23T21:07:23.788Z",
             "birthtime": "2020-03-23T21:07:23.788Z",
-            "pathname": "src/tree_walk_preorder2.js",
-            "basename": "tree_walk_preorder2.js",
+            "pathname": "src/tree_walk_preorder.js",
+            "basename": "tree_walk_preorder.js",
             "flags": [
                 "is_file"
             ],
@@ -1876,8 +1876,8 @@
             "mtime": "2020-03-23T22:55:59.849Z",
             "ctime": "2020-03-23T22:55:59.849Z",
             "birthtime": "2020-03-23T22:55:59.849Z",
-            "pathname": "src/tree_walk_preorder2.m.js",
-            "basename": "tree_walk_preorder2.m.js",
+            "pathname": "src/tree_walk_preorder.m.js",
+            "basename": "tree_walk_preorder.m.js",
             "flags": [
                 "is_file"
             ],

@@ -1,7 +1,7 @@
 import array_index from './array_index';
 import tree_from_array from './tree_from_array';
 import tree_map_orig from './tree_map_orig';
-import tree_walk_preorder2 from './tree_walk_preorder2';
+import tree_walk_preorder from './tree_walk_preorder';
 
 /**
  * Return all nodes with sub nodes presented both
@@ -18,7 +18,7 @@ function tree_intersect(nodes, selection)
 {
     const retval = [];
     const selection_map = array_index(selection, v => v.id);
-    tree_walk_preorder2({
+    tree_walk_preorder({
         nodes: tree_from_array(nodes.map(tree_map_orig)).roots,
         visit: function ({node}) {
             if (selection_map[node.parent_id]) {

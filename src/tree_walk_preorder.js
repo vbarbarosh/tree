@@ -1,16 +1,16 @@
-function tree_walk_preorder2(ctx)
+function tree_walk_preorder(ctx)
 {
     ctx.stack = [];
     for (let i = 0, end = ctx.nodes.length; i < end; ++i) {
         ctx.node = ctx.nodes[i];
-        if (tree_walk_preorder2_int(ctx)) {
+        if (tree_walk_preorder_int(ctx)) {
             break;
         }
     }
     return ctx.retval;
 }
 
-function tree_walk_preorder2_int(ctx)
+function tree_walk_preorder_int(ctx)
 {
     let visit = true;
     let walk = true;
@@ -50,7 +50,7 @@ function tree_walk_preorder2_int(ctx)
         const children = ctx.node.children;
         for (let i = 0, ii = children.length; i < ii; ++i) {
             ctx.node = children[i];
-            if (tree_walk_preorder2_int(ctx)) {
+            if (tree_walk_preorder_int(ctx)) {
                 end = true;
                 break;
             }
@@ -70,4 +70,4 @@ function tree_walk_preorder2_int(ctx)
     return end;
 }
 
-export default tree_walk_preorder2;
+export default tree_walk_preorder;

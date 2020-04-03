@@ -263,7 +263,7 @@ new Vue({
         },
         nodes_preorder: function () {
             const out = [];
-            vbtree.tree_walk_preorder2({
+            vbtree.tree_walk_preorder({
                 nodes: vbtree.tree_from_array(this.nodes.map(function (node) {
                     return {id: node.id, parent_id: node.parent_id, value: node};
                 })).roots,

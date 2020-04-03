@@ -1,4 +1,4 @@
-import tree_walk_preorder2 from './tree_walk_preorder2';
+import tree_walk_preorder from './tree_walk_preorder';
 
 function tree_print2(nodes)
 {
@@ -7,7 +7,7 @@ function tree_print2(nodes)
     // 2) Whether or not a node is the last one in a walking stack (or, whether or not a node is a last one in its branch)
 
     let retval = '';
-    tree_walk_preorder2({
+    tree_walk_preorder({
         nodes,
         visit: function (ctx) {
             let s = '';

@@ -1,7 +1,7 @@
 import array_index from './array_index';
 import tree_find_shifts from './tree_find_shifts';
 import tree_from_array from './tree_from_array';
-import tree_walk_preorder2 from './tree_walk_preorder2';
+import tree_walk_preorder from './tree_walk_preorder';
 
 /**
  * Like `path.resolve`. Given a starting point and
@@ -24,7 +24,7 @@ function tree_resolve(nodes, start, one_down, horizontal_shift)
     const {roots} = tree_from_array(nodes.map(function (node, i) {
         return {id: node.id, parent_id: nodes_map[node.parent_id] ? node.parent_id : null, value: node, i};
     }));
-    tree_walk_preorder2({
+    tree_walk_preorder({
         nodes: roots,
         visit: function (ctx) {
             if (end) {

@@ -1,7 +1,7 @@
 import tree_from_array from './tree_from_array';
 import tree_from_string2 from './tree_from_string2';
 import tree_roots_flatten from './tree_roots_flatten';
-import tree_walk_preorder2 from './tree_walk_preorder2';
+import tree_walk_preorder from './tree_walk_preorder';
 
 const valid = [
     [{"id":"root","parent_id":null},{"id":"eius","parent_id":"root"},{"id":"autem","parent_id":"eius"},{"id":"dolore","parent_id":"autem"},{"id":"blanditiis","parent_id":"autem"},{"id":"aliquid","parent_id":"autem"},{"id":"voluptatem","parent_id":"eius"},{"id":"tenetur","parent_id":"voluptatem"},{"id":"sint","parent_id":"voluptatem"},{"id":"ut","parent_id":"voluptatem"},{"id":"amet","parent_id":"eius"},{"id":"fugit","parent_id":"amet"},{"id":"unde","parent_id":"amet"},{"id":"quis","parent_id":"amet"},{"id":"aut","parent_id":"amet"},{"id":"architecto","parent_id":"amet"},{"id":"accusantium","parent_id":"root"},{"id":"eos","parent_id":"accusantium"},{"id":"vero","parent_id":"eos"},{"id":"voluptate","parent_id":"eos"},{"id":"veniam","parent_id":"eos"},{"id":"illo","parent_id":"eos"},{"id":"omnis","parent_id":"eos"},{"id":"consequatur","parent_id":"accusantium"},{"id":"quo","parent_id":"consequatur"},{"id":"sapiente","parent_id":"accusantium"},{"id":"illum","parent_id":"sapiente"},{"id":"reprehenderit","parent_id":"sapiente"},{"id":"iste","parent_id":"accusantium"},{"id":"officia","parent_id":"iste"},{"id":"natus","parent_id":"iste"},{"id":"quas","parent_id":"iste"},{"id":"sit","parent_id":"iste"},{"id":"qui","parent_id":"root"},{"id":"neque","parent_id":"qui"},{"id":"rerum","parent_id":"neque"},{"id":"fugiat","parent_id":"neque"},{"id":"enim","parent_id":"neque"},{"id":"in","parent_id":"neque"},{"id":"dolorem","parent_id":"qui"},{"id":"voluptas","parent_id":"dolorem"},{"id":"possimus","parent_id":"qui"},{"id":"cumque","parent_id":"possimus"},{"id":"facilis","parent_id":"possimus"},{"id":"asperiores","parent_id":"possimus"},{"id":"impedit","parent_id":"possimus"},{"id":"rem","parent_id":"qui"},{"id":"dicta","parent_id":"rem"},{"id":"et","parent_id":"rem"},{"id":"inventore","parent_id":"rem"},{"id":"vel","parent_id":"rem"},{"id":"voluptatum","parent_id":"root"},{"id":"laboriosam","parent_id":"voluptatum"},{"id":"magni","parent_id":"laboriosam"},{"id":"aspernatur","parent_id":"laboriosam"},{"id":"alias","parent_id":"laboriosam"},{"id":"dolor","parent_id":"laboriosam"},{"id":"beatae","parent_id":"voluptatum"},{"id":"sunt","parent_id":"beatae"},{"id":"ipsa","parent_id":"voluptatum"},{"id":"animi","parent_id":"ipsa"},{"id":"quia","parent_id":"root"},{"id":"laudantium","parent_id":"quia"},{"id":"sed","parent_id":"laudantium"},{"id":"est","parent_id":"laudantium"},{"id":"reiciendis","parent_id":"laudantium"},{"id":"repudiandae","parent_id":"laudantium"},{"id":"perspiciatis","parent_id":"quia"},{"id":"nisi","parent_id":"perspiciatis"}],
@@ -10,26 +10,26 @@ const valid = [
 ];
 Object.freeze(valid);
 
-describe('tree_walk_preorder2', function () {
+describe('tree_walk_preorder', function () {
     it('should enter each node once', function () {
         const items = JSON.parse(JSON.stringify(valid[0]));
         const nodes = tree_from_array(items).roots;
         const set = new WeakSet();
-        tree_walk_preorder2({nodes, enter: v => set.add(v.node)});
+        tree_walk_preorder({nodes, enter: v => set.add(v.node)});
         items.forEach(v => assert(set.has(v)));
     });
     it('should leave each node once', function () {
         const items = JSON.parse(JSON.stringify(valid[0]));
         const nodes = tree_from_array(items).roots;
         const set = new WeakSet();
-        tree_walk_preorder2({nodes, leave: v => set.add(v.node)});
+        tree_walk_preorder({nodes, leave: v => set.add(v.node)});
         items.forEach(v => assert(set.has(v)));
     });
     it('should visit each node once', function () {
         const items = JSON.parse(JSON.stringify(valid[0]));
         const nodes = tree_from_array(items).roots;
         const set = new WeakSet();
-        tree_walk_preorder2({nodes, visit: v => set.add(v.node)});
+        tree_walk_preorder({nodes, visit: v => set.add(v.node)});
         items.forEach(v => assert(set.has(v)));
     });
     it('should walk each node a particular order', function () {
@@ -38,7 +38,7 @@ describe('tree_walk_preorder2', function () {
         const leave = new WeakSet();
         const enter = new WeakSet();
         const visit = new WeakSet();
-        tree_walk_preorder2({
+        tree_walk_preorder({
             nodes,
             enter: function ({node}) {
                 enter.add(node);
@@ -61,7 +61,7 @@ describe('tree_walk_preorder2', function () {
             c
         `);
         const preorder = [];
-        tree_walk_preorder2({
+        tree_walk_preorder({
             nodes: tree_from_array(nodes).roots,
             enter: function ({node}) {
                 preorder.push(`E[${node.id}]`);
@@ -82,7 +82,7 @@ describe('tree_walk_preorder2', function () {
             c
         `);
         const preorder = [];
-        tree_walk_preorder2({
+        tree_walk_preorder({
             nodes: tree_from_array(nodes).roots,
             enter: function ({node}) {
                 preorder.push(`E[${node.id}]`);

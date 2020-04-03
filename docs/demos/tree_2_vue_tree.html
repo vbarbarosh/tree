@@ -79,7 +79,7 @@ new Vue({
     methods: {
         save: function () {
             const items = [];
-            vbtree.tree_walk_preorder2({
+            vbtree.tree_walk_preorder({
                 nodes: this.nodes,
                 visit: function ({node}) {
                     const tmp = {...node};
@@ -92,7 +92,7 @@ new Vue({
         },
         restore: function () {
             let items = '';
-            vbtree.tree_walk_preorder2({
+            vbtree.tree_walk_preorder({
                 nodes: vbtree.tree_from_array(JSON.parse(this.saved)).roots,
                 visit: function ({stack, node}) {
                     items += ' '.repeat(stack.length*4) + node.text + '\n';

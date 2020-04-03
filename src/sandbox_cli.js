@@ -4,7 +4,7 @@ import tree_from_array from './tree_from_array';
 import tree_from_string2 from './tree_from_string2';
 import tree_print2 from './tree_print2';
 import tree_roots_flatten from './tree_roots_flatten';
-import tree_walk_preorder2 from './tree_walk_preorder2';
+import tree_walk_preorder from './tree_walk_preorder';
 
 // Case when node refers to undefined parent_id
 
@@ -27,7 +27,7 @@ function preorder(items)
 {
     let retval = [];
     let parents = [];
-    tree_walk_preorder2({
+    tree_walk_preorder({
         nodes: tree_from_array(JSON.parse(JSON.stringify(items))).roots,
         visit: function (ctx) {
             retval.push(ctx.node.id);
@@ -105,7 +105,7 @@ async function main()
                 switch (key.name) {
                 case 'k':
                 case 'up':
-                    tmp = tree_walk_preorder2({
+                    tmp = tree_walk_preorder({
                         nodes: tree_from_array(JSON.parse(JSON.stringify(nodes))).roots,
                         retval: [],
                         visit: function (ctx) {
@@ -117,7 +117,7 @@ async function main()
                     break;
                 case 'j':
                 case 'down':
-                    tmp = tree_walk_preorder2({
+                    tmp = tree_walk_preorder({
                         nodes: tree_from_array(JSON.parse(JSON.stringify(nodes))).roots,
                         retval: [],
                         visit: function (ctx) {
@@ -174,7 +174,7 @@ function move_up2(nodes, target)
 {
     let t = null;
     let prev = null;
-    tree_walk_preorder2({
+    tree_walk_preorder({
         nodes: tree_from_array(nodes.map(function ({id, parent_id}, i) {
             return {id, parent_id, i};
         })).roots,
@@ -200,7 +200,7 @@ function move_down2(nodes, target)
     let t = null;
     let next = null;
     let nextnext = null;
-    tree_walk_preorder2({
+    tree_walk_preorder({
         nodes: tree_from_array(nodes.map(function ({id, parent_id}, i) {
             return {id, parent_id, i};
         })).roots,

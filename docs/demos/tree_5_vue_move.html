@@ -100,7 +100,7 @@ new Vue({
         selection: function () {
             return vbtree.tree_walk_preorder({
                 retval: [],
-                nodes: this.nodes,
+                roots: this.nodes,
                 visit: function (ctx) {
                     if (ctx.node.is_checked) {
                         ctx.retval.push(ctx.node);
@@ -123,7 +123,7 @@ new Vue({
             handler: function () {
                 const nodes = vbtree.tree_from_string2(this.tree);
                 vbtree.tree_walk_preorder({
-                    nodes,
+                    roots,
                     visit: function ({node}) {
                         const i = node.text.indexOf('json:{');
                         if (i != -1) {
@@ -147,7 +147,7 @@ new Vue({
         save: function () {
             const items = [];
             vbtree.tree_walk_preorder({
-                nodes: this.nodes,
+                roots: this.nodes,
                 visit: function ({node}) {
                     const tmp = {...node};
                     delete tmp.parent;
@@ -160,7 +160,7 @@ new Vue({
         restore: function () {
             let lines = '';
             vbtree.tree_walk_preorder({
-                nodes: vbtree.tree_from_array(JSON.parse(this.saved)).roots,
+                roots: vbtree.tree_from_array(JSON.parse(this.saved)).roots,
                 visit: function ({stack, node}) {
                     const tmp = {...node, id: undefined, parent_id: undefined, level: undefined, parent: undefined, children: undefined, text: undefined};
                     let json = JSON.stringify(tmp);

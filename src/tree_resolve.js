@@ -25,7 +25,7 @@ function tree_resolve(nodes, start, one_down, horizontal_shift)
         return {id: node.id, parent_id: nodes_map[node.parent_id] ? node.parent_id : null, value: node, i};
     }));
     tree_walk_preorder({
-        nodes: roots,
+        roots,
         visit: function (ctx) {
             if (end) {
                 retval.i = ctx.node.i;

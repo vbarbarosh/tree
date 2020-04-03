@@ -13,33 +13,33 @@ Object.freeze(valid);
 describe('tree_walk_preorder', function () {
     it('should enter each node once', function () {
         const items = JSON.parse(JSON.stringify(valid[0]));
-        const nodes = tree_from_array(items).roots;
+        const roots = tree_from_array(items).roots;
         const set = new WeakSet();
-        tree_walk_preorder({nodes, enter: v => set.add(v.node)});
+        tree_walk_preorder({roots, enter: v => set.add(v.node)});
         items.forEach(v => assert(set.has(v)));
     });
     it('should leave each node once', function () {
         const items = JSON.parse(JSON.stringify(valid[0]));
-        const nodes = tree_from_array(items).roots;
+        const roots = tree_from_array(items).roots;
         const set = new WeakSet();
-        tree_walk_preorder({nodes, leave: v => set.add(v.node)});
+        tree_walk_preorder({roots, leave: v => set.add(v.node)});
         items.forEach(v => assert(set.has(v)));
     });
     it('should visit each node once', function () {
         const items = JSON.parse(JSON.stringify(valid[0]));
-        const nodes = tree_from_array(items).roots;
+        const roots = tree_from_array(items).roots;
         const set = new WeakSet();
-        tree_walk_preorder({nodes, visit: v => set.add(v.node)});
+        tree_walk_preorder({roots, visit: v => set.add(v.node)});
         items.forEach(v => assert(set.has(v)));
     });
     it('should walk each node a particular order', function () {
         const items = JSON.parse(JSON.stringify(valid[0]));
-        const nodes = tree_from_array(items).roots;
+        const roots = tree_from_array(items).roots;
         const leave = new WeakSet();
         const enter = new WeakSet();
         const visit = new WeakSet();
         tree_walk_preorder({
-            nodes,
+            roots,
             enter: function ({node}) {
                 enter.add(node);
             },
@@ -62,7 +62,7 @@ describe('tree_walk_preorder', function () {
         `);
         const preorder = [];
         tree_walk_preorder({
-            nodes: tree_from_array(nodes).roots,
+            roots: tree_from_array(nodes).roots,
             enter: function ({node}) {
                 preorder.push(`E[${node.id}]`);
             },
@@ -83,7 +83,7 @@ describe('tree_walk_preorder', function () {
         `);
         const preorder = [];
         tree_walk_preorder({
-            nodes: tree_from_array(nodes).roots,
+            roots: tree_from_array(nodes).roots,
             enter: function ({node}) {
                 preorder.push(`E[${node.id}]`);
             },

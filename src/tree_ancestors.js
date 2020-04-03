@@ -12,7 +12,7 @@ function tree_ancestors(nodes, target)
 {
     let ancestors = [];
     tree_walk_preorder({
-        nodes: tree_from_array(nodes.map(tree_map_orig)).roots,
+        roots: tree_from_array(nodes.map(tree_map_orig)).roots,
         visit: function ({node, stack}) {
             if (node.orig === target) {
                 ancestors = stack.map(v => v.orig);

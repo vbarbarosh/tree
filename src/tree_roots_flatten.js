@@ -1,12 +1,11 @@
 import tree_walk_preorder from './tree_walk_preorder';
 
-function tree_roots_flatten(nodes)
+function tree_roots_flatten(roots)
 {
-    const retval = [];
     return tree_walk_preorder({
-        nodes,
-        retval,
-        enter: function ({node}) {
+        roots,
+        retval: [],
+        enter: function ({node, retval}) {
             retval.push(node);
         },
         leave: function ({node}) {

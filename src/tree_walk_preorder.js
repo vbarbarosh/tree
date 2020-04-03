@@ -1,8 +1,8 @@
 function tree_walk_preorder(ctx)
 {
     ctx.stack = [];
-    for (let i = 0, end = ctx.nodes.length; i < end; ++i) {
-        ctx.node = ctx.nodes[i];
+    for (let i = 0, end = ctx.roots.length; i < end; ++i) {
+        ctx.node = ctx.roots[i];
         if (tree_walk_preorder_int(ctx)) {
             break;
         }

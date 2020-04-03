@@ -28,7 +28,7 @@ function preorder(items)
     let retval = [];
     let parents = [];
     tree_walk_preorder({
-        nodes: tree_from_array(JSON.parse(JSON.stringify(items))).roots,
+        roots: tree_from_array(JSON.parse(JSON.stringify(items))).roots,
         visit: function (ctx) {
             retval.push(ctx.node.id);
             parents.push((ctx.node.parent_id === undefined)
@@ -106,7 +106,7 @@ async function main()
                 case 'k':
                 case 'up':
                     tmp = tree_walk_preorder({
-                        nodes: tree_from_array(JSON.parse(JSON.stringify(nodes))).roots,
+                        roots: tree_from_array(JSON.parse(JSON.stringify(nodes))).roots,
                         retval: [],
                         visit: function (ctx) {
                             ctx.retval.push(ctx.node);
@@ -118,7 +118,7 @@ async function main()
                 case 'j':
                 case 'down':
                     tmp = tree_walk_preorder({
-                        nodes: tree_from_array(JSON.parse(JSON.stringify(nodes))).roots,
+                        roots: tree_from_array(JSON.parse(JSON.stringify(nodes))).roots,
                         retval: [],
                         visit: function (ctx) {
                             ctx.retval.push(ctx.node);
@@ -175,7 +175,7 @@ function move_up2(nodes, target)
     let t = null;
     let prev = null;
     tree_walk_preorder({
-        nodes: tree_from_array(nodes.map(function ({id, parent_id}, i) {
+        roots: tree_from_array(nodes.map(function ({id, parent_id}, i) {
             return {id, parent_id, i};
         })).roots,
         visit: function (ctx) {
@@ -201,7 +201,7 @@ function move_down2(nodes, target)
     let next = null;
     let nextnext = null;
     tree_walk_preorder({
-        nodes: tree_from_array(nodes.map(function ({id, parent_id}, i) {
+        roots: tree_from_array(nodes.map(function ({id, parent_id}, i) {
             return {id, parent_id, i};
         })).roots,
         visit: function (ctx) {

@@ -948,8 +948,8 @@
             "mtime": "2020-03-16T00:58:57.368Z",
             "ctime": "2020-03-16T00:58:57.368Z",
             "birthtime": "2020-03-16T00:58:57.368Z",
-            "pathname": "src/tree_flatten.js",
-            "basename": "tree_flatten.js",
+            "pathname": "src/tree_roots_flatten.js",
+            "basename": "tree_roots_flatten.js",
             "flags": [
                 "is_file"
             ],

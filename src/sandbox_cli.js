@@ -1,9 +1,9 @@
 import Promise from 'bluebird';
 import readline from 'readline';
-import tree_flatten from './tree_flatten';
 import tree_from_array from './tree_from_array';
 import tree_from_string2 from './tree_from_string2';
 import tree_print2 from './tree_print2';
+import tree_roots_flatten from './tree_roots_flatten';
 import tree_walk_preorder2 from './tree_walk_preorder2';
 
 // Case when node refers to undefined parent_id
@@ -277,7 +277,7 @@ function move_right(nodes, target)
 
 function tree(text)
 {
-    const out = tree_flatten(tree_from_string2(text));
+    const out = tree_roots_flatten(tree_from_string2(text));
     const ids = {};
     out.forEach(v => ids[v.id] = v.text);
     out.forEach(v => v.id = ids[v.id]);

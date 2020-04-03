@@ -341,7 +341,7 @@ group buttons
         tree: {
             handler: function () {
                 const _this = this;
-                const nodes = vbtree.tree_flatten(vbtree.tree_from_string2(this.tree));
+                const nodes = vbtree.tree_roots_flatten(vbtree.tree_from_string2(this.tree));
                 nodes.forEach(function (node) {
                     const [type, name, ...other] = node.text.split(' ');
                     node.type = type;

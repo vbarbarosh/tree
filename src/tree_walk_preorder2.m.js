@@ -1,6 +1,6 @@
-import tree_flatten from './tree_flatten';
 import tree_from_array from './tree_from_array';
 import tree_from_string2 from './tree_from_string2';
+import tree_roots_flatten from './tree_roots_flatten';
 import tree_walk_preorder2 from './tree_walk_preorder2';
 
 const valid = [
@@ -100,7 +100,7 @@ describe('tree_walk_preorder2', function () {
 
 function tree(text)
 {
-    const out = tree_flatten(tree_from_string2(text));
+    const out = tree_roots_flatten(tree_from_string2(text));
     const ids = {};
     out.forEach(v => ids[v.id] = v.text);
     out.forEach(v => v.id = ids[v.id]);

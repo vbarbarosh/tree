@@ -1,6 +1,6 @@
 import tree_walk_preorder2 from './tree_walk_preorder2';
 
-function tree_flatten(nodes)
+function tree_roots_flatten(nodes)
 {
     const retval = [];
     return tree_walk_preorder2({
@@ -16,4 +16,4 @@ function tree_flatten(nodes)
     });
 }
 
-export default tree_flatten;
+export default tree_roots_flatten;

@@ -11,13 +11,13 @@
     "src",
     "dist/*.js"
   ],
+  "exports": {
+    "./": "./src/"
+  },
   "keywords": [
     "js",
     "tree"
   ],
-  "exports": {
-    "./": "./src/"
-  },
   "scripts": {
     "build": "webpack",
     "test": "mjs src/*.m.js"

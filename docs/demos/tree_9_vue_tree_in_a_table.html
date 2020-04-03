@@ -221,7 +221,7 @@ new Vue({
             const sel_all = vbtree.tree_intersect(this.nodes, this.selection);
             return vbtree.tree_from_array(sel_all.map(function (node) {
                 return {id: node.id, parent_id: node.parent_id, value: node};
-            }));
+            })).roots;
         },
         outline_props: function () {
             if (!this.target) {
@@ -256,7 +256,7 @@ new Vue({
         nodes_tree: function () {
             return vbtree.tree_from_array(this.nodes.map(function (node) {
                 return {id: node.id, parent_id: node.parent_id, value: node};
-            }));
+            })).roots;
         },
         nodes_children: function () {
             return array_group_map(this.nodes, v => v.parent_id);
@@ -266,7 +266,7 @@ new Vue({
             vbtree.tree_walk_preorder2({
                 nodes: vbtree.tree_from_array(this.nodes.map(function (node) {
                     return {id: node.id, parent_id: node.parent_id, value: node};
-                })),
+                })).roots,
                 visit: function (ctx) {
                     ctx.node.level = ctx.stack.length;
                     out.push(ctx.node);

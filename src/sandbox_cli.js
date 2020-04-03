@@ -11,7 +11,7 @@ import tree_walk_preorder2 from './tree_walk_preorder2';
 function print(items, selection)
 {
     console.log(preorder(items));
-    let s = tree_print2(tree_from_array(JSON.parse(JSON.stringify(items))));
+    let s = tree_print2(tree_from_array(JSON.parse(JSON.stringify(items))).roots);
     s = s.split('\n').map(function (line) {
         if (line.endsWith(`─ ${selection.text}`)) {
             return `\x1b[32m${line}<<<<\x1b[0m`;
@@ -28,7 +28,7 @@ function preorder(items)
     let retval = [];
     let parents = [];
     tree_walk_preorder2({
-        nodes: tree_from_array(JSON.parse(JSON.stringify(items))),
+        nodes: tree_from_array(JSON.parse(JSON.stringify(items))).roots,
         visit: function (ctx) {
             retval.push(ctx.node.id);
             parents.push((ctx.node.parent_id === undefined)
@@ -106,7 +106,7 @@ async function main()
                 case 'k':
                 case 'up':
                     tmp = tree_walk_preorder2({
-                        nodes: tree_from_array(JSON.parse(JSON.stringify(nodes))),
+                        nodes: tree_from_array(JSON.parse(JSON.stringify(nodes))).roots,
                         retval: [],
                         visit: function (ctx) {
                             ctx.retval.push(ctx.node);
@@ -118,7 +118,7 @@ async function main()
                 case 'j':
                 case 'down':
                     tmp = tree_walk_preorder2({
-                        nodes: tree_from_array(JSON.parse(JSON.stringify(nodes))),
+                        nodes: tree_from_array(JSON.parse(JSON.stringify(nodes))).roots,
                         retval: [],
                         visit: function (ctx) {
                             ctx.retval.push(ctx.node);
@@ -177,7 +177,7 @@ function move_up2(nodes, target)
     tree_walk_preorder2({
         nodes: tree_from_array(nodes.map(function ({id, parent_id}, i) {
             return {id, parent_id, i};
-        })),
+        })).roots,
         visit: function (ctx) {
             if (ctx.node.id == target.id) {
                 t = ctx.node;
@@ -203,7 +203,7 @@ function move_down2(nodes, target)
     tree_walk_preorder2({
         nodes: tree_from_array(nodes.map(function ({id, parent_id}, i) {
             return {id, parent_id, i};
-        })),
+        })).roots,
         visit: function (ctx) {
             if (ctx.node.id == target.id) {
                 t = ctx.node;

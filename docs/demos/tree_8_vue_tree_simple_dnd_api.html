@@ -339,7 +339,7 @@ group buttons
         nodes_tree: function () {
             return vbtree.tree_from_array(this.nodes.map(function (node) {
                 return {id: node.id, parent_id: node.parent_id, value: node};
-            }));
+            })).roots;
         },
         nodes_children: function () {
             return array_group_map(this.nodes, v => v.parent_id);

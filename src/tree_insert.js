@@ -16,7 +16,7 @@ function tree_insert(nodes, insertion, i, parent_id)
 {
     const items = [];
     tree_walk_preorder2({
-        nodes: tree_from_array(insertion.map(tree_map_orig)),
+        nodes: tree_from_array(insertion.map(tree_map_orig)).roots,
         visit: function ({node, stack}) {
             if (stack.length == 1) {
                 node.orig.parent_id = parent_id;

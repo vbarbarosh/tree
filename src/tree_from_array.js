@@ -2,28 +2,28 @@
  * W A R N I N G
  *     This function will modify original values.
  *
- * @param {Array} items
- * @returns {Array} roots
+ * @param {Array} nodes
+ * @returns {{roots,nodes,nodes_map}} roots
  *
  * @link https://stackoverflow.com/a/37907458/1478566
  * @link http://krishnalearnings.blogspot.com/2015/11/basics-of-graph-in-computer-science.html
  */
-function tree_from_array(items = [])
+function tree_from_array(nodes = [])
 {
     const roots = [];
     const orphans = [];
-    const nodes = {};
+    const nodes_map = {};
 
     // Split all rows into nodes and potential roots.
-    for (let i = 0, end = items.length; i < end; ++i) {
-        const node = items[i];
+    for (let i = 0, end = nodes.length; i < end; ++i) {
+        const node = nodes[i];
         node.parent_id = node.parent_id || null;
         node.children = [];
-        if (nodes[node.id]) {
+        if (nodes_map[node.id]) {
             throw new Error('All rows should have unique ids');
         }
-        nodes[node.id] = node;
-        if (node.parent = nodes[node.parent_id] || null) {
+        nodes_map[node.id] = node;
+        if (node.parent = nodes_map[node.parent_id] || null) {
             // The most basic condition for circular dependency.
             if (node.parent === node) {
                 panic(node);
@@ -43,7 +43,7 @@ function tree_from_array(items = [])
 
     for (let i = 0, end = orphans.length; i < end; ++i) {
         const node = orphans[i];
-        if (node.parent = nodes[node.parent_id] || null) {
+        if (node.parent = nodes_map[node.parent_id] || null) {
             splice[node.parent_id] = (splice[node.parent_id]+1)||0;
             node.parent.children.splice(splice[node.parent_id], 0, node);
             // At this point just inserted node can create a circular dependency.
@@ -60,7 +60,7 @@ function tree_from_array(items = [])
         }
     }
 
-    return roots;
+    return {roots, nodes, nodes_map};
 }
 
 function panic(node)

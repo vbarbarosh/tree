@@ -157,7 +157,7 @@ new Vue({
         restore: function () {
             let lines = '';
             vbtree.tree_walk_preorder2({
-                nodes: vbtree.tree_from_array(JSON.parse(this.saved)),
+                nodes: vbtree.tree_from_array(JSON.parse(this.saved)).roots,
                 visit: function ({stack, node}) {
                     const tmp = {...node, id: undefined, parent_id: undefined, level: undefined, parent: undefined, children: undefined, text: undefined};
                     let json = JSON.stringify(tmp);

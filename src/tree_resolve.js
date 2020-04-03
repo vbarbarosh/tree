@@ -21,7 +21,7 @@ function tree_resolve(nodes, start, one_down, horizontal_shift)
     let prev_id = null;
     const retval = {i: 0, parent_id: null};
     const nodes_map = array_index(nodes, v => v.id);
-    const roots = tree_from_array(nodes.map(function (node, i) {
+    const {roots} = tree_from_array(nodes.map(function (node, i) {
         return {id: node.id, parent_id: nodes_map[node.parent_id] ? node.parent_id : null, value: node, i};
     }));
     tree_walk_preorder2({

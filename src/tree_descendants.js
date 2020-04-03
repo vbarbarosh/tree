@@ -17,7 +17,7 @@ function tree_descendants(nodes, selection)
     const descendants = [];
     const selection_map = array_index(selection, v => v.id);
     tree_walk_preorder2({
-        nodes: tree_from_array(nodes.map(tree_map_orig)),
+        nodes: tree_from_array(nodes.map(tree_map_orig)).roots,
         leave: function ({node}) {
             if (selection_map[node.id]) {
                 dump--;

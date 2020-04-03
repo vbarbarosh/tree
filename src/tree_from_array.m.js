@@ -24,10 +24,10 @@ Object.freeze(circular);
 
 describe('tree_from_array', function () {
     it('should accept no arguments', function () {
-        assert.deepEqual(tree_from_array(), []);
+        assert.deepEqual(tree_from_array().roots, []);
     });
     it('should accept empty array', function () {
-        assert.deepEqual(tree_from_array([]), []);
+        assert.deepEqual(tree_from_array([]).roots, []);
     });
     it('should respect order of items #1', function () {
         const items = [
@@ -37,7 +37,7 @@ describe('tree_from_array', function () {
             {id:'c',parent_id:'b'},
             {id:'z',parent_id:null},
         ];
-        const result = tree_print2(tree_from_array(items)).trim();
+        const result = tree_print2(tree_from_array(items).roots).trim();
         const expected = `
 ├── a
 │   ├── x
@@ -56,7 +56,7 @@ describe('tree_from_array', function () {
             {id:'c',parent_id:'b'},
             {id:'z',parent_id:null},
         ];
-        const result = tree_print2(tree_from_array(items)).trim();
+        const result = tree_print2(tree_from_array(items).roots).trim();
         const expected = `
 ├── a
 │   ├── x
@@ -76,7 +76,7 @@ describe('tree_from_array', function () {
             {id:'c',parent_id:'b'},
             {id:'z',parent_id:null},
         ];
-        const result = tree_print2(tree_from_array(items)).trim();
+        const result = tree_print2(tree_from_array(items).roots).trim();
         const expected = `
 ├── x
 ├── y
@@ -92,19 +92,19 @@ describe('tree_from_array', function () {
         const node1 = {id: 1, parent_id: null, parent: null, children: []};
         const node2 = {id: 2, parent_id: 1, parent: node1, children: []};
         node1.children.push(node2);
-        assert.deepEqual(tree_from_array(input), [node1]);
+        assert.deepEqual(tree_from_array(input).roots, [node1]);
     });
     it('should handle basic input №2', function () {
         const input = [{id: 2, parent_id: 1}, {id: 1}];
         const node1 = {id: 1, parent_id: null, parent: null, children: []};
         const node2 = {id: 2, parent_id: 1, parent: node1, children: []};
         node1.children.push(node2);
-        assert.deepEqual(tree_from_array(input), [node1]);
+        assert.deepEqual(tree_from_array(input).roots, [node1]);
     });
     it('should pass random test', function () {
         for (let i = 0, end = valid.length; i < end; ++i) {
             const t1 = obj_clone(valid[i]).sort(fcmp_nodes_id);
-            const t2 = tree_roots_flatten(tree_from_array(obj_clone(valid[i]))).sort(fcmp_nodes_id);
+            const t2 = tree_roots_flatten(tree_from_array(obj_clone(valid[i])).roots).sort(fcmp_nodes_id);
             assert.deepEqual(t1, t2);
         }
     });
@@ -112,12 +112,12 @@ describe('tree_from_array', function () {
         for (let i = 0, end = circular.length; i < end; ++i) {
             const perm = array_permutations(circular[i]);
             for (let j = 0, jj = perm.length; j < jj; ++j) {
-                assert.throws(() => tree_from_array(obj_clone(perm[j])), /Circular dependency detected/);
+                assert.throws(() => tree_from_array(obj_clone(perm[j])).roots, /Circular dependency detected/);
             }
         }
     });
     it('should throw "All rows should have unique ids" exception', function () {
-        assert.throws(() => tree_from_array([{id: 1}, {id: 1}]), /All rows should have unique ids/);
+        assert.throws(() => tree_from_array([{id: 1}, {id: 1}]).roots, /All rows should have unique ids/);
     });
 });
 

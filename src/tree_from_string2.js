@@ -1,6 +1,5 @@
 /**
- * 1. Should return an array of roots
- * 2. Each node should have unique ids
+ * FIXME Should return the same object as tree_from_array
  *
  * @param s
  */

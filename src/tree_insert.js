@@ -1,21 +1,31 @@
+import tree_from_array from './tree_from_array';
+import tree_map_orig from './tree_map_orig';
+import tree_walk2 from './tree_walk2';
+
 /**
  * Insert nodes at specific point.
  *
  * @param nodes
  * @param insertion
- * @param target
+ * @param i
+ * @param parent_id
+ *
+ * FIXME Throw an error if id from insertion is present in nodes
  */
-function tree_insert(nodes, insertion, target)
+function tree_insert(nodes, insertion, i, parent_id)
 {
-    const i = nodes.indexOf(target);
-    if (i == -1) {
-        insertion.forEach(v => v.parent_id = null);
-        nodes.unshift(...insertion);
-    }
-    else {
-        insertion.forEach(v => v.parent_id = target.parent_id);
-        nodes.splice(i+1, 0, ...insertion);
-    }
+    const items = [];
+    tree_walk2({
+        nodes: tree_from_array(insertion.map(tree_map_orig)),
+        visit: function ({node, stack}) {
+            if (stack.length == 1) {
+                node.orig.parent_id = parent_id;
+            }
+            items.push(node.orig);
+        },
+    });
+    nodes.splice(i, 0, ...items);
+    return nodes;
 }
 
 export default tree_insert;

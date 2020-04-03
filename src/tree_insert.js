@@ -1,6 +1,6 @@
 import tree_from_array from './tree_from_array';
 import tree_map_orig from './tree_map_orig';
-import tree_walk2 from './tree_walk2';
+import tree_walk_preorder2 from './tree_walk_preorder2';
 
 /**
  * Insert nodes at specific point.
@@ -15,7 +15,7 @@ import tree_walk2 from './tree_walk2';
 function tree_insert(nodes, insertion, i, parent_id)
 {
     const items = [];
-    tree_walk2({
+    tree_walk_preorder2({
         nodes: tree_from_array(insertion.map(tree_map_orig)),
         visit: function ({node, stack}) {
             if (stack.length == 1) {

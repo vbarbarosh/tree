@@ -1,3 +1,11 @@
+/**
+ *
+ * @param nodes
+ * @param fn
+ * @returns {boolean}
+ *
+ * @deprecated Deprecated in favor of tree_walk_preorder2
+ */
 function tree_walk2(nodes, fn)
 {
     for (let i = 0; i < nodes.length; ++i) {

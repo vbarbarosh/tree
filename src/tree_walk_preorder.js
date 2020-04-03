@@ -1,3 +1,12 @@
+/**
+ *
+ * @param children
+ * @param cb
+ * @param path
+ * @returns {boolean}
+ *
+ * @deprecated Deprecated in favor of tree_walk_preorder2
+ */
 function tree_walk_preorder(children, cb, path = [])
 {
     const p = path.concat(null), n = path.length;

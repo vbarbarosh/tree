@@ -327,22 +327,6 @@ new Vue({
         close: function (node) {
             node.is_closed = true;
         },
-        mousedown: function (event, node) {
-            if (event.__VUE_TREE_HANDLED__) {
-                return;
-            }
-            event.__VUE_TREE_HANDLED__ = true;
-            let wait = true;
-            const _this = this;
-            dd({
-                event,
-                move: function (ctx) {
-                    if (wait) {
-                        wait = false;
-                    }
-                },
-            });
-        },
         dnd_tree_node: function (event, node) {
             const _this = this;
             const feedback = new Vue({

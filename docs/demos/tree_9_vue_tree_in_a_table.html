@@ -31,7 +31,6 @@
 <div id="app" class="p20 ma bs5">
     <button v-on:click="save">save</button>
     <button v-on:click="restore">restore</button>
-    <button v-on:click="find">find</button>
     <br>
     <br>
 
@@ -101,7 +100,7 @@
             <button v-if="!tree_node.value.is_closed" v-on:click="app.close(tree_node.value)" v-bind:disabled="tree_node.children.length == 0">−</button>
         </template>
         <input type="checkbox" v-model="tree_node.value.is_selected">
-        <span v-on:mousedown="app.mousedown($event, tree_node.value)">
+        <span v-on:mousedown="app.dnd_tree_node($event, tree_node)">
             {{ tree_node.value.text }}
         </span>
         <span v-if="app.target_before === tree_node.value" class="abs white p5 bs5">
@@ -337,16 +336,11 @@ new Vue({
                 move: function (ctx) {
                     if (wait) {
                         wait = false;
-                        if (!_this.selection.includes(node)) {
-                            _this.selection.forEach(v => v.is_selected = false);
-                            node.is_selected = true;
-                        }
-                        _this.find(ctx.event);
                     }
                 },
             });
         },
-        find: function (event) {
+        dnd_tree_node: function (event, node) {
             const _this = this;
             const feedback = new Vue({
                 el: document.body.appendChild(document.createElement('DIV')),
@@ -382,6 +376,12 @@ new Vue({
                     document.body.removeChild(this.$el);
                 },
             });
+
+            if (!_this.selection.includes(node.value)) {
+                _this.selection.forEach(v => v.is_selected = false);
+                node.value.is_selected = true;
+            }
+
             dd({
                 event,
                 begin: function (ctx) {
@@ -412,8 +412,6 @@ new Vue({
                     feedback.target = _this.target = finder.update(x, y, rect_from_bcr(_this.$refs.tree.$el.getBoundingClientRect()));
                 },
             });
-        },
-        dnd_tree_node: function () {
         },
         dnd_table_node: function (event, node) {
             const _this = this;

@@ -112,7 +112,7 @@ function array_index(array, fn) {
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
-/*! exports provided: tree_ancestors, tree_common_ancestor, tree_descendants, tree_diff, tree_finder_make, tree_roots_flatten, tree_from_array, tree_from_string, tree_from_string2, tree_insert, tree_intersect, tree_map_orig, tree_move, tree_move_after, tree_move_before, tree_move_into, tree_pointer_shift, tree_print, tree_print2, tree_random, tree_resolve, tree_shift, tree_sort_preorder, tree_stringify, tree_walk2, tree_walk_preorder, tree_walk_preorder2 */
+/*! exports provided: tree_ancestors, tree_common_ancestor, tree_descendants, tree_diff, tree_finder_make, tree_roots_flatten, tree_from_array, tree_from_string, tree_from_string2, tree_insert, tree_intersect, tree_map_orig, tree_move, tree_move_after, tree_move_before, tree_move_into, tree_pointer_shift, tree_print2, tree_random, tree_resolve, tree_shift, tree_sort_preorder, tree_walk_preorder */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -165,42 +165,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _tree_pointer_shift__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./tree_pointer_shift */ "./src/tree_pointer_shift.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_pointer_shift", function() { return _tree_pointer_shift__WEBPACK_IMPORTED_MODULE_15__["default"]; });
 
-/* harmony import */ var _tree_print__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./tree_print */ "./src/tree_print.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_print", function() { return _tree_print__WEBPACK_IMPORTED_MODULE_16__["default"]; });
+/* harmony import */ var _tree_print2__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./tree_print2 */ "./src/tree_print2.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_print2", function() { return _tree_print2__WEBPACK_IMPORTED_MODULE_16__["default"]; });
 
-/* harmony import */ var _tree_print2__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./tree_print2 */ "./src/tree_print2.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_print2", function() { return _tree_print2__WEBPACK_IMPORTED_MODULE_17__["default"]; });
+/* harmony import */ var _tree_random__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./tree_random */ "./src/tree_random.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_random", function() { return _tree_random__WEBPACK_IMPORTED_MODULE_17__["default"]; });
 
-/* harmony import */ var _tree_random__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./tree_random */ "./src/tree_random.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_random", function() { return _tree_random__WEBPACK_IMPORTED_MODULE_18__["default"]; });
+/* harmony import */ var _tree_resolve__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./tree_resolve */ "./src/tree_resolve.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_resolve", function() { return _tree_resolve__WEBPACK_IMPORTED_MODULE_18__["default"]; });
 
-/* harmony import */ var _tree_resolve__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./tree_resolve */ "./src/tree_resolve.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_resolve", function() { return _tree_resolve__WEBPACK_IMPORTED_MODULE_19__["default"]; });
+/* harmony import */ var _tree_roots_flatten__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./tree_roots_flatten */ "./src/tree_roots_flatten.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_roots_flatten", function() { return _tree_roots_flatten__WEBPACK_IMPORTED_MODULE_19__["default"]; });
 
-/* harmony import */ var _tree_roots_flatten__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./tree_roots_flatten */ "./src/tree_roots_flatten.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_roots_flatten", function() { return _tree_roots_flatten__WEBPACK_IMPORTED_MODULE_20__["default"]; });
+/* harmony import */ var _tree_shift__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./tree_shift */ "./src/tree_shift.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_shift", function() { return _tree_shift__WEBPACK_IMPORTED_MODULE_20__["default"]; });
 
-/* harmony import */ var _tree_shift__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./tree_shift */ "./src/tree_shift.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_shift", function() { return _tree_shift__WEBPACK_IMPORTED_MODULE_21__["default"]; });
+/* harmony import */ var _tree_sort_preorder__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./tree_sort_preorder */ "./src/tree_sort_preorder.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_sort_preorder", function() { return _tree_sort_preorder__WEBPACK_IMPORTED_MODULE_21__["default"]; });
 
-/* harmony import */ var _tree_sort_preorder__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./tree_sort_preorder */ "./src/tree_sort_preorder.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_sort_preorder", function() { return _tree_sort_preorder__WEBPACK_IMPORTED_MODULE_22__["default"]; });
-
-/* harmony import */ var _tree_stringify__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./tree_stringify */ "./src/tree_stringify.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_stringify", function() { return _tree_stringify__WEBPACK_IMPORTED_MODULE_23__["default"]; });
-
-/* harmony import */ var _tree_walk2__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./tree_walk2 */ "./src/tree_walk2.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_walk2", function() { return _tree_walk2__WEBPACK_IMPORTED_MODULE_24__["default"]; });
-
-/* harmony import */ var _tree_walk_preorder__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./tree_walk_preorder */ "./src/tree_walk_preorder.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_walk_preorder", function() { return _tree_walk_preorder__WEBPACK_IMPORTED_MODULE_25__["default"]; });
-
-/* harmony import */ var _tree_walk_preorder2__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./tree_walk_preorder2 */ "./src/tree_walk_preorder2.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_walk_preorder2", function() { return _tree_walk_preorder2__WEBPACK_IMPORTED_MODULE_26__["default"]; });
-
-
-
-
+/* harmony import */ var _tree_walk_preorder__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./tree_walk_preorder */ "./src/tree_walk_preorder.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_walk_preorder", function() { return _tree_walk_preorder__WEBPACK_IMPORTED_MODULE_22__["default"]; });
 
 
 
@@ -239,7 +223,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _tree_map_orig__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tree_map_orig */ "./src/tree_map_orig.js");
-/* harmony import */ var _tree_walk_preorder2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tree_walk_preorder2 */ "./src/tree_walk_preorder2.js");
+/* harmony import */ var _tree_walk_preorder__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tree_walk_preorder */ "./src/tree_walk_preorder.js");
 /* harmony import */ var _tree_from_array__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tree_from_array */ "./src/tree_from_array.js");
 
 
@@ -253,8 +237,8 @@ __webpack_require__.r(__webpack_exports__);
 
 function tree_ancestors(nodes, target) {
   var ancestors = [];
-  Object(_tree_walk_preorder2__WEBPACK_IMPORTED_MODULE_1__["default"])({
-    nodes: Object(_tree_from_array__WEBPACK_IMPORTED_MODULE_2__["default"])(nodes.map(_tree_map_orig__WEBPACK_IMPORTED_MODULE_0__["default"])).roots,
+  Object(_tree_walk_preorder__WEBPACK_IMPORTED_MODULE_1__["default"])({
+    roots: Object(_tree_from_array__WEBPACK_IMPORTED_MODULE_2__["default"])(nodes.map(_tree_map_orig__WEBPACK_IMPORTED_MODULE_0__["default"])).roots,
     visit: function visit(_ref) {
       var node = _ref.node,
           stack = _ref.stack;
@@ -343,7 +327,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _array_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./array_index */ "./src/array_index.js");
 /* harmony import */ var _tree_from_array__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tree_from_array */ "./src/tree_from_array.js");
 /* harmony import */ var _tree_map_orig__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tree_map_orig */ "./src/tree_map_orig.js");
-/* harmony import */ var _tree_walk_preorder2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./tree_walk_preorder2 */ "./src/tree_walk_preorder2.js");
+/* harmony import */ var _tree_walk_preorder__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./tree_walk_preorder */ "./src/tree_walk_preorder.js");
 
 
 
@@ -363,8 +347,8 @@ function tree_descendants(nodes, selection) {
   var selection_map = Object(_array_index__WEBPACK_IMPORTED_MODULE_0__["default"])(selection, function (v) {
     return v.id;
   });
-  Object(_tree_walk_preorder2__WEBPACK_IMPORTED_MODULE_3__["default"])({
-    nodes: Object(_tree_from_array__WEBPACK_IMPORTED_MODULE_1__["default"])(nodes.map(_tree_map_orig__WEBPACK_IMPORTED_MODULE_2__["default"])).roots,
+  Object(_tree_walk_preorder__WEBPACK_IMPORTED_MODULE_3__["default"])({
+    roots: Object(_tree_from_array__WEBPACK_IMPORTED_MODULE_1__["default"])(nodes.map(_tree_map_orig__WEBPACK_IMPORTED_MODULE_2__["default"])).roots,
     leave: function leave(_ref) {
       var node = _ref.node;
 
@@ -403,7 +387,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _array_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./array_index */ "./src/array_index.js");
 /* harmony import */ var _tree_from_array__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tree_from_array */ "./src/tree_from_array.js");
 /* harmony import */ var _tree_map_orig__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tree_map_orig */ "./src/tree_map_orig.js");
-/* harmony import */ var _tree_walk_preorder2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./tree_walk_preorder2 */ "./src/tree_walk_preorder2.js");
+/* harmony import */ var _tree_walk_preorder__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./tree_walk_preorder */ "./src/tree_walk_preorder.js");
 
 
 
@@ -421,8 +405,8 @@ function tree_diff(nodes, selection) {
   var selection_map = Object(_array_index__WEBPACK_IMPORTED_MODULE_0__["default"])(selection, function (v) {
     return v.id;
   });
-  Object(_tree_walk_preorder2__WEBPACK_IMPORTED_MODULE_3__["default"])({
-    nodes: Object(_tree_from_array__WEBPACK_IMPORTED_MODULE_1__["default"])(nodes.map(_tree_map_orig__WEBPACK_IMPORTED_MODULE_2__["default"])).roots,
+  Object(_tree_walk_preorder__WEBPACK_IMPORTED_MODULE_3__["default"])({
+    roots: Object(_tree_from_array__WEBPACK_IMPORTED_MODULE_1__["default"])(nodes.map(_tree_map_orig__WEBPACK_IMPORTED_MODULE_2__["default"])).roots,
     visit: function visit(_ref) {
       var node = _ref.node;
 
@@ -992,18 +976,55 @@ function panic(node) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _tree_print__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tree_print */ "./src/tree_print.js");
+// if (0) {
+//     const tree = tree_from_string(`
+//         logo
+//             shapes
+//                 scale,rotate,color,layer_up,layer_down,delete
+//             scale
+//             rotate
+//             drop_shadow
+//                 enabled,distance,angle,opacity,blur
+//             inner_shadow
+//                 enabled,distance,angle,opacity,blur
+//         text
+//             scale
+//             rotate
+//             font
+//             color
+//             drop_shadow
+//                 enabled,distance,angle,opacity,blur
+//             inner_shadow
+//                 enabled,distance,angle,opacity,blur
+//             layer_up
+//             layer_down
+//             delete
+//         uploads
+//             scale
+//             rotate
+//             drop_shadow
+//                 enabled,distance,angle,opacity,blur
+//             inner_shadow
+//                 enabled,distance,angle,opacity,blur
+//             layer_up
+//             layer_down
+//             delete
+//         background
+//             transparent
+//             gradient_color
+//             solid_color
+//     `);
+//     tree_print(tree.children);
+// }
 
-
-if (0) { var tree; }
 /**
  * 1. Should return an array of roots
  * 2. Each node should have unique ids
  *
+ * FIXME Should return the same object as tree_from_array
+ *
  * @param s
  */
-
-
 function tree_from_string(s) {
   var root = {
     id: null,
@@ -1062,8 +1083,7 @@ function tree_from_string(s) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /**
- * 1. Should return an array of roots
- * 2. Each node should have unique ids
+ * FIXME Should return the same object as tree_from_array
  *
  * @param s
  */
@@ -1130,7 +1150,7 @@ function tree_from_string2(s) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _tree_from_array__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tree_from_array */ "./src/tree_from_array.js");
 /* harmony import */ var _tree_map_orig__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tree_map_orig */ "./src/tree_map_orig.js");
-/* harmony import */ var _tree_walk_preorder2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tree_walk_preorder2 */ "./src/tree_walk_preorder2.js");
+/* harmony import */ var _tree_walk_preorder__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tree_walk_preorder */ "./src/tree_walk_preorder.js");
 
 
 
@@ -1147,8 +1167,8 @@ __webpack_require__.r(__webpack_exports__);
 
 function tree_insert(nodes, insertion, i, parent_id) {
   var items = [];
-  Object(_tree_walk_preorder2__WEBPACK_IMPORTED_MODULE_2__["default"])({
-    nodes: Object(_tree_from_array__WEBPACK_IMPORTED_MODULE_0__["default"])(insertion.map(_tree_map_orig__WEBPACK_IMPORTED_MODULE_1__["default"])).roots,
+  Object(_tree_walk_preorder__WEBPACK_IMPORTED_MODULE_2__["default"])({
+    roots: Object(_tree_from_array__WEBPACK_IMPORTED_MODULE_0__["default"])(insertion.map(_tree_map_orig__WEBPACK_IMPORTED_MODULE_1__["default"])).roots,
     visit: function visit(_ref) {
       var node = _ref.node,
           stack = _ref.stack;
@@ -1180,7 +1200,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _array_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./array_index */ "./src/array_index.js");
 /* harmony import */ var _tree_from_array__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tree_from_array */ "./src/tree_from_array.js");
 /* harmony import */ var _tree_map_orig__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tree_map_orig */ "./src/tree_map_orig.js");
-/* harmony import */ var _tree_walk_preorder2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./tree_walk_preorder2 */ "./src/tree_walk_preorder2.js");
+/* harmony import */ var _tree_walk_preorder__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./tree_walk_preorder */ "./src/tree_walk_preorder.js");
 
 
 
@@ -1202,8 +1222,8 @@ function tree_intersect(nodes, selection) {
   var selection_map = Object(_array_index__WEBPACK_IMPORTED_MODULE_0__["default"])(selection, function (v) {
     return v.id;
   });
-  Object(_tree_walk_preorder2__WEBPACK_IMPORTED_MODULE_3__["default"])({
-    nodes: Object(_tree_from_array__WEBPACK_IMPORTED_MODULE_1__["default"])(nodes.map(_tree_map_orig__WEBPACK_IMPORTED_MODULE_2__["default"])).roots,
+  Object(_tree_walk_preorder__WEBPACK_IMPORTED_MODULE_3__["default"])({
+    roots: Object(_tree_from_array__WEBPACK_IMPORTED_MODULE_1__["default"])(nodes.map(_tree_map_orig__WEBPACK_IMPORTED_MODULE_2__["default"])).roots,
     visit: function visit(_ref) {
       var node = _ref.node;
 
@@ -1585,31 +1605,6 @@ function shift_left(nodes, i, parent_id, shift, is_shift_allowed, selection_map)
 
 /***/ }),
 
-/***/ "./src/tree_print.js":
-/*!***************************!*\
-  !*** ./src/tree_print.js ***!
-  \***************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _tree_walk_preorder__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tree_walk_preorder */ "./src/tree_walk_preorder.js");
-
-
-function tree_print(children) {
-  var cb = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function (child) {
-    return child.id;
-  };
-  Object(_tree_walk_preorder__WEBPACK_IMPORTED_MODULE_0__["default"])(children, function (child, path) {
-    console.log('    '.repeat(path.length - 1) + cb(child, path));
-  });
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (tree_print);
-
-/***/ }),
-
 /***/ "./src/tree_print2.js":
 /*!****************************!*\
   !*** ./src/tree_print2.js ***!
@@ -1619,20 +1614,20 @@ function tree_print(children) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _tree_walk_preorder2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tree_walk_preorder2 */ "./src/tree_walk_preorder2.js");
+/* harmony import */ var _tree_walk_preorder__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tree_walk_preorder */ "./src/tree_walk_preorder.js");
 
 
-function tree_print2(nodes) {
+function tree_print2(roots) {
   // Two conditions:
   // 1) Whether or not a node is the last one among its siblings
   // 2) Whether or not a node is the last one in a walking stack (or, whether or not a node is a last one in its branch)
   var retval = '';
-  Object(_tree_walk_preorder2__WEBPACK_IMPORTED_MODULE_0__["default"])({
-    nodes: nodes,
+  Object(_tree_walk_preorder__WEBPACK_IMPORTED_MODULE_0__["default"])({
+    roots: roots,
     visit: function visit(ctx) {
       var s = '';
       ctx.stack.forEach(function (node, stack_i) {
-        var siblings = node.parent ? node.parent.children : nodes; // noinspection EqualityComparisonWithCoercionJS
+        var siblings = node.parent ? node.parent.children : roots; // noinspection EqualityComparisonWithCoercionJS
 
         if (node === siblings[siblings.length - 1]) {
           // noinspection EqualityComparisonWithCoercionJS
@@ -1714,7 +1709,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _array_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./array_index */ "./src/array_index.js");
 /* harmony import */ var _tree_find_shifts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tree_find_shifts */ "./src/tree_find_shifts.js");
 /* harmony import */ var _tree_from_array__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tree_from_array */ "./src/tree_from_array.js");
-/* harmony import */ var _tree_walk_preorder2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./tree_walk_preorder2 */ "./src/tree_walk_preorder2.js");
+/* harmony import */ var _tree_walk_preorder__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./tree_walk_preorder */ "./src/tree_walk_preorder.js");
 
 
 
@@ -1753,8 +1748,8 @@ function tree_resolve(nodes, start, one_down, horizontal_shift) {
   })),
       roots = _tree_from_array.roots;
 
-  Object(_tree_walk_preorder2__WEBPACK_IMPORTED_MODULE_3__["default"])({
-    nodes: roots,
+  Object(_tree_walk_preorder__WEBPACK_IMPORTED_MODULE_3__["default"])({
+    roots: roots,
     visit: function visit(ctx) {
       if (end) {
         retval.i = ctx.node.i;
@@ -1821,16 +1816,16 @@ function tree_resolve(nodes, start, one_down, horizontal_shift) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _tree_walk_preorder2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tree_walk_preorder2 */ "./src/tree_walk_preorder2.js");
+/* harmony import */ var _tree_walk_preorder__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tree_walk_preorder */ "./src/tree_walk_preorder.js");
 
 
-function tree_roots_flatten(nodes) {
-  var retval = [];
-  return Object(_tree_walk_preorder2__WEBPACK_IMPORTED_MODULE_0__["default"])({
-    nodes: nodes,
-    retval: retval,
+function tree_roots_flatten(roots) {
+  return Object(_tree_walk_preorder__WEBPACK_IMPORTED_MODULE_0__["default"])({
+    roots: roots,
+    retval: [],
     enter: function enter(_ref) {
-      var node = _ref.node;
+      var node = _ref.node,
+          retval = _ref.retval;
       retval.push(node);
     },
     leave: function leave(_ref2) {
@@ -2007,76 +2002,6 @@ function fcmp_nodes_id(a, b) {
 
 /***/ }),
 
-/***/ "./src/tree_stringify.js":
-/*!*******************************!*\
-  !*** ./src/tree_stringify.js ***!
-  \*******************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _tree_walk_preorder__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tree_walk_preorder */ "./src/tree_walk_preorder.js");
-
-/**
- *
- * @param children
- * @param cb
- * @returns {string}
- *
- * @deprecated This is not the same as JSON.stringify; deprecated in favor of tree_print
- */
-
-function tree_stringify(children) {
-  var cb = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function (child) {
-    return child.id;
-  };
-  var rows = [];
-  Object(_tree_walk_preorder__WEBPACK_IMPORTED_MODULE_0__["default"])(children, function (child, path) {
-    rows.push(' '.repeat(4 * (path.length - 1)) + cb(child, path));
-  });
-  return rows.join('\n');
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (tree_stringify);
-
-/***/ }),
-
-/***/ "./src/tree_walk2.js":
-/*!***************************!*\
-  !*** ./src/tree_walk2.js ***!
-  \***************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/**
- *
- * @param nodes
- * @param fn
- * @returns {boolean}
- *
- * @deprecated Deprecated in favor of tree_walk_preorder2
- */
-function tree_walk2(nodes, fn) {
-  for (var i = 0; i < nodes.length; ++i) {
-    if (fn(nodes[i]) === false) {
-      return false;
-    }
-
-    if (tree_walk2(nodes[i].children, fn) === false) {
-      return false;
-    }
-  }
-
-  return true;
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (tree_walk2);
-
-/***/ }),
-
 /***/ "./src/tree_walk_preorder.js":
 /*!***********************************!*\
   !*** ./src/tree_walk_preorder.js ***!
@@ -2086,56 +2011,13 @@ function tree_walk2(nodes, fn) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/**
- *
- * @param children
- * @param cb
- * @param path
- * @returns {boolean}
- *
- * @deprecated Deprecated in favor of tree_walk_preorder2
- */
-function tree_walk_preorder(children, cb) {
-  var path = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
-  var p = path.concat(null),
-      n = path.length;
-
-  for (var i = 0, end = children.length; i < end; ++i) {
-    var child = children[i];
-    p[n] = i;
-
-    if (cb(child, p) === false) {
-      return false;
-    }
-
-    if (tree_walk_preorder(child.children, cb, p) === false) {
-      return false;
-    }
-  }
-
-  return true;
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (tree_walk_preorder);
-
-/***/ }),
-
-/***/ "./src/tree_walk_preorder2.js":
-/*!************************************!*\
-  !*** ./src/tree_walk_preorder2.js ***!
-  \************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-function tree_walk_preorder2(ctx) {
+function tree_walk_preorder(ctx) {
   ctx.stack = [];
 
-  for (var i = 0, end = ctx.nodes.length; i < end; ++i) {
-    ctx.node = ctx.nodes[i];
+  for (var i = 0, end = ctx.roots.length; i < end; ++i) {
+    ctx.node = ctx.roots[i];
 
-    if (tree_walk_preorder2_int(ctx)) {
+    if (tree_walk_preorder_int(ctx)) {
       break;
     }
   }
@@ -2143,7 +2025,7 @@ function tree_walk_preorder2(ctx) {
   return ctx.retval;
 }
 
-function tree_walk_preorder2_int(ctx) {
+function tree_walk_preorder_int(ctx) {
   var visit = true;
   var walk = true;
   var end = false;
@@ -2187,7 +2069,7 @@ function tree_walk_preorder2_int(ctx) {
     for (var i = 0, ii = children.length; i < ii; ++i) {
       ctx.node = children[i];
 
-      if (tree_walk_preorder2_int(ctx)) {
+      if (tree_walk_preorder_int(ctx)) {
         end = true;
         break;
       }
@@ -2207,7 +2089,7 @@ function tree_walk_preorder2_int(ctx) {
   return end;
 }
 
-/* harmony default export */ __webpack_exports__["default"] = (tree_walk_preorder2);
+/* harmony default export */ __webpack_exports__["default"] = (tree_walk_preorder);
 
 /***/ }),
 

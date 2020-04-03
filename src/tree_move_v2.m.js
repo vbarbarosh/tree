@@ -3,10 +3,10 @@ import tree_from_string2 from './tree_from_string2';
 import tree_move from './tree_move';
 
 describe('tree_move_v2', function () {
-    it('should handle empty arrays', function () {
+    xit('should handle empty arrays', function () {
         assert.deepEqual(tree_move([], [], null), []);
     });
-    it('should handle basic input #1', function () {
+    xit('should handle basic input #1', function () {
         const nodes = tree(`
             a
             b
@@ -14,7 +14,7 @@ describe('tree_move_v2', function () {
         `);
         assert.deepEqual(tree_move(nodes, [{id:'c'}],{after:'a'}), [{id:'a',parent_id:null},{id:'c',parent_id:null},{id:'b',parent_id:null}]);
     });
-    it('should handle basic input #2', function () {
+    xit('should handle basic input #2', function () {
         const nodes = tree(`
             a
             b

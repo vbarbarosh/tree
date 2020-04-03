@@ -1169,7 +1169,7 @@ function tree_from_string2(s) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _tree_from_array__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tree_from_array */ "./src/tree_from_array.js");
 /* harmony import */ var _tree_map_orig__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tree_map_orig */ "./src/tree_map_orig.js");
-/* harmony import */ var _tree_walk2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tree_walk2 */ "./src/tree_walk2.js");
+/* harmony import */ var _tree_walk_preorder2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tree_walk_preorder2 */ "./src/tree_walk_preorder2.js");
 
 
 
@@ -1186,7 +1186,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function tree_insert(nodes, insertion, i, parent_id) {
   var items = [];
-  Object(_tree_walk2__WEBPACK_IMPORTED_MODULE_2__["default"])({
+  Object(_tree_walk_preorder2__WEBPACK_IMPORTED_MODULE_2__["default"])({
     nodes: Object(_tree_from_array__WEBPACK_IMPORTED_MODULE_0__["default"])(insertion.map(_tree_map_orig__WEBPACK_IMPORTED_MODULE_1__["default"])),
     visit: function visit(_ref) {
       var node = _ref.node,

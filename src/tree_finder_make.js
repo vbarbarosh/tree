@@ -42,6 +42,8 @@ function update(ctx, x, y, container_rect = ctx.container_rect)
     const closest_node_i = ctx.nodes.indexOf(closest_rect.node);
     const shift = Math.round((ctx.xx0 - closest_rect.x + ctx.dx)/ctx.shift_width);
 
+    // XXX is_position_allowed should be called on each update
+
     const i = (closest_node_i==-1?ctx.nodes.length:closest_node_i);
     const tmp = tree_pointer_shift(ctx.nodes, ctx.selection_map, i, shift, ctx.is_position_allowed);
     ctx.i = tmp.i;

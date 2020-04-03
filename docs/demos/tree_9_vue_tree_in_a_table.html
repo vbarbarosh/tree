@@ -454,10 +454,9 @@ new Vue({
                             return rect;
                         }),
                         shift_width: 25,
-                        // XXX `is_shift_allowed` should be replaced by more generic `is_position_allowed`
-                        is_shift_allowed: function (i_parent) {
+                        is_position_allowed: function (i_parent) {
                             const node = _this.nodes[i_parent];
-                            console.log('is_shift_allowed', i_parent, node);
+                            console.log('is_position_allowed', i_parent, node);
                             return (i_parent == -1) || node.is_directory && !node.is_closed && node.title != 'dist';
                         },
                     });

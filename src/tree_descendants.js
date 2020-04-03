@@ -6,6 +6,8 @@ import tree_walk_preorder2 from './tree_walk_preorder2';
 /**
  * Return all descendants of selected nodes
  *
+ * NOTE In order to get all descendants with its parent use `tree_intersect(nodes, selection)`
+ *
  * @param nodes
  * @param selection
  */

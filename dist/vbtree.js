@@ -631,9 +631,10 @@ function update(ctx, x, y) {
     node: null
   };
   var closest_node_i = ctx.nodes.indexOf(closest_rect.node);
-  var shift = Math.round((ctx.xx0 - closest_rect.x + ctx.dx) / ctx.shift_width);
+  var shift = Math.round((ctx.xx0 - closest_rect.x + ctx.dx) / ctx.shift_width); // XXX is_position_allowed should be called on each update
+
   var i = closest_node_i == -1 ? ctx.nodes.length : closest_node_i;
-  var tmp = Object(_tree_pointer_shift__WEBPACK_IMPORTED_MODULE_0__["default"])(ctx.nodes, ctx.selection_map, i, shift, ctx.is_shift_allowed);
+  var tmp = Object(_tree_pointer_shift__WEBPACK_IMPORTED_MODULE_0__["default"])(ctx.nodes, ctx.selection_map, i, shift, ctx.is_position_allowed);
   ctx.i = tmp.i;
   ctx.parent_id = tmp.parent_id;
   ctx.shift = tmp.shift_happened;

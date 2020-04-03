@@ -9,7 +9,7 @@ import tree_from_string from './tree_from_string';
 import tree_from_string2 from './tree_from_string2';
 import tree_insert from './tree_insert';
 import tree_intersect from './tree_intersect';
-import tree_map_orig from 'tree_map_orig';
+import tree_map_orig from './tree_map_orig';
 import tree_move from './tree_move';
 import tree_move_after from './tree_move_after';
 import tree_move_before from './tree_move_before';

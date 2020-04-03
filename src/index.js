@@ -1,5 +1,5 @@
-import tree_ancestor from './tree_ancestor';
 import tree_ancestors from './tree_ancestors';
+import tree_common_ancestor from './tree_common_ancestor';
 import tree_descendants from './tree_descendants';
 import tree_diff from './tree_diff';
 import tree_finder_make from './tree_finder_make';
@@ -27,8 +27,8 @@ import tree_walk_preorder from './tree_walk_preorder';
 import tree_walk_preorder2 from './tree_walk_preorder2';
 
 export {
-    tree_ancestor,
     tree_ancestors,
+    tree_common_ancestor,
     tree_descendants,
     tree_diff,
     tree_finder_make,

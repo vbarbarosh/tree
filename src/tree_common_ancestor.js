@@ -3,7 +3,7 @@
  *
  * @param nodes
  */
-function tree_ancestor(nodes)
+function tree_common_ancestor(nodes)
 {
     if (nodes.length == 0) {
         return null;
@@ -31,4 +31,4 @@ function tree_ancestor(nodes)
     return ancestors[0][end-2]||null;
 }
 
-export default tree_ancestor;
+export default tree_common_ancestor;

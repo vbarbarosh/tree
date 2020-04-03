@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://unpkg.com/@vbarbarosh/smcss@0.3.20/dist/sm.css" rel="stylesheet" />
+    <title>A set of functions for working with trees &mdash; @vbarbarosh/tree</title>
+    <style>
+        body {
+            user-select: none;
+        }
+        ul {
+            padding-left: 28px;
+        }
+        .vue-tree-item:hover {
+            background: #ccc;
+        }
+        .table-foo {
+            border-collapse: collapse;
+            border: 1px solid;
+        }
+        .table-foo-td,
+        .table-foo-th {
+            border: 1px solid;
+        }
+    </style>
+</head>
+<body>
+
+<div class="p20">
+    <p>Rudimentary file manager</p>
+</div>
+
+<div id="app" class="p20 ma bs5">
+    <button v-on:click="save">save</button>
+    <button v-on:click="restore">restore</button>
+    <br>
+    <br>
+
+    <div v-if="outline_props" v-bind="outline_props">
+        <ul-tree v-bind:value="outline_tree" />
+    </div>
+
+    <div class="flex-row mi15" style="min-height: 400px;" v-bind:style="{pointerEvents: outline_props ? 'none' : null}">
+        <div class="w0 flex-fluid dashed">
+            <ul>
+                <li v-for="node in nodes" v-bind:key="node.id">
+                    <small><small>{{ node.type }}:{{ node.name }}</small></small>
+                    <template v-if="node.title">
+                        &mdash; {{ node.title }}
+                    </template>
+                </li>
+            </ul>
+        </div>
+        <div class="w0 flex-fluid dashed">
+            <vue-tree ref="tree" v-bind:value="nodes_tree"></vue-tree>
+        </div>
+        <div class="w0 flex-fluid dashed">
+            <table ref="table" class="table-foo">
+            <thead>
+            </thead>
+            <tbody>
+            <tr v-for="node in nodes_preorder" v-bind:key="node.id">
+                <td class="table-foo-td mi20">
+                    <span v-for="n in node.level-1"></span>
+                    <ref-span v-on:mousedown="dnd_table_node($event,node)" v-model="node.value" v-bind:obj="table_refs_map">
+                        {{ node.value.text }}
+                    </ref-span>
+                </td>
+                <td class="table-foo-td">{{ 1 }}</td>
+            </tr>
+            </tbody>
+            </table>
+        </div>
+    </div>
+    <br>
+    selection:
+    <pre class="dashed" style="white-space: normal;">{{ selection_ids }}</pre>
+    <pre v-if="saved" class="dashed" style="white-space: normal;">{{ saved }}</pre>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.min.js"></script>
+<script src="https://unpkg.com/vue@2.6.11/dist/vue.js"></script>
+<script src="https://unpkg.com/@vbarbarosh/dd@1.1.0/dist/dd.js"></script>
+<script src="https://unpkg.com/axios@0.19.2/dist/axios.js"></script>
+<!--
+<script src="https://unpkg.com/@vbarbarosh/tree@0.2.3/dist/vbtree.js"></script>
+-->
+<script src="../../dist/vbtree.js?r=1"></script>
+
+<script id="templ-vue-tree" type="text/html">
+    <ul v-if="tree_nodes.length">
+        <li v-for="tree_node in tree_nodes" v-bind:key="tree_node.id">
+            <vue-tree-item v-bind:value="tree_node" />
+            <vue-tree v-if="!tree_node.value.is_closed" v-model="tree_node.children" />
+        </li>
+    </ul>
+</script>
+<script id="templ-vue-tree-item" type="text/html">
+    <div v-bind:class="{green: app.selection_all_map[tree_node.id]}" class="pv5 vue-tree-item">
+        <template v-if="tree_node.value.is_directory">
+            <button v-if="tree_node.value.is_closed" v-on:click="app.open(tree_node.value)" v-bind:disabled="tree_node.children.length == 0">+</button>
+            <button v-if="!tree_node.value.is_closed" v-on:click="app.close(tree_node.value)" v-bind:disabled="tree_node.children.length == 0">−</button>
+        </template>
+        <input type="checkbox" v-model="tree_node.value.is_selected">
+        <span v-on:mousedown="app.dnd_tree_node($event, tree_node)">
+            {{ tree_node.value.text }}
+        </span>
+        <span v-if="app.target_before === tree_node.value" class="abs white p5 bs5">
+            !!!
+        </span>
+    </div>
+</script>
+
+<script>
+const app = new Vue({
+    data: {
+        inst: null,
+    },
+});
+
+Vue.mixin({
+    computed: {
+        app: function () {
+            return app.inst;
+        },
+    }
+});
+
+Vue.component('ul-tree', {
+    template: '<ul v-if="tree_nodes.length"><li v-for="node in tree_nodes" v-bind:key="node.id">{{ node.value.text }}<ul-tree v-bind:value="node.children" /></li></ul>',
+    props: ['value'],
+    computed: {
+        tree_nodes: function () {
+            return this.value;
+        },
+    },
+});
+Vue.component('vue-tree', {
+    template: '#templ-vue-tree',
+    props: ['value'],
+    computed: {
+        tree_nodes: function () {
+            return this.value;
+        },
+    },
+});
+// The only reason for this component is to automatically register ref to it
+Vue.component('vue-tree-item', {
+    template: '#templ-vue-tree-item',
+    props: ['value'],
+    computed: {
+        tree_node: function () {
+            return this.value;
+        },
+    },
+    created: function () {
+        this.app.tree_nodes_map[this.tree_node.id] = this;
+    },
+    beforeDestroy: function () {
+        // In case `beforeDestroy` is called after `created`
+        if (this.app.tree_nodes_map[this.tree_node.id] === this) {
+            delete this.app.tree_nodes_map[this.tree_node.id];
+        }
+    },
+});
+Vue.component('ref-span', {
+    props: ['obj', 'value'],
+    template: '<span v-on="$listeners"><slot /></span>',
+    created: function () {
+        this.obj[this.value.id] = this;
+    },
+    beforeDestroy: function () {
+        // In case `beforeDestroy` is called after `created`
+        if (this.obj[this.value.id] === this) {
+            delete this.obj[this.value.id];
+        }
+    },
+});
+
+function array_index(array, fn)
+{
+    const out = {};
+    array.forEach(v => out[fn(v)] = v);
+    return out;
+}
+
+function array_group_map(array, fn)
+{
+    const out = {};
+    array.forEach(function (item) {
+        const key = fn(item);
+        out[key] = out[key] || [];
+        out[key].push(item);
+    });
+    return out;
+}
+
+function px(v)
+{
+    return v ? `${v}px` : 0;
+}
+
+function rect_from_bcr({top, left, right, bottom})
+{
+    return {x: left, y: top, w: right - left, h: bottom - top};
+}
+
+new Vue({
+    el: '#app',
+    data: {
+        target: null,
+        saved: null,
+        nodes: [],
+        tree_nodes_map: {},
+        table_refs_map: {},
+        cursor: null,
+    },
+    computed: {
+        outline_tree: function () {
+            const sel_all = vbtree.tree_intersect(this.nodes, this.selection);
+            return vbtree.tree_from_array(sel_all.map(function (node) {
+                return {id: node.id, parent_id: node.parent_id, value: node};
+            }));
+        },
+        outline_props: function () {
+            if (!this.target) {
+                return null;
+            }
+            const {x, y} = this.cursor;
+            return {
+                style: {
+                    position: 'fixed',
+                    opacity: 0.75,
+                    background: 'rgba(128,255,128,0.5)',
+                    //border: '1px solid',
+                    //borderTop: this.target.before ? '5px solid' : null,
+                    //borderLeft: this.target.shift < 0 ? '5px solid' : null,
+                    //borderRight: this.target.shift > 0 ? '5px solid' : null,
+                    //borderBottom: !this.target.before ? '5px solid' : null,
+                    boxSizing: 'border-box',
+                    pointerEvents: 'none',
+                    top: px(y),
+                    left: px(x),
+                    // width: px(w),
+                    // height: px(h),
+                },
+            };
+        },
+        target_before: function () {
+            return this.find_before(this.target && this.target.node);
+        },
+        nodes_map: function () {
+            return array_index(this.nodes, v => v.id);
+        },
+        nodes_tree: function () {
+            return vbtree.tree_from_array(this.nodes.map(function (node) {
+                return {id: node.id, parent_id: node.parent_id, value: node};
+            }));
+        },
+        nodes_children: function () {
+            return array_group_map(this.nodes, v => v.parent_id);
+        },
+        nodes_preorder: function () {
+            const out = [];
+            vbtree.tree_walk_preorder2({
+                nodes: vbtree.tree_from_array(this.nodes.map(function (node) {
+                    return {id: node.id, parent_id: node.parent_id, value: node};
+                })),
+                visit: function (ctx) {
+                    ctx.node.level = ctx.stack.length;
+                    out.push(ctx.node);
+                    if (ctx.node.value.is_closed) {
+                        return 'SKIP';
+                    }
+                },
+            });
+            return out;
+        },
+        selection: function () {
+            return this.nodes.filter(v => v.is_selected);
+        },
+        selection_map: function () {
+            return array_index(this.selection, v => v.id);
+        },
+        selection_all_map: function () {
+            const sel_all = vbtree.tree_intersect(this.nodes, this.selection);
+            return array_index(sel_all, v => v.id);
+        },
+        selection_ids: function () {
+            return this.selection.map(v => v.id);
+        },
+    },
+    methods: {
+        save: function () {
+            this.saved = JSON.stringify(this.nodes);
+        },
+        restore: function () {
+            this.nodes = JSON.parse(this.saved);
+        },
+        find_before: function (target) {
+            if (!target) {
+                return null;
+            }
+            const _this = this;
+            let prev = null;
+            this.nodes.find(function (node) {
+                if (node === target) {
+                    return true;
+                }
+                // noinspection EqualityComparisonWithCoercionJS
+                if (node.parent_id == target.parent_id) {
+                    prev = node;
+                }
+            });
+            if (prev) {
+                for (let p = prev, i = 0; i < 100; ++i) {
+                    const tmp = this.nodes_children[p.id];
+                    if (!tmp) {
+                        return p;
+                    }
+                    p = tmp[tmp.length - 1];
+                }
+                throw new Error('Too many iterations');
+            }
+            return this.nodes_map[target.parent_id];
+        },
+        open: function (node) {
+            node.is_closed = false;
+        },
+        close: function (node) {
+            node.is_closed = true;
+        },
+        dnd_tree_node: function (event, node) {
+            const _this = this;
+            const feedback = new Vue({
+                el: document.body.appendChild(document.createElement('DIV')),
+                template: '<div v-bind:style="style"></div>',
+                data: {
+                    target: null,
+                },
+                computed: {
+                    style: function () {
+                        if (!this.target) {
+                            return null;
+                        }
+                        const {x, y, w, h} = this.target;
+                        return {
+                            position: 'fixed',
+                            borderTop: this.target.before ? '5px solid' : null,
+                            borderBottom: !this.target.before ? '5px solid' : null,
+                            opacity: 0.5,
+                            pointerEvents: 'none',
+                            top: px(y),
+                            left: px(x),
+                            width: px(w),
+                            height: px(h),
+                        };
+                    },
+                },
+                methods: {
+                    end: function () {
+                        this.$destroy();
+                    },
+                },
+                beforeDestroy: function () {
+                    document.body.removeChild(this.$el);
+                },
+            });
+
+            if (!_this.selection.includes(node.value)) {
+                _this.selection.forEach(v => v.is_selected = false);
+                node.value.is_selected = true;
+            }
+            // >>>>>>>>>>>>>>> Work here <<<<<<<<<<<<<<<<<
+            const selection = vbtree.tree_intersect(_this.nodes, _this.selection);
+            const diff = vbtree.tree_diff(_this.nodes, selection);
+            // Preserve height of a container, so that scrollbars will keep their position
+            const {top,bottom} = _this.$refs.tree.$el.getBoundingClientRect();
+            const height = bottom-top;
+            // Keep container height so that scrollbars will not reset its position
+            _this.$refs.tree.$el.style.height = px(height);
+            this.nodes = diff;
+            // this.tree_nodes_map = {};
+            this.$nextTick(function () {
+                _this.$refs.tree.$el.style.height = null;
+                dd({
+                    event,
+                    begin: function (ctx) {
+                        const components = Object.values(_this.tree_nodes_map);
+                        ctx.finder = vbtree.tree_finder_make({
+                            nodes: diff,
+                            selection: [],
+                            node_rects: components.map(function (ref) {
+                                const rect = rect_from_bcr(ref.$el.getBoundingClientRect());
+                                rect.node = ref.tree_node.value;
+                                return rect;
+                            }),
+                            shift_width: 28,
+                            is_position_allowed: function (i_parent) {
+                                const node = _this.nodes[i_parent];
+                                console.log('is_position_allowed', i_parent, node);
+                                return (i_parent == -1) || !node.is_closed;
+                            },
+                        });
+                    },
+                    end: function ({finder}) {
+                        //vbtree.tree_move(finder.nodes, finder.selection, finder.i, finder.parent_id);
+                        feedback.end();
+                        _this.target = null;
+                        _this.cursor = null;
+                    },
+                    update: function ({finder, x, y}) {
+                        const container_rect = rect_from_bcr(_this.$refs.tree.$el.getBoundingClientRect());
+                        if (finder.container_rect0) {
+                            container_rect.h = finder.container_rect0.h;
+                        }
+                        feedback.target = _this.target = finder.update(x, y, container_rect);
+                        _this.nodes = vbtree.tree_insert(finder.nodes.slice(), selection, finder.i, finder.parent_id);
+                        _this.cursor = {x, y};
+                    },
+                });
+            });
+        },
+        dnd_table_node: function (event, node) {
+            const _this = this;
+            const feedback = new Vue({
+                el: document.body.appendChild(document.createElement('DIV')),
+                template: '<div v-bind:style="style"></div>',
+                data: {
+                    target: null,
+                },
+                computed: {
+                    style: function () {
+                        if (!this.target) {
+                            return null;
+                        }
+                        const {x, y, w, h} = this.target;
+                        return {
+                            position: 'fixed',
+                            borderTop: this.target.before ? '5px solid' : null,
+                            borderBottom: !this.target.before ? '5px solid' : null,
+                            opacity: 0.5,
+                            pointerEvents: 'none',
+                            top: px(y),
+                            left: px(x),
+                            width: px(w),
+                            height: px(h),
+                        };
+                    },
+                },
+                methods: {
+                    end: function () {
+                        this.$destroy();
+                    },
+                },
+                beforeDestroy: function () {
+                    document.body.removeChild(this.$el);
+                },
+            });
+
+            if (!_this.selection.includes(node.value)) {
+                _this.selection.forEach(v => v.is_selected = false);
+                node.value.is_selected = true;
+            }
+
+            dd({
+                event,
+                begin: function (ctx) {
+                    const components = Object.values(_this.table_refs_map);
+                    // const nodes_map = array_index(_this.nodes, v => v.id);
+                    // const selection_map = array_index(vbtree.tree_descendants(_this.nodes, _this.selection), v => v.id);
+                    ctx.finder = vbtree.tree_finder_make({
+                        nodes: _this.nodes,
+                        selection: _this.selection,
+                        node_rects: components.map(function (ref) {
+                            const rect = rect_from_bcr(ref.$el.getBoundingClientRect());
+                            rect.node = ref.value;
+                            return rect;
+                        }),
+                        shift_width: 25,
+                        // is_position_allowed: function (i, parent_id) {
+                        //     if (parent_id === null) {
+                        //         return true;
+                        //     }
+                        //     return !selection_map[parent_id] && nodes_map[parent_id].is_directory && !nodes_map[parent_id].is_closed;
+                        // },
+                        is_position_allowed: function (i_parent) {
+                            const node = _this.nodes[i_parent];
+                            console.log('is_position_allowed', i_parent, node);
+                            return (i_parent == -1) || node.is_directory && !node.is_closed && node.title != 'dist';
+                        },
+                    });
+                },
+                end: function ({finder}) {
+                    vbtree.tree_move(finder.nodes, finder.selection, finder.i, finder.parent_id);
+                    feedback.end();
+                    _this.target = null;
+                    _this.cursor = null;
+                },
+                update: function ({finder, x, y}) {
+                    const container_rect = rect_from_bcr(_this.$refs.table.getBoundingClientRect());
+                    _this.cursor = {x, y};
+                    feedback.target = _this.target = finder.update(x, y, container_rect);
+                },
+            });
+        },
+    },
+    created: async function () {
+        app.inst = this;
+        const tmp = await axios.get('files.json').then(v => v.data);
+        tmp.forEach(function (node) {
+            node.text = node.fi.basename;
+            node.title = node.fi.basename;
+            node.type = node.fi.flags.join();
+            node.is_closed = false;//node.fi.flags_map.is_directory;
+            node.is_selected = false;
+            node.is_directory = node.fi.flags_map.is_directory;
+        });
+        this.nodes = tmp;
+    },
+});
+</script>
+
+</body>
+</html>

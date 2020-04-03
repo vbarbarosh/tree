@@ -1,3 +1,4 @@
+import tree_map_orig from './tree_map_orig';
 import tree_walk_preorder2 from './tree_walk_preorder2';
 import tree_from_array from './tree_from_array';
 
@@ -11,12 +12,10 @@ function tree_ancestors(nodes, target)
 {
     let ancestors = [];
     tree_walk_preorder2({
-        nodes: tree_from_array(nodes.map(function (node) {
-            return {id: node.id, parent_id: node.parent_id, value: node};
-        })),
+        nodes: tree_from_array(nodes.map(tree_map_orig)),
         visit: function ({node, stack}) {
-            if (node.value === target) {
-                ancestors = stack.map(v => v.value);
+            if (node.orig === target) {
+                ancestors = stack.map(v => v.orig);
                 ancestors.pop();
                 return 'END';
             }

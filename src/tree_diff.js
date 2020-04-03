@@ -1,5 +1,6 @@
 import array_index from './array_index';
 import tree_from_array from './tree_from_array';
+import tree_map_orig from './tree_map_orig';
 import tree_walk_preorder2 from './tree_walk_preorder2';
 
 /**
@@ -14,15 +15,13 @@ function tree_diff(nodes, selection)
     const keep = [];
     const selection_map = array_index(selection, v => v.id);
     tree_walk_preorder2({
-        nodes: tree_from_array(nodes.map(function (node) {
-            return {id: node.id, parent_id: node.parent_id, value: node};
-        })),
+        nodes: tree_from_array(nodes.map(tree_map_orig)),
         visit: function ({node}) {
             if (selection_map[node.parent_id]) {
                 selection_map[node.id] = true;
             }
             if (!selection_map[node.id]) {
-                keep.push(node.value);
+                keep.push(node.orig);
             }
         },
     });

@@ -1,5 +1,6 @@
 import array_index from './array_index';
 import tree_from_array from './tree_from_array';
+import tree_map_orig from './tree_map_orig';
 import tree_walk_preorder2 from './tree_walk_preorder2';
 
 /**
@@ -14,9 +15,7 @@ function tree_descendants(nodes, selection)
     const descendants = [];
     const selection_map = array_index(selection, v => v.id);
     tree_walk_preorder2({
-        nodes: tree_from_array(nodes.map(function (node) {
-            return {id: node.id, parent_id: node.parent_id, value: node};
-        })),
+        nodes: tree_from_array(nodes.map(tree_map_orig)),
         leave: function ({node}) {
             if (selection_map[node.id]) {
                 dump--;
@@ -24,7 +23,7 @@ function tree_descendants(nodes, selection)
         },
         visit: function ({node}) {
             if (dump) {
-                descendants.push(node.value);
+                descendants.push(node.orig);
             }
             if (selection_map[node.id]) {
                 dump++;

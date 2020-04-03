@@ -20,7 +20,6 @@ import tree_resolve from './tree_resolve';
 import tree_roots_flatten from './tree_roots_flatten';
 import tree_shift from './tree_shift';
 import tree_sort_preorder from './tree_sort_preorder';
-import tree_walk_preorder from './tree_walk_preorder';
 import tree_walk_preorder2 from './tree_walk_preorder2';
 
 export {
@@ -46,6 +45,5 @@ export {
     tree_resolve,
     tree_shift,
     tree_sort_preorder,
-    tree_walk_preorder,
     tree_walk_preorder2,
 };

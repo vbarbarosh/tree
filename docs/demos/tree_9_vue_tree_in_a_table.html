@@ -392,6 +392,7 @@ new Vue({
                     ctx.finder = vbtree.tree_finder_make({
                         nodes: _this.nodes,
                         selection: _this.selection,
+                        shift_width: 28,
                         node_rects: components.map(function (ref) {
                             const rect = rect_from_bcr(ref.$el.getBoundingClientRect());
                             rect.node = ref.tree_node.value;

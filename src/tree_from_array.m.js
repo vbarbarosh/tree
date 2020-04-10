@@ -37,7 +37,7 @@ describe('tree_from_array', function () {
             {id:'c',parent_id:'b'},
             {id:'z',parent_id:null},
         ];
-        const result = tree_print2(tree_from_array(items).roots).trim();
+        const result = tree_print2(tree_from_array(items)).trim();
         const expected = `
 ├── a
 │   ├── x
@@ -56,7 +56,7 @@ describe('tree_from_array', function () {
             {id:'c',parent_id:'b'},
             {id:'z',parent_id:null},
         ];
-        const result = tree_print2(tree_from_array(items).roots).trim();
+        const result = tree_print2(tree_from_array(items)).trim();
         const expected = `
 ├── a
 │   ├── x
@@ -76,7 +76,7 @@ describe('tree_from_array', function () {
             {id:'c',parent_id:'b'},
             {id:'z',parent_id:null},
         ];
-        const result = tree_print2(tree_from_array(items).roots).trim();
+        const result = tree_print2(tree_from_array(items)).trim();
         const expected = `
 ├── x
 ├── y

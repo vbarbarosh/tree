@@ -17,3 +17,4 @@ npm i @vbarbarosh/tree
 * [Nestable](https://dbushell.com/Nestable/)
 * [Nestable2](https://ramonsmit.github.io/Nestable2/)
 * [UIKit • Nestable](https://getuikit.com/v2/docs/nestable.html)
+* [treeify](https://github.com/notatestuser/treeify)

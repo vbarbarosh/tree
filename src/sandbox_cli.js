@@ -13,7 +13,7 @@ function print(items, selection)
     console.log(preorder(items));
     let s = tree_print2(tree_from_array(JSON.parse(JSON.stringify(items))).roots);
     s = s.split('\n').map(function (line) {
-        if (line.endsWith(`─ ${selection.text}`)) {
+        if (line.endsWith(`─ ${selection.id}`)) {
             return `\x1b[32m${line}<<<<\x1b[0m`;
         }
         return line;

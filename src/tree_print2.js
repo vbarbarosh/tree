@@ -15,7 +15,7 @@ function tree_print2({roots})
         retval: '',
         roots,
         visit: function (ctx) {
-            ctx.retval += tree_walk_preorder_prefix(ctx).map(v => prefix4[v]).join('') + ctx.node.id + '\n';
+            ctx.retval += tree_walk_preorder_prefix(ctx).map(v => prefix4[v]).join('') + (ctx.node.title||ctx.node.id) + '\n';
         },
     });
 }

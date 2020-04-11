@@ -369,6 +369,8 @@ new Vue({
                 _this.selection.forEach(v => v.is_selected = false);
                 node.value.is_selected = true;
             }
+            const nodes_map = array_index(_this.nodes, v => v.id);
+            const is_allowed = {};
 
             dd({
                 event,
@@ -391,14 +393,24 @@ new Vue({
                     });
                 },
                 end: function ({finder}) {
-                    vbtree.tree_move(finder.nodes, finder.selection, finder.i, finder.parent_id);
+                    if (finder.is_allowed) {
+                        vbtree.tree_move(finder.nodes, finder.selection, finder.i, finder.parent_id);
+                    }
                     feedback.end();
                     _this.target = null;
                     _this.cursor = null;
                 },
                 update: function ({finder, x, y}) {
                     _this.cursor = {x, y};
-                    feedback.target = _this.target = finder.update(x, y, rect_from_bcr(_this.$refs.tree.$el.getBoundingClientRect()));
+                    const tmp = finder.update(x, y, rect_from_bcr(_this.$refs.tree.$el.getBoundingClientRect()));
+                    const key = `${finder.i}:${finder.parent_id}`;
+                    if (is_allowed[key] === undefined) {
+                        const parent = nodes_map[finder.parent_id];
+                        is_allowed[key] = (!parent) || (parent.is_directory && !parent.is_closed && parent.title != 'dist');
+                        finder.is_allowed = is_allowed[key];
+                    }
+                    tmp.is_allowed = is_allowed[key];
+                    feedback.target = _this.target = tmp;
                 },
             });
         },

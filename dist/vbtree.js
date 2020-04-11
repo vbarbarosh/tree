@@ -609,7 +609,7 @@ function update(ctx, x, y) {
   var shift = Math.round((ctx.xx0 - closest_rect.x + ctx.dx) / ctx.shift_width); // XXX is_position_allowed should be called on each update
 
   var i = closest_node_i == -1 ? ctx.nodes.length : closest_node_i;
-  var tmp = Object(_tree_pointer_shift__WEBPACK_IMPORTED_MODULE_1__["default"])(ctx.nodes, ctx.selection_map, i, shift, ctx.is_position_allowed);
+  var tmp = Object(_tree_pointer_shift__WEBPACK_IMPORTED_MODULE_1__["default"])(ctx.nodes, ctx.selection_map, i, shift, ctx.is_shift_allowed);
   ctx.i = tmp.i;
   ctx.parent_id = tmp.parent_id;
   ctx.shift = tmp.shift_happened;

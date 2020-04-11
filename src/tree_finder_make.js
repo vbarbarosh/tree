@@ -46,7 +46,7 @@ function update(ctx, x, y, container_rect = ctx.container_rect)
     // XXX is_position_allowed should be called on each update
 
     const i = (closest_node_i==-1?ctx.nodes.length:closest_node_i);
-    const tmp = tree_pointer_shift(ctx.nodes, ctx.selection_map, i, shift, ctx.is_position_allowed);
+    const tmp = tree_pointer_shift(ctx.nodes, ctx.selection_map, i, shift, ctx.is_shift_allowed);
     ctx.i = tmp.i;
     ctx.parent_id = tmp.parent_id;
     ctx.shift = tmp.shift_happened;

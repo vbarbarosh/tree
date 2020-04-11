@@ -347,6 +347,7 @@ new Vue({
                             borderBottom: !this.target.before ? '5px solid' : null,
                             opacity: 0.5,
                             pointerEvents: 'none',
+                            background: this.target.is_allowed ? 'green' : 'red',
                             top: px(y),
                             left: px(x),
                             width: px(w),
@@ -382,10 +383,10 @@ new Vue({
                             rect.node = ref.tree_node.value;
                             return rect;
                         }),
+                        // is_position_allowed(i, parent_id)
                         is_position_allowed: function (i_parent) {
-                            const node = _this.nodes[i_parent];
-                            console.log('is_position_allowed', i_parent, node);
-                            return (i_parent == -1) || node.is_directory && !node.is_closed && node.title != 'dist';
+                            const parent = _this.nodes[i_parent];
+                            return (i_parent == -1) || (parent.is_directory && !parent.is_closed && parent.title != 'dist');
                         },
                     });
                 },
@@ -494,7 +495,7 @@ new Vue({
             node.type = node.fi.flags.join();
             node.is_closed = false;//node.fi.flags_map.is_directory;
             node.is_selected = false;
-            node.is_directory = node.fi.flags_map.is_directory;
+            node.is_directory = !!node.fi.flags_map.is_directory;
         });
         this.nodes = tmp;
     },

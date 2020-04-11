@@ -112,7 +112,7 @@ function array_index(array, fn) {
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
-/*! exports provided: tree_ancestors, tree_common_ancestor, tree_descendants, tree_diff, tree_finder_make, tree_roots_flatten, tree_from_array, tree_from_string, tree_from_string2, tree_insert, tree_intersect, tree_map_orig, tree_move, tree_move_after, tree_move_before, tree_move_into, tree_pointer_shift, tree_print2, tree_random, tree_resolve, tree_shift, tree_sort_preorder, tree_walk_preorder */
+/*! exports provided: tree_ancestors, tree_common_ancestor, tree_descendants, tree_diff, tree_finder_make, tree_roots_flatten, tree_from_array, tree_from_string, tree_from_string2, tree_insert, tree_intersect, tree_map_orig, tree_move, tree_move_after, tree_move_before, tree_move_into, tree_pointer_shift, tree_print2, tree_random, tree_resolve, tree_shift, tree_sort_preorder, tree_walk_preorder, tree_walk_preorder_prefix */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -186,6 +186,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _tree_walk_preorder__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./tree_walk_preorder */ "./src/tree_walk_preorder.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_walk_preorder", function() { return _tree_walk_preorder__WEBPACK_IMPORTED_MODULE_22__["default"]; });
 
+/* harmony import */ var _tree_walk_preorder_prefix__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./tree_walk_preorder_prefix */ "./src/tree_walk_preorder_prefix.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_walk_preorder_prefix", function() { return _tree_walk_preorder_prefix__WEBPACK_IMPORTED_MODULE_23__["default"]; });
+
+
 
 
 
@@ -236,23 +240,14 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 function tree_ancestors(nodes, target) {
-  var ancestors = [];
-  Object(_tree_walk_preorder__WEBPACK_IMPORTED_MODULE_1__["default"])({
-    roots: Object(_tree_from_array__WEBPACK_IMPORTED_MODULE_2__["default"])(nodes.map(_tree_map_orig__WEBPACK_IMPORTED_MODULE_0__["default"])).roots,
-    visit: function visit(_ref) {
-      var node = _ref.node,
-          stack = _ref.stack;
+  var tree = Object(_tree_from_array__WEBPACK_IMPORTED_MODULE_2__["default"])(nodes.map(_tree_map_orig__WEBPACK_IMPORTED_MODULE_0__["default"]));
+  var out = [];
 
-      if (node.orig === target) {
-        ancestors = stack.map(function (v) {
-          return v.orig;
-        });
-        ancestors.pop();
-        return 'END';
-      }
-    }
-  });
-  return ancestors;
+  for (var parent = tree.nodes_map[target.parent_id]; parent; parent = parent.parent) {
+    out.push(parent.orig);
+  }
+
+  return out;
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (tree_ancestors);
@@ -555,11 +550,13 @@ function move_right(nodes, target) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _tree_pointer_shift__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tree_pointer_shift */ "./src/tree_pointer_shift.js");
+/* harmony import */ var _array_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./array_index */ "./src/array_index.js");
+/* harmony import */ var _tree_pointer_shift__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tree_pointer_shift */ "./src/tree_pointer_shift.js");
+
 
 
 function tree_finder_make(ctx) {
-  ctx.selection_map = array_index(ctx.selection, function (v) {
+  ctx.selection_map = Object(_array_index__WEBPACK_IMPORTED_MODULE_0__["default"])(ctx.selection, function (v) {
     return v.id;
   });
   ctx.i = null;
@@ -612,7 +609,7 @@ function update(ctx, x, y) {
   var shift = Math.round((ctx.xx0 - closest_rect.x + ctx.dx) / ctx.shift_width); // XXX is_position_allowed should be called on each update
 
   var i = closest_node_i == -1 ? ctx.nodes.length : closest_node_i;
-  var tmp = Object(_tree_pointer_shift__WEBPACK_IMPORTED_MODULE_0__["default"])(ctx.nodes, ctx.selection_map, i, shift, ctx.is_position_allowed);
+  var tmp = Object(_tree_pointer_shift__WEBPACK_IMPORTED_MODULE_1__["default"])(ctx.nodes, ctx.selection_map, i, shift, ctx.is_position_allowed);
   ctx.i = tmp.i;
   ctx.parent_id = tmp.parent_id;
   ctx.shift = tmp.shift_happened;
@@ -1615,32 +1612,28 @@ function shift_left(nodes, i, parent_id, shift, is_shift_allowed, selection_map)
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _tree_walk_preorder__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tree_walk_preorder */ "./src/tree_walk_preorder.js");
+/* harmony import */ var _tree_walk_preorder_prefix__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tree_walk_preorder_prefix */ "./src/tree_walk_preorder_prefix.js");
 
+ // noinspection NonAsciiCharacters
 
-function tree_print2(roots) {
-  // Two conditions:
-  // 1) Whether or not a node is the last one among its siblings
-  // 2) Whether or not a node is the last one in a walking stack (or, whether or not a node is a last one in its branch)
-  var retval = '';
-  Object(_tree_walk_preorder__WEBPACK_IMPORTED_MODULE_0__["default"])({
+var prefix4 = {
+  '├': '├── ',
+  '│': '│   ',
+  '└': '└── ',
+  ' ': '    '
+};
+
+function tree_print2(_ref) {
+  var roots = _ref.roots;
+  return Object(_tree_walk_preorder__WEBPACK_IMPORTED_MODULE_0__["default"])({
+    retval: '',
     roots: roots,
     visit: function visit(ctx) {
-      var s = '';
-      ctx.stack.forEach(function (node, stack_i) {
-        var siblings = node.parent ? node.parent.children : roots; // noinspection EqualityComparisonWithCoercionJS
-
-        if (node === siblings[siblings.length - 1]) {
-          // noinspection EqualityComparisonWithCoercionJS
-          s += stack_i == ctx.stack.length - 1 ? '└── ' : '    ';
-        } else {
-          // noinspection EqualityComparisonWithCoercionJS
-          s += stack_i == ctx.stack.length - 1 ? '├── ' : '│   ';
-        }
-      });
-      retval += "".concat(s).concat(ctx.node.id, "\n");
+      ctx.retval += Object(_tree_walk_preorder_prefix__WEBPACK_IMPORTED_MODULE_1__["default"])(ctx).map(function (v) {
+        return prefix4[v];
+      }).join('') + (ctx.node.title || ctx.node.id) + '\n';
     }
   });
-  return retval;
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (tree_print2);
@@ -2012,7 +2005,7 @@ function fcmp_nodes_id(a, b) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 function tree_walk_preorder(ctx) {
-  ctx.stack = [];
+  ctx.stack = ctx.stack || [];
 
   for (var i = 0, end = ctx.roots.length; i < end; ++i) {
     ctx.node = ctx.roots[i];
@@ -2090,6 +2083,43 @@ function tree_walk_preorder_int(ctx) {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (tree_walk_preorder);
+
+/***/ }),
+
+/***/ "./src/tree_walk_preorder_prefix.js":
+/*!******************************************!*\
+  !*** ./src/tree_walk_preorder_prefix.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/**
+ * Render an array of strings representing position of a node on each level.
+ * Used for printing tree.
+ *
+ * @param ctx
+ * @returns {*}
+ */
+function tree_walk_preorder_prefix(ctx) {
+  // Two conditions:
+  // 1) a node is the last one among its siblings
+  // 2) a node is a last one in its branch (a node is the last one in a walking stack)
+  return ctx.stack.map(function (node, stack_i) {
+    var siblings = node.parent ? node.parent.children : ctx.roots;
+    var is_current = stack_i == ctx.stack.length - 1;
+    var is_last_sibling = node === siblings[siblings.length - 1];
+
+    if (is_last_sibling) {
+      return is_current ? '└' : ' ';
+    } else {
+      return is_current ? '├' : '│';
+    }
+  });
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (tree_walk_preorder_prefix);
 
 /***/ }),
 

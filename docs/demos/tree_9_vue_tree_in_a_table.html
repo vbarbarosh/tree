@@ -294,6 +294,7 @@ new Vue({
         },
         nodes_tree: function () {
             return vbtree.tree_from_array(this.nodes.map(function (node) {
+                // XXX Maybe `orig` is better name than `value`?
                 return {id: node.id, parent_id: node.parent_id, value: node};
             })).roots;
         },
@@ -540,6 +541,11 @@ new Vue({
                     // after node (shared parent)
                     // into node (be the only child of the node)
                     // root (when a tree is empty)
+                    //
+                    // {append: parent_or_null}
+                    // {before: next_sibling}
+                    //
+                    // {parent, before} - this is the same as {parent_id,i}
                     if (finder.is_allowed) {
                         console.log(finder.i, finder.parent_id);
                         vbtree.tree_move(finder.nodes, finder.selection, finder.i, finder.parent_id);

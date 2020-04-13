@@ -63,9 +63,9 @@
             <tr v-for="node in nodes_preorder" v-bind:key="node.id">
                 <td class="table-foo-td mi20">
                     <span v-for="n in node.level-1"></span>
-                    <ref-span v-on:mousedown="dnd_table_node($event,node)" v-model="node.value" v-bind:obj="table_refs_map">
+                    <vue-ref-span v-on:mousedown="dnd_table_node($event,node)" v-model="node.value" v-bind:obj="table_refs_map">
                         {{ node.value.text }}
-                    </ref-span>
+                    </vue-ref-span>
                 </td>
                 <td class="table-foo-td">{{ 1 }}</td>
             </tr>
@@ -97,12 +97,12 @@
     </ul>
 </script>
 <script id="templ-vue-tree-item" type="text/html">
-    <div class="pv5 vue-tree-item">
+    <div v-on:mouseover="app.mouseover_checkbox($event, tree_node)" class="pv5 vue-tree-item">
         <template v-if="tree_node.value.is_directory">
             <button v-if="tree_node.value.is_closed" v-on:click="app.open(tree_node.value)" v-bind:disabled="tree_node.children.length == 0">+</button>
             <button v-if="!tree_node.value.is_closed" v-on:click="app.close(tree_node.value)" v-bind:disabled="tree_node.children.length == 0">−</button>
         </template>
-        <input type="checkbox" v-model="tree_node.value.is_selected">
+        <input v-on:mousedown="app.mousedown_checkbox($event, tree_node)" v-model="tree_node.value.is_selected" type="checkbox">
         <span v-on:mousedown="app.dnd_tree_node($event, tree_node)">
             {{ tree_node.value.text }}
         </span>
@@ -164,7 +164,7 @@ Vue.component('vue-tree-item', {
         }
     },
 });
-Vue.component('ref-span', {
+Vue.component('vue-ref-span', {
     props: ['obj', 'value'],
     template: '<span v-on="$listeners"><slot /></span>',
     created: function () {
@@ -215,6 +215,7 @@ new Vue({
         tree_nodes_map: {},
         table_refs_map: {},
         cursor: null,
+        mousedown_checkbox_active: null,
     },
     computed: {
         outline_tree: function () {
@@ -326,6 +327,18 @@ new Vue({
         },
         close: function (node) {
             node.is_closed = true;
+        },
+        mousedown_checkbox: function (event, node) {
+            dd({
+                event,
+                begin: () => this.mousedown_checkbox_active = node,
+                end: () => this.mousedown_checkbox_active = null,
+            });
+        },
+        mouseover_checkbox: function (event, node) {
+            if (this.mousedown_checkbox_active) {
+                node.value.is_selected = this.mousedown_checkbox_active.value.is_selected;
+            }
         },
         dnd_tree_node: function (event, node) {
             const _this = this;
@@ -501,12 +514,13 @@ new Vue({
     created: async function () {
         app.inst = this;
         const tmp = await axios.get('files.json').then(v => v.data);
+        const ids = new Set('i0,i9,i10,i11,i15,i59,i60,i61,i62,i64,i65,i66'.split(','));
         tmp.forEach(function (node) {
             node.text = node.fi.basename;
             node.title = node.fi.basename;
             node.type = node.fi.flags.join();
             node.is_closed = false;//node.fi.flags_map.is_directory;
-            node.is_selected = false;
+            node.is_selected = ids.has(node.id);
             node.is_directory = !!node.fi.flags_map.is_directory;
         });
         this.nodes = tmp;

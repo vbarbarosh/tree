@@ -4,6 +4,10 @@
  *
  * Указатель вставки - это место между узлами, куда будет что-то вставлено или перемещено.
  *
+ * Assumptions:
+ * 1) All node.id are unique and non null
+ * 2) All node.parent_id are valid or null (i.e. all root nodes are those whose parent_id is null)
+ *
  * @param {Array<{id:string,parent_id:string|null}>} nodes
  * @param {Object} selection_map
  * @param {Number} i

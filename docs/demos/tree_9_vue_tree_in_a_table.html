@@ -72,6 +72,28 @@
             </tbody>
             </table>
         </div>
+        <div class="w0 fluid dashed">
+            Subtree is here
+<!--
+    I wish I could do this:
+
+            <vue-templ v-model="nodes_tree">
+                <ul>
+                    <li v-for="node in value" v-bind:key="node.id">
+                        {{ node.value.title }}
+                        <vue-templ-reuse v-model="node.children" />
+                    </li>
+                </ul>
+            </vue-templ>
+-->
+            <vue-recursive-ul ref="subtree" v-model="nodes_tree_selection">
+                <template v-slot="{node}">
+                    <vue-ref-span v-on:mousedown="dnd_subtree_node($event, node)" v-model="node.value" v-bind:obj="subtree_refs_map">
+                        {{ node.value.text }}
+                    </vue-ref-span>
+                </template>
+            </vue-recursive-ul>
+        </div>
     </div>
     <br>
     selection:
@@ -177,6 +199,21 @@ Vue.component('vue-ref-span', {
         }
     },
 });
+Vue.component('vue-recursive-ul', {
+    template: `
+        <ul v-on="$listeners" v-bind="$attrs">
+            <li v-for="node in value" v-bind:key="node.id">
+                <slot name="default" v-bind:node="node" />
+                <vue-recursive-ul v-if="!node.value.is_closed" v-model="node.children">
+                    <template v-slot="props">
+                        <slot v-bind="props" />
+                    </template>
+                </vue-recursive-ul>
+            </li>
+        </ul>
+    `,
+    props: ['value'],
+});
 
 function array_index(array, fn)
 {
@@ -214,6 +251,7 @@ new Vue({
         nodes: [],
         tree_nodes_map: {},
         table_refs_map: {},
+        subtree_refs_map: {},
         cursor: null,
         mousedown_checkbox_active: null,
     },
@@ -256,6 +294,12 @@ new Vue({
         },
         nodes_tree: function () {
             return vbtree.tree_from_array(this.nodes.map(function (node) {
+                return {id: node.id, parent_id: node.parent_id, value: node};
+            })).roots;
+        },
+        nodes_tree_selection: function () {
+            return vbtree.tree_from_array(this.selection.map(function (node) {
+                // XXX Maybe `orig` is better name than `value`?
                 return {id: node.id, parent_id: node.parent_id, value: node};
             })).roots;
         },
@@ -416,6 +460,97 @@ new Vue({
                 update: function ({finder, x, y}) {
                     _this.cursor = {x, y};
                     const tmp = finder.update(x, y, rect_from_bcr(_this.$refs.tree.$el.getBoundingClientRect()));
+                    const key = `${finder.i}:${finder.parent_id}`;
+                    if (is_allowed[key] === undefined) {
+                        const parent = nodes_map[finder.parent_id];
+                        is_allowed[key] = (!parent) || (parent.is_directory && !parent.is_closed && parent.title != 'dist');
+                        finder.is_allowed = is_allowed[key];
+                    }
+                    tmp.is_allowed = is_allowed[key];
+                    feedback.target = _this.target = tmp;
+                },
+            });
+        },
+        dnd_subtree_node: function (event, node) {
+            console.log('dnd_subtree_node', node);
+
+            const _this = this;
+            const feedback = new Vue({
+                el: document.body.appendChild(document.createElement('DIV')),
+                template: '<div v-bind:style="style"></div>',
+                data: {
+                    target: null,
+                },
+                computed: {
+                    style: function () {
+                        if (!this.target) {
+                            return null;
+                        }
+                        const {x, y, w, h} = this.target;
+                        return {
+                            position: 'fixed',
+                            borderTop: this.target.before ? '5px solid' : null,
+                            borderBottom: !this.target.before ? '5px solid' : null,
+                            opacity: 0.5,
+                            pointerEvents: 'none',
+                            background: this.target.is_allowed ? 'green' : 'red',
+                            top: px(y),
+                            left: px(x),
+                            width: px(w),
+                            height: px(h),
+                        };
+                    },
+                },
+                methods: {
+                    end: function () {
+                        this.$destroy();
+                    },
+                },
+                beforeDestroy: function () {
+                    document.body.removeChild(this.$el);
+                },
+            });
+
+            const nodes = _this.selection;
+            const nodes_map = array_index(_this.selection, v => v.id);
+            const is_allowed = {};
+
+            dd({
+                event,
+                begin: function (ctx) {
+                    const components = Object.values(_this.subtree_refs_map);
+                    ctx.finder = vbtree.tree_finder_make({
+                        nodes,
+                        selection: [node],
+                        shift_width: 28,
+                        node_rects: components.map(function (ref) {
+                            const rect = rect_from_bcr(ref.$el.getBoundingClientRect());
+                            rect.node = ref.value;
+                            return rect;
+                        }),
+                        // is_position_allowed(i, parent_id)
+                        __is_shift_allowed: function (i_parent) {
+                            const parent = _this.nodes[i_parent];
+                            return (i_parent == -1) || (parent.is_directory && !parent.is_closed && parent.title != 'dist');
+                        },
+                    });
+                },
+                end: function ({finder}) {
+                    // before node (shared parent)
+                    // after node (shared parent)
+                    // into node (be the only child of the node)
+                    // root (when a tree is empty)
+                    if (finder.is_allowed) {
+                        console.log(finder.i, finder.parent_id);
+                        vbtree.tree_move(finder.nodes, finder.selection, finder.i, finder.parent_id);
+                    }
+                    feedback.end();
+                    _this.target = null;
+                    _this.cursor = null;
+                },
+                update: function ({finder, x, y}) {
+                    _this.cursor = {x, y};
+                    const tmp = finder.update(x, y, rect_from_bcr(_this.$refs.subtree.$el.getBoundingClientRect()));
                     const key = `${finder.i}:${finder.parent_id}`;
                     if (is_allowed[key] === undefined) {
                         const parent = nodes_map[finder.parent_id];

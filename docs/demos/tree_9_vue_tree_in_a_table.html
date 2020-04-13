@@ -547,8 +547,8 @@ new Vue({
                     //
                     // {parent, before} - this is the same as {parent_id,i}
                     if (finder.is_allowed) {
-                        console.log(finder.i, finder.parent_id);
-                        vbtree.tree_move(finder.nodes, finder.selection, finder.i, finder.parent_id);
+                        const before = finder.nodes[finder.i];
+                        vbtree.tree_move(_this.nodes, [_this.nodes.find(v => v.id == node.id)], _this.nodes.indexOf(before), finder.parent_id);
                     }
                     feedback.end();
                     _this.target = null;

@@ -41,8 +41,8 @@
         <ul-tree v-bind:value="outline_tree" />
     </div>
 
-    <div class="flex-row mi15" style="min-height: 400px;" v-bind:style="{pointerEvents: outline_props ? 'none' : null}">
-        <div class="w0 flex-fluid dashed">
+    <div class="hsplit mi15" style="min-height: 400px;" v-bind:style="{pointerEvents: outline_props ? 'none' : null}">
+        <div class="w0 fluid dashed">
             <ul>
                 <li v-for="node in nodes">
                     <small><small>{{ node.type }}:{{ node.name }}</small></small>
@@ -52,10 +52,10 @@
                 </li>
             </ul>
         </div>
-        <div class="w0 flex-fluid dashed">
+        <div class="w0 fluid dashed">
             <vue-tree ref="tree" v-bind:value="nodes_tree"></vue-tree>
         </div>
-        <div class="w0 flex-fluid dashed">
+        <div class="w0 fluid dashed">
             <table ref="table" class="table-foo">
             <thead>
             </thead>

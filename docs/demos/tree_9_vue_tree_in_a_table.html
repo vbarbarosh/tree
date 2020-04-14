@@ -93,6 +93,12 @@
                     </vue-ref-span>
                 </template>
             </vue-recursive-ul>
+            <p>In subtree from above, <b>bin</b> is a root node, but <b>demos</b> is a child of <b>docs</b>
+            which, in subtree, is not present. Because of the latter, <b>bin</b> and <b>demos</b> are
+            look like they are root nodes. Current implementation can't handle this.</p>
+            <p>Try to move something from <b>demo</b> to the <b>bin</b>, as a last child. You can't.</p>
+            <p>Or, try to move <b>bin/test</b> to the very bottom. Then shift it to become last child of
+            <b>demo</b>. Unexpectedly it would become last child of <b>bin</b>.</p>
         </div>
     </div>
     <br>
@@ -444,7 +450,7 @@ new Vue({
                             return rect;
                         }),
                         // is_position_allowed(i, parent_id)
-                        is_shift_allowed: function (i_parent) {
+                        __is_shift_allowed: function (i_parent) {
                             const parent = _this.nodes[i_parent];
                             return (i_parent == -1) || (parent.is_directory && !parent.is_closed && parent.title != 'dist');
                         },
@@ -464,7 +470,7 @@ new Vue({
                     const key = `${finder.i}:${finder.parent_id}`;
                     if (is_allowed[key] === undefined) {
                         const parent = nodes_map[finder.parent_id];
-                        is_allowed[key] = (!parent) || (parent.is_directory && !parent.is_closed && parent.title != 'dist');
+                        is_allowed[key] = true;//(!parent) || (parent.is_directory && !parent.is_closed && parent.title != 'dist');
                         finder.is_allowed = is_allowed[key];
                     }
                     tmp.is_allowed = is_allowed[key];
@@ -560,7 +566,7 @@ new Vue({
                     const key = `${finder.i}:${finder.parent_id}`;
                     if (is_allowed[key] === undefined) {
                         const parent = nodes_map[finder.parent_id];
-                        is_allowed[key] = (!parent) || (parent.is_directory && !parent.is_closed && parent.title != 'dist');
+                        is_allowed[key] = true;//(!parent) || (parent.is_directory && !parent.is_closed && parent.title != 'dist');
                         finder.is_allowed = is_allowed[key];
                     }
                     tmp.is_allowed = is_allowed[key];
@@ -631,7 +637,7 @@ new Vue({
                         //     }
                         //     return !selection_map[parent_id] && nodes_map[parent_id].is_directory && !nodes_map[parent_id].is_closed;
                         // },
-                        is_shift_allowed: function (i_parent) {
+                        __is_shift_allowed: function (i_parent) {
                             const node = _this.nodes[i_parent];
                             console.log('is_shift_allowed', i_parent, node);
                             return (i_parent == -1) || node.is_directory && !node.is_closed && node.title != 'dist';

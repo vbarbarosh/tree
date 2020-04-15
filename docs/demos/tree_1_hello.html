@@ -4,19 +4,288 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://unpkg.com/@vbarbarosh/smcss@0.3.20/dist/sm.css" rel="stylesheet" />
-    <title>A set of helper functions for working with trees &mdash; @vbarbarosh/tree</title>
+    <title>A set of functions for working with trees &mdash; @vbarbarosh/tree</title>
+    <style>
+        body {
+            user-select: none;
+        }
+        ul {
+            padding-left: 28px;
+        }
+        .vue-tree-item:hover {
+            background: #ccc;
+        }
+    </style>
 </head>
 <body>
 
-<div class="w500 ma">
-    <p>Use your console</p>
-    <pre>vbtree.tree_random()</pre>
-    <pre>vbtree.tree_from_string(vbtree.tree_random())</pre>
-    <pre>vbtree.tree_roots_flatten([vbtree.tree_from_string(vbtree.tree_random())])</pre>
+<div v-bind:class="{'no-pointer-events': is_dnd_active}" id="app" class="p20 ma bs5">
+    selection:
+    <pre class="dashed" style="white-space: normal;">{{ selection_ids }}</pre>
+    <br>
+    <br>
+    <div class="ma w500 dashed">
+        <vue-tree ref="tree" v-bind:value="tree.roots"></vue-tree>
+    </div>
+    <br>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.min.js"></script>
-<script src="https://unpkg.com/@vbarbarosh/tree@0.0.1/dist/vbtree.js"></script>
+<script src="https://unpkg.com/vue@2.6.11/dist/vue.js"></script>
+<script src="https://unpkg.com/@vbarbarosh/dd@1.1.0/dist/dd.js"></script>
+<script src="https://unpkg.com/axios@0.19.2/dist/axios.js"></script>
+<!--
+<script src="https://unpkg.com/@vbarbarosh/tree@0.2.3/dist/vbtree.js"></script>
+-->
+<script src="../../dist/vbtree.js?r=1"></script>
+
+<script id="templ-vue-tree" type="text/html">
+    <ul v-if="tree_nodes.length">
+        <li v-for="tree_node in tree_nodes" v-bind:key="tree_node.id">
+            <vue-tree-item v-bind:value="tree_node" />
+            <vue-tree v-if="!tree_node.orig.is_closed" v-model="tree_node.children" />
+        </li>
+    </ul>
+</script>
+<script id="templ-vue-tree-item" type="text/html">
+    <div v-on:mouseover="app.mouseover_checkbox($event, tree_node)" class="pv5 vue-tree-item">
+        <template v-if="tree_node.children.length">
+            <button v-if="tree_node.orig.is_closed" v-on:click="app.open(tree_node.orig)" v-bind:disabled="tree_node.children.length == 0">+</button>
+            <button v-if="!tree_node.orig.is_closed" v-on:click="app.close(tree_node.orig)" v-bind:disabled="tree_node.children.length == 0">−</button>
+        </template>
+        <input v-on:mousedown="app.mousedown_checkbox($event, tree_node)" v-model="tree_node.orig.is_selected" type="checkbox">
+        <span v-on:mousedown="app.dnd_tree_node($event, tree_node)">
+            {{ tree_node.orig.text }}
+        </span>
+    </div>
+</script>
+
+<script>
+const app = new Vue({
+    data: {
+        inst: null,
+    },
+});
+
+Vue.mixin({
+    computed: {
+        app: function () {
+            return app.inst;
+        },
+    }
+});
+
+Vue.component('ul-tree', {
+    template: '<ul v-if="tree_nodes.length"><li v-for="node in tree_nodes" v-bind:key="node.id">{{ node.orig.text }}<ul-tree v-bind:value="node.children" /></li></ul>',
+    props: ['value'],
+    computed: {
+        tree_nodes: function () {
+            return this.value;
+        },
+    },
+});
+Vue.component('vue-tree', {
+    template: '#templ-vue-tree',
+    props: ['value'],
+    computed: {
+        tree_nodes: function () {
+            return this.value;
+        },
+    },
+});
+// The only reason for this component is to automatically register ref to it
+Vue.component('vue-tree-item', {
+    template: '#templ-vue-tree-item',
+    props: ['value'],
+    computed: {
+        tree_node: function () {
+            return this.value;
+        },
+    },
+    created: function () {
+        this.app.tree_nodes_map[this.tree_node.id] = this;
+    },
+    beforeDestroy: function () {
+        // In case `beforeDestroy` is called after `created`
+        if (this.app.tree_nodes_map[this.tree_node.id] === this) {
+            delete this.app.tree_nodes_map[this.tree_node.id];
+        }
+    },
+});
+Vue.component('vue-ref-span', {
+    props: ['obj', 'value'],
+    template: '<span v-on="$listeners"><slot /></span>',
+    created: function () {
+        this.obj[this.value.id] = this;
+    },
+    beforeDestroy: function () {
+        // In case `beforeDestroy` is called after `created`
+        if (this.obj[this.value.id] === this) {
+            delete this.obj[this.value.id];
+        }
+    },
+});
+
+function array_index(array, fn)
+{
+    const out = {};
+    array.forEach(v => out[fn(v)] = v);
+    return out;
+}
+
+function px(v)
+{
+    return v ? `${v}px` : 0;
+}
+
+function rect_from_bcr({top, left, right, bottom})
+{
+    return {x: left, y: top, w: right - left, h: bottom - top};
+}
+
+new Vue({
+    el: '#app',
+    data: {
+        is_dnd_active: false,
+        items: [],
+        tree_nodes_map: {},
+        mousedown_checkbox_active: null,
+    },
+    computed: {
+        tree: function () {
+            return vbtree.tree_from_array(this.items.map(function (item) {
+                return {id: item.id, parent_id: item.parent_id, orig: item};
+            }));
+        },
+        selection: function () {
+            return this.items.filter(v => v.is_selected);
+        },
+        selection_map: function () {
+            return array_index(this.selection, v => v.id);
+        },
+        selection_ids: function () {
+            return this.selection.map(v => v.id);
+        },
+    },
+    methods: {
+        open: function (item) {
+            item.is_closed = false;
+        },
+        close: function (item) {
+            item.is_closed = true;
+        },
+        mousedown_checkbox: function (event, node) {
+            dd({
+                event,
+                begin: () => this.mousedown_checkbox_active = node,
+                end: () => this.mousedown_checkbox_active = null,
+            });
+        },
+        mouseover_checkbox: function (event, node) {
+            if (this.mousedown_checkbox_active) {
+                node.orig.is_selected = this.mousedown_checkbox_active.orig.is_selected;
+            }
+        },
+        dnd_tree_node: function (event, node) {
+            const feedback = new Vue({
+                el: document.body.appendChild(document.createElement('DIV')),
+                template: '<div v-bind:style="style"></div>',
+                data: {
+                    target: null,
+                },
+                computed: {
+                    style: function () {
+                        if (!this.target) {
+                            return null;
+                        }
+                        return {
+                            opacity: 0.5,
+                            position: 'fixed',
+                            borderTop: '5px solid',
+                            pointerEvents: 'none',
+                            background: this.target.is_allowed ? 'green' : 'red',
+                            top: px(this.target.y),
+                            left: px(this.target.x),
+                            width: px(this.target.w),
+                            height: px(this.target.h),
+                        };
+                    },
+                },
+                methods: {
+                    end: function () {
+                        this.$destroy();
+                    },
+                },
+                beforeDestroy: function () {
+                    document.body.removeChild(this.$el);
+                },
+            });
+
+            const _this = this;
+            if (!_this.selection.includes(node.orig)) {
+                _this.selection.forEach(v => v.is_selected = false);
+                node.orig.is_selected = true;
+            }
+            const items_map = array_index(_this.items, v => v.id);
+            const is_allowed = {};
+
+            dd({
+                event,
+                begin: function (ctx) {
+                    const components = Object.values(_this.tree_nodes_map);
+                    ctx.finder = vbtree.tree_finder_make({
+                        nodes: _this.items,
+                        selection: _this.selection,
+                        shift_width: 28,
+                        node_rects: components.map(function (ref) {
+                            const rect = rect_from_bcr(ref.$el.getBoundingClientRect());
+                            rect.node = ref.tree_node.orig;
+                            return rect;
+                        }),
+                        __is_shift_allowed: function (i_parent) {
+                            const parent = _this.items[i_parent];
+                            return (i_parent == -1) || (parent.is_directory && !parent.is_closed && parent.title != 'dist');
+                        },
+                    });
+                    _this.is_dnd_active = true;
+                },
+                end: function ({finder}) {
+                    if (finder.is_allowed) {
+                        vbtree.tree_move(finder.nodes, finder.selection, finder.i, finder.parent_id);
+                    }
+                    feedback.end();
+                    _this.is_dnd_active = false;
+                },
+                update: function ({finder, x, y}) {
+                    const tmp = finder.update(x, y, rect_from_bcr(_this.$refs.tree.$el.getBoundingClientRect()));
+                    const key = `${finder.i}:${finder.parent_id}`;
+                    if (is_allowed[key] === undefined) {
+                        const parent = items_map[finder.parent_id];
+                        is_allowed[key] = true;//(!parent) || (parent.is_directory && !parent.is_closed && parent.title != 'dist');
+                        finder.is_allowed = is_allowed[key];
+                    }
+                    tmp.is_allowed = is_allowed[key];
+                    feedback.target = tmp;
+                },
+            });
+        },
+    },
+    created: async function () {
+        app.inst = this;
+        const tmp = await axios.get('files.json').then(v => v.data);
+        const ids = new Set('i0,i9,i10,i11,i15,i59,i60,i61,i62,i63,i64,i65,i66'.split(','));
+        tmp.forEach(function (item) {
+            item.text = item.fi.basename;
+            item.title = item.fi.basename;
+            item.type = item.fi.flags.join();
+            item.is_closed = false;//node.fi.flags_map.is_directory;
+            item.is_selected = ids.has(item.id);
+            item.is_directory = !!item.fi.flags_map.is_directory;
+        });
+        this.items = tmp;
+    },
+});
+</script>
 
 </body>
 </html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://unpkg.com/@vbarbarosh/smcss@0.3.20/dist/sm.css" rel="stylesheet" />
+    <title>A set of functions for working with trees &mdash; @vbarbarosh/tree</title>
+    <style>
+        body { user-select: none; }
+        ul { padding-left: 28px; }
+        .vue-tree-item:hover { background: #ccc; }
+    </style>
+</head>
+<body>
+
+<div id="app" class="ma p20 bs5">
+    <br>
+    <div class="flex-row ma w500 dashed">
+        <vue-tree ref="tree" v-bind:value="tree.roots"></vue-tree>
+        <ul-tree v-model="tree.roots"></ul-tree>
+    </div>
+    <br>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.min.js"></script>
+<script src="https://unpkg.com/vue@2.6.11/dist/vue.js"></script>
+<script src="https://unpkg.com/@vbarbarosh/dd@1.1.0/dist/dd.js"></script>
+<script src="https://unpkg.com/axios@0.19.2/dist/axios.js"></script>
+<script src="../../dist/vbtree.js?r=1"></script>
+
+<script>
+    const app = new Vue({
+        data: {
+            inst: null,
+        },
+    });
+
+    Vue.mixin({
+        computed: {
+            app: function () {
+                return app.inst;
+            },
+        }
+    });
+
+    Vue.component('ul-tree', {
+        template: `
+            <ul v-if="tree_nodes.length">
+                <li v-for="node in tree_nodes" v-bind:key="node.id">
+                    {{ node.orig.text }}
+                    <ul-tree v-bind:value="node.children" />
+                </li>
+            </ul>
+        `,
+        props: ['value'],
+        computed: {
+            tree_nodes: function () {
+                return this.value;
+            },
+        },
+    });
+
+    Vue.component('vue-tree', {
+        template: `
+            <ul v-if="nodes.length">
+                <li v-for="node in nodes" v-bind:key="node.id">
+                    <vue-tree-item v-bind:value="node" />
+                    <vue-tree v-if="!node.orig.is_closed" v-model="node.children" />
+                </li>
+            </ul>
+        `,
+        props: ['value'],
+        computed: {
+            nodes: function () {
+                return this.value;
+            },
+        },
+    });
+
+    // The only reason for this component is to automatically register ref to it
+    Vue.component('vue-tree-item', {
+        template: `
+            <div v-on:mouseover="app.mouseover_checkbox($event, tree_node)" class="pv5 vue-tree-item">
+                <template v-if="tree_node.children.length">
+                    <button v-if="tree_node.orig.is_closed" v-on:click="app.open(tree_node.orig)" v-bind:disabled="tree_node.children.length == 0">+</button>
+                    <button v-if="!tree_node.orig.is_closed" v-on:click="app.close(tree_node.orig)" v-bind:disabled="tree_node.children.length == 0">−</button>
+                </template>
+                <input v-on:mousedown="app.mousedown_checkbox($event, tree_node)" v-model="tree_node.orig.is_selected" type="checkbox">
+                <span v-on:mousedown="app.dnd_tree_node($event, tree_node)">
+                    {{ tree_node.orig.text }}
+                </span>
+            </div>
+        `,
+        props: ['value'],
+        computed: {
+            tree_node: function () {
+                return this.value;
+            },
+        },
+        created: function () {
+            this.app.tree_nodes_map[this.tree_node.id] = this;
+        },
+        beforeDestroy: function () {
+            // In case `beforeDestroy` is called after `created`
+            if (this.app.tree_nodes_map[this.tree_node.id] === this) {
+                delete this.app.tree_nodes_map[this.tree_node.id];
+            }
+        },
+    });
+
+    function array_index(array, fn)
+    {
+        const out = {};
+        array.forEach(v => out[fn(v)] = v);
+        return out;
+    }
+
+    function px(v)
+    {
+        return v ? `${v}px` : '0';
+    }
+
+    function rect_from_bcr({top, left, right, bottom})
+    {
+        return {x: left, y: top, w: right - left, h: bottom - top};
+    }
+
+    new Vue({
+        el: '#app',
+        data: {
+            is_dnd_active: false,
+            items: [],
+            closed: [],
+            selection: [],
+            tree_nodes_map: {},
+            mousedown_checkbox_active: null,
+        },
+        computed: {
+            tree: function () {
+                return vbtree.tree_from_array(this.items.map(function (item) {
+                    return {id: item.id, parent_id: item.parent_id, orig: item};
+                }));
+            },
+        },
+        methods: {
+            open: function (item) {
+                item.is_closed = false;
+            },
+            close: function (item) {
+                item.is_closed = true;
+            },
+            mousedown_checkbox: function (event, node) {
+                dd({
+                    event,
+                    begin: () => this.mousedown_checkbox_active = node,
+                    end: () => this.mousedown_checkbox_active = null,
+                });
+            },
+            mouseover_checkbox: function (event, node) {
+                if (this.mousedown_checkbox_active) {
+                    node.orig.is_selected = this.mousedown_checkbox_active.orig.is_selected;
+                }
+            },
+            dnd_tree_node: function (event, node) {
+                const feedback = new Vue({
+                    el: document.body.appendChild(document.createElement('DIV')),
+                    template: '<div v-bind:style="style"></div>',
+                    data: {
+                        target: null,
+                    },
+                    computed: {
+                        style: function () {
+                            if (!this.target) {
+                                return null;
+                            }
+                            return {
+                                opacity: 0.5,
+                                position: 'fixed',
+                                boxSizing: 'border-box',
+                                borderTop: '5px solid',
+                                pointerEvents: 'none',
+                                background: 'green', // this.target.is_allowed ? 'green' : 'red',
+                                top: px(this.target.y),
+                                left: px(this.target.x),
+                                width: px(this.target.w),
+                                height: px(this.target.h),
+                            };
+                        },
+                    },
+                    methods: {
+                        end: function () {
+                            this.$destroy();
+                        },
+                    },
+                    beforeDestroy: function () {
+                        document.body.removeChild(this.$el);
+                    },
+                });
+
+                event.preventDefault();
+                const _this = this;
+                dd({
+                    event,
+                    begin: function (ctx) {
+                        document.body.style.pointerEvents = 'none';
+                        const components = Object.values(_this.tree_nodes_map);
+                        ctx.finder = vbtree.tree_finder_make({
+                            nodes: _this.items,
+                            selection: [node.orig],
+                            shift_width: 28,
+                            node_rects: components.map(function (ref) {
+                                const rect = rect_from_bcr(ref.$el.getBoundingClientRect());
+                                rect.node = ref.tree_node.orig;
+                                return rect;
+                            }),
+                        });
+                    },
+                    end: function ({finder}) {
+                        document.body.style.pointerEvents = null;
+                        vbtree.tree_move(finder.nodes, finder.selection, finder.i, finder.parent_id);
+                        feedback.end();
+                    },
+                    update: function ({finder, x, y}) {
+                        feedback.target = finder.update(x, y, rect_from_bcr(_this.$refs.tree.$el.getBoundingClientRect()));
+                    },
+                });
+            },
+        },
+        created: function () {
+            app.inst = this;
+            this.items = vbtree.tree_roots_flatten(vbtree.tree_from_string2(`
+group images
+    image bg
+    image logo
+group texts
+    text safari Safari road
+    text savannah African savannah
+       xxx
+          yyy
+             zzz
+group buttons
+    button Book Now
+`));
+        },
+    });
+</script>
+
+</body>
+</html>

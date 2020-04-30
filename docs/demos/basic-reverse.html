@@ -16,8 +16,14 @@
 <div id="app" class="ma p20 bs5">
     <br>
     <div class="flex-row ma w500 dashed">
-        <vue-tree ref="tree" v-bind:value="tree.roots"></vue-tree>
-        <ul-tree v-model="tree.roots"></ul-tree>
+        <div>
+            <p>Display tree in reverse order</p>
+            <vue-tree ref="tree" v-bind:value="tree.roots"></vue-tree>
+        </div>
+        <div>
+            <p>Display tree in normal order</p>
+            <ul-tree v-model="tree.roots"></ul-tree>
+        </div>
     </div>
     <br>
 </div>

@@ -42,5 +42,8 @@
   },
   "peerDependencies": {
     "faker": "^4.1.0"
+  },
+  "dependencies": {
+    "@vbarbarosh/node-cli": "github:vbarbarosh/node-cli"
   }
 }

@@ -22,7 +22,7 @@ function tree_from_string2(s)
         }
         let node;
         names.split(',').forEach(function (text) {
-            node = {id: `node_${counter++}`, parent_id: parents[0].id, text, level: parents.length - 1, parent: parents[0], children: []};
+            node = {id: text, parent_id: parents[0].id, text, level: parents.length - 1, parent: parents[0], children: []};
             parents[0].children.push(node);
         });
         node.level = level;

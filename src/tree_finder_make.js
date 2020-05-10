@@ -1,5 +1,5 @@
-import array_index from './array_index';
-import tree_pointer_shift from './tree_pointer_shift';
+import array_index from './array_index.js';
+import tree_pointer_shift from './tree_pointer_shift.js';
 
 function tree_finder_make(ctx)
 {
@@ -33,6 +33,7 @@ function update(ctx, x, y, container_rect = ctx.container_rect)
     y += sy;
 
     const closest_i = numbers_closest_i_first(ctx.node_rects.map(v => v.y).concat(ctx.container_rect0.y+ctx.container_rect.h), y);
+    console.log('closest_i', closest_i);
     const closest_rect = ctx.node_rects[closest_i] || {
         x: (ctx.node_rects[numbers_min_i_first(ctx.node_rects.map(v => v.y))]||ctx.container_rect0).x,
         y: ctx.container_rect0.y + ctx.container_rect.h,

@@ -1,5 +1,5 @@
-import tree_walk_preorder from './tree_walk_preorder';
-import tree_walk_preorder_prefix from './tree_walk_preorder_prefix';
+import tree_walk_preorder from './tree_walk_preorder.js';
+import tree_walk_preorder_prefix from './tree_walk_preorder_prefix.js';
 
 // noinspection NonAsciiCharacters
 const prefix4 = {

@@ -1,6 +1,6 @@
-import tree_from_string2 from './tree_from_string2';
-import tree_roots_flatten from './tree_roots_flatten';
-import tree_shift from './tree_shift';
+import tree_from_string2 from './tree_from_string2.js';
+import tree_roots_flatten from './tree_roots_flatten.js';
+import tree_shift from './tree_shift.js';
 
 describe('tree_shift', function () {
     it('should handle empty arrays', function () {

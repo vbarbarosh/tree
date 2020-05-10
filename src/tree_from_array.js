@@ -1,3 +1,5 @@
+import './array_index.js';
+
 /**
  * W A R N I N G
  *     This function will modify original values.

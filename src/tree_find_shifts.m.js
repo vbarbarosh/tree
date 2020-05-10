@@ -1,6 +1,6 @@
-import tree_find_shifts from './tree_find_shifts';
-import tree_from_string2 from './tree_from_string2';
-import tree_roots_flatten from './tree_roots_flatten';
+import tree_find_shifts from './tree_find_shifts.js';
+import tree_from_string2 from './tree_from_string2.js';
+import tree_roots_flatten from './tree_roots_flatten.js';
 
 describe('tree_find_shifts', function () {
     it('should handle basic input', function () {

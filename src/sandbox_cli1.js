@@ -1,10 +1,11 @@
 import Promise from 'bluebird';
+import cli from '@vbarbarosh/node-cli';
 import readline from 'readline';
-import tree_from_array from './tree_from_array';
-import tree_from_string2 from './tree_from_string2';
-import tree_print2 from './tree_print2';
-import tree_roots_flatten from './tree_roots_flatten';
-import tree_walk_preorder from './tree_walk_preorder';
+import tree_from_array from './tree_from_array.js';
+import tree_from_string2 from './tree_from_string2.js';
+import tree_print2 from './tree_print2.js';
+import tree_roots_flatten from './tree_roots_flatten.js';
+import tree_walk_preorder from './tree_walk_preorder.js';
 
 // Case when node refers to undefined parent_id
 
@@ -154,19 +155,6 @@ async function main()
             print(nodes, selection);
         });
     });
-}
-
-// https://stackoverflow.com/a/57241059/1478566
-function cli(main)
-{
-    // https://stackoverflow.com/a/46916601/1478566
-    return Promise.method(main).call().catch(panic).finally(clearInterval.bind(null, setInterval(v => v, 1E9)));
-}
-
-function panic(error)
-{
-    console.error(error);
-    process.exit(1);
 }
 
 // Move node up

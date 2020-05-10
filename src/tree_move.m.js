@@ -1,6 +1,6 @@
-import tree_from_string2 from './tree_from_string2';
-import tree_move from './tree_move';
-import tree_roots_flatten from './tree_roots_flatten';
+import tree_from_string2 from './tree_from_string2.js';
+import tree_move from './tree_move.js';
+import tree_roots_flatten from './tree_roots_flatten.js';
 
 describe('tree_move', function () {
     it('should handle empty arrays', function () {

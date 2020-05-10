@@ -1,4 +1,4 @@
-import tree_insert from './tree_insert';
+import tree_insert from './tree_insert.js';
 
 describe('tree_insert', function () {
     it('should handle empty arrays', function () {

@@ -4,7 +4,7 @@
   "version": "0.2.3",
   "description": "A set of functions for working with trees",
   "license": "ISC",
-  "type": "module",
+  "main": "src/browser.js",
   "unpkg": "dist/vbtree.js",
   "jsdelivr": "dist/vbtree.js",
   "files": [

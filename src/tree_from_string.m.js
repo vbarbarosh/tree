@@ -1,4 +1,4 @@
-import tree_from_string from './tree_from_string.js';
+import tree_from_string from './tree_from_string';
 
 describe('tree_from_string', function () {
     xit('should accept no arguments', function () {

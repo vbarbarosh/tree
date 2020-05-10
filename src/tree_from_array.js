@@ -1,4 +1,4 @@
-import './array_index.js';
+import './array_index';
 
 /**
  * W A R N I N G

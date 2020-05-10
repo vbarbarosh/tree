@@ -1,7 +1,7 @@
-import array_permutations from './array_permutations.js';
-import tree_from_array from './tree_from_array.js';
-import tree_print2 from './tree_print2.js';
-import tree_roots_flatten from './tree_roots_flatten.js';
+import array_permutations from './array_permutations';
+import tree_from_array from './tree_from_array';
+import tree_print2 from './tree_print2';
+import tree_roots_flatten from './tree_roots_flatten';
 
 // tree_roots_flatten(tree_from_string(tree_random()).children))
 const valid = [

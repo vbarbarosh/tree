@@ -1,5 +1,5 @@
-import array_index from './array_index.js';
-import tree_pointer_shift from './tree_pointer_shift.js';
+import array_index from './array_index';
+import tree_pointer_shift from './tree_pointer_shift';
 
 function tree_finder_make(ctx)
 {

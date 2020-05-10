@@ -1,4 +1,4 @@
-import tree_walk_preorder from './tree_walk_preorder.js';
+import tree_walk_preorder from './tree_walk_preorder';
 
 function tree_roots_flatten(roots)
 {

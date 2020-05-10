@@ -1,7 +1,7 @@
-import array_index from './array_index.js';
-import tree_find_shifts from './tree_find_shifts.js';
-import tree_from_array from './tree_from_array.js';
-import tree_walk_preorder from './tree_walk_preorder.js';
+import array_index from './array_index';
+import tree_find_shifts from './tree_find_shifts';
+import tree_from_array from './tree_from_array';
+import tree_walk_preorder from './tree_walk_preorder';
 
 /**
  * Like `path.resolve`. Given a starting point and

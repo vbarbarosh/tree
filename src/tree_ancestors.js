@@ -1,6 +1,6 @@
-import tree_map_orig from './tree_map_orig.js';
-import tree_walk_preorder from './tree_walk_preorder.js';
-import tree_from_array from './tree_from_array.js';
+import tree_map_orig from './tree_map_orig';
+import tree_walk_preorder from './tree_walk_preorder';
+import tree_from_array from './tree_from_array';
 
 /**
  * Return all ancestors of a specific node

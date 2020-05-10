@@ -5,7 +5,7 @@ function render_config(mode)
 
     return {
         mode,
-        entry: './src/index.js',
+        entry: './src/browser.js',
         devtool: false,
         output: {
             filename: is_development ? 'vbtree.js' : 'vbtree.min.js',

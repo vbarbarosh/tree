@@ -1,5 +1,5 @@
-import array_index from './array_index.js';
-import tree_intersect from './tree_intersect.js';
+import array_index from './array_index';
+import tree_intersect from './tree_intersect';
 
 /**
  * Move nodes into a new place. Basically - set new

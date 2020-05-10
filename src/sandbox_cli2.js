@@ -1,11 +1,11 @@
 import cli from '@vbarbarosh/node-cli';
 
-import tree_from_array from './tree_from_array.js';
-import tree_from_string2 from './tree_from_string2.js';
-import tree_move from './tree_move.js';
-import tree_print2 from './tree_print2.js';
-import tree_roots_flatten from './tree_roots_flatten.js';
-import tree_walk_preorder_rev from './tree_walk_preorder_rev.js';
+import tree_from_array from './tree_from_array';
+import tree_from_string2 from './tree_from_string2';
+import tree_move from './tree_move';
+import tree_print2 from './tree_print2';
+import tree_roots_flatten from './tree_roots_flatten';
+import tree_walk_preorder_rev from './tree_walk_preorder_rev';
 
 // noinspection NonAsciiCharacters
 const prefix4 = {

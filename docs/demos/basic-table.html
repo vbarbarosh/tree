@@ -15,10 +15,26 @@
 
 <div id="app" class="ma p20 bs5">
     <br>
-    <div class="flex-row ma w500 dashed rainbow">
+    <div class="flex-row ma w800 dashed rainbow">
         <div class="w0 flex-fluid">
             <p>Display tree in reverse order</p>
             <vue-tree ref="tree" v-bind:value="tree.roots"></vue-tree>
+        </div>
+        <div class="w0 flex-fluid">
+            <table>
+            <thead>
+            <tr>
+                <th>xx</th>
+                <th>yy</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="item in items_preorder">
+                <td>{{ item.id }}</td>
+                <td>{{ item.text }}</td>
+            </tr>
+            </tbody>
+            </table>
         </div>
         <div class="w0 flex-fluid">
             <p>Display tree in normal order</p>
@@ -147,6 +163,15 @@
                     return {id: item.id, parent_id: item.parent_id, orig: item};
                 }));
             },
+            items_preorder: function () {
+                return vbtree.tree_walk_preorder({
+                    roots: this.tree.roots,
+                    retval: [],
+                    visit: function (ctx) {
+                        ctx.retval.push(ctx.node.orig);
+                    },
+                });
+            },
         },
         methods: {
             open: function (item) {
@@ -183,7 +208,7 @@
                                 opacity: 0.5,
                                 position: 'fixed',
                                 boxSizing: 'border-box',
-                                //borderTop: '5px solid',
+                                borderTop: '5px solid',
                                 pointerEvents: 'none',
                                 background: 'green', // this.target.is_allowed ? 'green' : 'red',
                                 top: px(this.target.y),

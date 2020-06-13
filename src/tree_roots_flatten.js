@@ -11,6 +11,7 @@ function tree_roots_flatten(roots)
         leave: function ({node}) {
             delete node.parent;
             delete node.children;
+            delete node.siblings;
         },
     });
 }

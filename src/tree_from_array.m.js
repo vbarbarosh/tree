@@ -89,15 +89,19 @@ describe('tree_from_array', function () {
     });
     it('should handle basic input №1', function () {
         const input = [{id: 1}, {id: 2, parent_id: 1}];
-        const node1 = {id: 1, parent_id: null, parent: null, children: []};
-        const node2 = {id: 2, parent_id: 1, parent: node1, children: []};
+        const roots = [];
+        const node1 = {id: 1, parent_id: null, parent: null, children: [], siblings: roots};
+        const node2 = {id: 2, parent_id: 1, parent: node1, children: [], siblings: node1.children};
+        roots.push(node1);
         node1.children.push(node2);
         assert.deepEqual(tree_from_array(input).roots, [node1]);
     });
     it('should handle basic input №2', function () {
         const input = [{id: 2, parent_id: 1}, {id: 1}];
-        const node1 = {id: 1, parent_id: null, parent: null, children: []};
-        const node2 = {id: 2, parent_id: 1, parent: node1, children: []};
+        const roots = [];
+        const node1 = {id: 1, parent_id: null, parent: null, children: [], siblings: roots};
+        const node2 = {id: 2, parent_id: 1, parent: node1, children: [], siblings: node1.children};
+        roots.push(node1);
         node1.children.push(node2);
         assert.deepEqual(tree_from_array(input).roots, [node1]);
     });

@@ -23,7 +23,8 @@ function tree_from_array(nodes = [])
             throw new Error('All rows should have unique ids');
         }
         nodes_map[node.id] = node;
-        if (node.parent = nodes_map[node.parent_id] || null) {
+        node.parent = nodes_map[node.parent_id] || null;
+        if (node.parent) {
             // The most basic condition for circular dependency.
             if (node.parent === node) {
                 panic(node);
@@ -44,7 +45,8 @@ function tree_from_array(nodes = [])
 
     for (let i = 0, end = orphans.length; i < end; ++i) {
         const node = orphans[i];
-        if (node.parent = nodes_map[node.parent_id] || null) {
+        node.parent = nodes_map[node.parent_id] || null;
+        if (node.parent) {
             splice[node.parent_id] = (splice[node.parent_id]+1)||0;
             node.parent.children.splice(splice[node.parent_id], 0, node);
             node.siblings = node.parent.children;

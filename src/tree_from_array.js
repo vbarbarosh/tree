@@ -32,6 +32,7 @@ function tree_from_array(nodes = [])
             // a circular dependency since no other nodes was able to
             // use it as a parent.
             node.parent.children.push(node);
+            node.siblings = node.parent.children;
         }
         else {
             // Currently there is no parent for this node, but it may follow.
@@ -46,6 +47,7 @@ function tree_from_array(nodes = [])
         if (node.parent = nodes_map[node.parent_id] || null) {
             splice[node.parent_id] = (splice[node.parent_id]+1)||0;
             node.parent.children.splice(splice[node.parent_id], 0, node);
+            node.siblings = node.parent.children;
             // At this point just inserted node can create a circular dependency.
             for (let p = node; p; p = p.parent) {
                 if (p.parent === node) {
@@ -57,6 +59,7 @@ function tree_from_array(nodes = [])
             // Since all nodes was indexed and parent_id wasn't found
             // in index, consider this node as root.
             roots.push(node);
+            node.siblings = roots;
         }
     }
 

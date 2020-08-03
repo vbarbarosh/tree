@@ -8,7 +8,6 @@ import tree_find_shifts from './tree_find_shifts';
 import tree_finder_make from './tree_finder_make';
 import tree_from_array from './tree_from_array';
 import tree_from_string from './tree_from_string';
-import tree_from_string2 from './tree_from_string2';
 import tree_insert from './tree_insert';
 import tree_intersect from './tree_intersect';
 import tree_map_orig from './tree_map_orig';
@@ -39,7 +38,6 @@ export {
     tree_finder_make,
     tree_from_array,
     tree_from_string,
-    tree_from_string2,
     tree_insert,
     tree_intersect,
     tree_map_orig,

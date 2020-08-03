@@ -1,5 +1,5 @@
 import tree_find_shifts from './tree_find_shifts';
-import tree_from_string2 from './tree_from_string2';
+import tree_from_string from './tree_from_string';
 import tree_roots_flatten from './tree_roots_flatten';
 
 describe('tree_find_shifts', function () {
@@ -31,7 +31,7 @@ describe('tree_find_shifts', function () {
 
 function tree(text)
 {
-    const out = tree_roots_flatten(tree_from_string2(text));
+    const out = tree_flatten(tree_from_string(text));
     const ids = {};
     out.forEach(v => ids[v.id] = v.text);
     out.forEach(v => v.id = ids[v.id]);

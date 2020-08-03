@@ -1,80 +1,41 @@
-// if (0) {
-//     const tree = tree_from_string(`
-//         logo
-//             shapes
-//                 scale,rotate,color,layer_up,layer_down,delete
-//             scale
-//             rotate
-//             drop_shadow
-//                 enabled,distance,angle,opacity,blur
-//             inner_shadow
-//                 enabled,distance,angle,opacity,blur
-//         text
-//             scale
-//             rotate
-//             font
-//             color
-//             drop_shadow
-//                 enabled,distance,angle,opacity,blur
-//             inner_shadow
-//                 enabled,distance,angle,opacity,blur
-//             layer_up
-//             layer_down
-//             delete
-//         uploads
-//             scale
-//             rotate
-//             drop_shadow
-//                 enabled,distance,angle,opacity,blur
-//             inner_shadow
-//                 enabled,distance,angle,opacity,blur
-//             layer_up
-//             layer_down
-//             delete
-//         background
-//             transparent
-//             gradient_color
-//             solid_color
-//     `);
-//     tree_print(tree.children);
-// }
-
 /**
- * 1. Should return an array of roots
- * 2. Each node should have unique ids
- *
- * FIXME Should return the same object as tree_from_array
- *
- * @param s
+ * @param {String} s
+ * @returns {{roots,nodes,nodes_map}}
  */
-function tree_from_string(s)
+function tree_from_string(s= '')
 {
-    let root = {id: null, level: 0, parent: null, children: []};
-    let parents = [root];
+    // 1. Each line represent one or several *node ids* separated by comma
+    // 2. Duplicated *node ids* would be prefixed with a number starting from 2
+    // 3. Parent of a node would be the first above it with less spaces
+
+    const root = {id: null, children: []};
+    const nodes = [];
+    const nodes_map = {};
+    const spaces_map = {[null]: 0};
+    let parent = root;
     s.split('\n').forEach(function (line) {
         const names = line.trimLeft();
-        const level = line.length - names.length;
         if (names == '') {
             return;
         }
-        while (parents.length > 1 && parents[0].level >= level) {
-            parents[0].level = parents.length - 1;
-            parents[0].parent = parents[1];
-            parents.shift();
+        const spaces = line.length - names.length;
+        while (parent !== root && spaces_map[parent.id] >= spaces) {
+            parent = parent.parent;
         }
-        let node;
-        names.split(',').forEach(function (id) {
-            node = {id, level: parents.length - 1, parent: parents[0], children: []};
-            parents[0].children.push(node);
+        names.split(',').forEach(function (name) {
+            let id = name;
+            for (let suffix = 2; nodes_map[id] && suffix < 100; ++suffix) {
+                id = `${name}${suffix}`;
+            }
+            const node = {id, parent_id: parent.id, name, parent, children: []};
+            spaces_map[id] = spaces;
+            nodes.push(node);
+            nodes_map[id] = node;
+            parent.children.push(node);
         });
-        node.level = level;
-        parents.unshift(node);
+        parent = nodes[nodes.length - 1];
     });
-    while (parents.length > 0) {
-        parents[0].level = parents.length - 1;
-        parents.shift();
-    }
-    return root;
+    return {roots: root.children, nodes, nodes_map};
 }
 
 export default tree_from_string;

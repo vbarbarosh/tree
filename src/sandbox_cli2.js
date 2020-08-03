@@ -1,7 +1,6 @@
 import cli from '@vbarbarosh/node-cli';
-
 import tree_from_array from './tree_from_array';
-import tree_from_string2 from './tree_from_string2';
+import tree_from_string from './tree_from_string';
 import tree_move from './tree_move';
 import tree_print2 from './tree_print2';
 import tree_roots_flatten from './tree_roots_flatten';
@@ -19,7 +18,7 @@ cli(main);
 
 function main()
 {
-    const items = tree_roots_flatten(tree_from_string2(`
+    const items = tree_flatten(tree_from_string(`
     foo
     bar
         bar1

@@ -3,7 +3,7 @@
  *     This function will modify original values.
  *
  * @param {Array} nodes
- * @returns {{roots,nodes,nodes_map}} roots
+ * @returns {{roots,nodes,nodes_map}}
  *
  * @link https://stackoverflow.com/a/37907458/1478566
  * @link http://krishnalearnings.blogspot.com/2015/11/basics-of-graph-in-computer-science.html

@@ -1,3 +1,11 @@
+нет возможности работать с поддеревом
+
+нет возможности задать ограничение на сдвиг
+
+    // я добавил ограничение: сдвигать в корень нельзя (все узлы должны быть на сцене)
+    const shift = Math.max(closest_node_i==-1?1:-999, shift1);
+
+
 ## Goal
 
 The primary goal of this library is to provide a reasonable

@@ -31,19 +31,17 @@
   },
   "homepage": "https://tree.vbarbarosh.com",
   "devDependencies": {
-    "@babel/core": "^7.9.6",
-    "@babel/preset-env": "^7.9.6",
+    "@babel/core": "^7.11.0",
+    "@babel/preset-env": "^7.11.0",
     "@vbarbarosh/mjs": "github:vbarbarosh/mjs",
+    "@vbarbarosh/node-cli": "github:vbarbarosh/node-cli",
     "babel-loader": "^8.1.0",
     "esm": "^3.2.25",
     "faker": "^4.1.0",
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.11"
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
   },
   "peerDependencies": {
     "faker": "^4.1.0"
-  },
-  "dependencies": {
-    "@vbarbarosh/node-cli": "github:vbarbarosh/node-cli"
   }
 }

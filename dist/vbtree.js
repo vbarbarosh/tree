@@ -964,8 +964,9 @@ function tree_from_array() {
     }
 
     nodes_map[node.id] = node;
+    node.parent = nodes_map[node.parent_id] || null;
 
-    if (node.parent = nodes_map[node.parent_id] || null) {
+    if (node.parent) {
       // The most basic condition for circular dependency.
       if (node.parent === node) {
         panic(node);
@@ -975,6 +976,7 @@ function tree_from_array() {
 
 
       node.parent.children.push(node);
+      node.siblings = node.parent.children;
     } else {
       // Currently there is no parent for this node, but it may follow.
       orphans.push(node);
@@ -985,12 +987,14 @@ function tree_from_array() {
 
   for (var _i = 0, _end = orphans.length; _i < _end; ++_i) {
     var _node = orphans[_i];
+    _node.parent = nodes_map[_node.parent_id] || null;
 
-    if (_node.parent = nodes_map[_node.parent_id] || null) {
+    if (_node.parent) {
       splice[_node.parent_id] = splice[_node.parent_id] + 1 || 0;
 
-      _node.parent.children.splice(splice[_node.parent_id], 0, _node); // At this point just inserted node can create a circular dependency.
+      _node.parent.children.splice(splice[_node.parent_id], 0, _node);
 
+      _node.siblings = _node.parent.children; // At this point just inserted node can create a circular dependency.
 
       for (var p = _node; p; p = p.parent) {
         if (p.parent === _node) {
@@ -1001,6 +1005,7 @@ function tree_from_array() {
       // Since all nodes was indexed and parent_id wasn't found
       // in index, consider this node as root.
       roots.push(_node);
+      _node.siblings = roots;
     }
   }
 
@@ -1953,6 +1958,7 @@ function tree_roots_flatten(roots) {
       var node = _ref2.node;
       delete node.parent;
       delete node.children;
+      delete node.siblings;
     }
   });
 }

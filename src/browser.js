@@ -7,6 +7,7 @@ import tree_descendants from './tree_descendants';
 import tree_diff from './tree_diff';
 import tree_find_shifts from './tree_find_shifts';
 import tree_finder_make from './tree_finder_make';
+import tree_flatten from './tree_flatten';
 import tree_from_array from './tree_from_array';
 import tree_from_string from './tree_from_string';
 import tree_insert from './tree_insert';
@@ -37,6 +38,7 @@ export {
     tree_diff,
     tree_find_shifts,
     tree_finder_make,
+    tree_flatten,
     tree_from_array,
     tree_from_string,
     tree_insert,

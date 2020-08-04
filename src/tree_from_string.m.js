@@ -21,6 +21,9 @@ describe('tree_from_string', function () {
             ids_map[node.id] = true;
         });
     });
+    it('should be no parent for root nodes', function () {
+        tree_from_string(`foo\nbar\nbaz`).roots.forEach(v => assert(v.parent_id === null && v.parent === null));
+    });
     it('should define parent_id for each node', function () {
         assert.deepEqual(tree_from_string(), {roots: [], nodes: [], nodes_map: {}});
     });

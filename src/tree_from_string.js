@@ -35,6 +35,7 @@ function tree_from_string(s= '')
         });
         parent = nodes[nodes.length - 1];
     });
+    root.children.forEach(v => v.parent = null);
     return {roots: root.children, nodes, nodes_map};
 }
 

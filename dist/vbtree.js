@@ -150,7 +150,7 @@ function array_permutations(items) {
 /*!************************!*\
   !*** ./src/browser.js ***!
   \************************/
-/*! exports provided: array_index, array_permutations, tree_ancestors, tree_common_ancestor, tree_descendants, tree_diff, tree_find_shifts, tree_finder_make, tree_from_array, tree_from_string, tree_from_string2, tree_insert, tree_intersect, tree_map_orig, tree_move, tree_move_after, tree_move_before, tree_move_into, tree_move_v2, tree_pointer_shift, tree_print2, tree_random, tree_resolve, tree_roots_flatten, tree_shift, tree_sort_preorder, tree_walk_preorder, tree_walk_preorder_prefix, tree_walk_preorder_rev */
+/*! exports provided: array_index, array_permutations, roots_flatten, tree_ancestors, tree_common_ancestor, tree_descendants, tree_diff, tree_find_shifts, tree_finder_make, tree_from_array, tree_from_string, tree_insert, tree_intersect, tree_map_orig, tree_move, tree_move_after, tree_move_before, tree_move_into, tree_move_v2, tree_pointer_shift, tree_print2, tree_random, tree_resolve, tree_shift, tree_sort_preorder, tree_walk_preorder, tree_walk_preorder_prefix, tree_walk_preorder_rev */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -161,32 +161,32 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _array_permutations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./array_permutations */ "./src/array_permutations.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "array_permutations", function() { return _array_permutations__WEBPACK_IMPORTED_MODULE_1__["default"]; });
 
-/* harmony import */ var _tree_ancestors__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tree_ancestors */ "./src/tree_ancestors.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_ancestors", function() { return _tree_ancestors__WEBPACK_IMPORTED_MODULE_2__["default"]; });
+/* harmony import */ var _roots_flatten__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./roots_flatten */ "./src/roots_flatten.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "roots_flatten", function() { return _roots_flatten__WEBPACK_IMPORTED_MODULE_2__["default"]; });
 
-/* harmony import */ var _tree_common_ancestor__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./tree_common_ancestor */ "./src/tree_common_ancestor.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_common_ancestor", function() { return _tree_common_ancestor__WEBPACK_IMPORTED_MODULE_3__["default"]; });
+/* harmony import */ var _tree_ancestors__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./tree_ancestors */ "./src/tree_ancestors.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_ancestors", function() { return _tree_ancestors__WEBPACK_IMPORTED_MODULE_3__["default"]; });
 
-/* harmony import */ var _tree_descendants__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./tree_descendants */ "./src/tree_descendants.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_descendants", function() { return _tree_descendants__WEBPACK_IMPORTED_MODULE_4__["default"]; });
+/* harmony import */ var _tree_common_ancestor__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./tree_common_ancestor */ "./src/tree_common_ancestor.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_common_ancestor", function() { return _tree_common_ancestor__WEBPACK_IMPORTED_MODULE_4__["default"]; });
 
-/* harmony import */ var _tree_diff__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./tree_diff */ "./src/tree_diff.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_diff", function() { return _tree_diff__WEBPACK_IMPORTED_MODULE_5__["default"]; });
+/* harmony import */ var _tree_descendants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./tree_descendants */ "./src/tree_descendants.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_descendants", function() { return _tree_descendants__WEBPACK_IMPORTED_MODULE_5__["default"]; });
 
-/* harmony import */ var _tree_find_shifts__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./tree_find_shifts */ "./src/tree_find_shifts.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_find_shifts", function() { return _tree_find_shifts__WEBPACK_IMPORTED_MODULE_6__["default"]; });
+/* harmony import */ var _tree_diff__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./tree_diff */ "./src/tree_diff.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_diff", function() { return _tree_diff__WEBPACK_IMPORTED_MODULE_6__["default"]; });
 
-/* harmony import */ var _tree_finder_make__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./tree_finder_make */ "./src/tree_finder_make.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_finder_make", function() { return _tree_finder_make__WEBPACK_IMPORTED_MODULE_7__["default"]; });
+/* harmony import */ var _tree_find_shifts__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./tree_find_shifts */ "./src/tree_find_shifts.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_find_shifts", function() { return _tree_find_shifts__WEBPACK_IMPORTED_MODULE_7__["default"]; });
 
-/* harmony import */ var _tree_from_array__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./tree_from_array */ "./src/tree_from_array.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_from_array", function() { return _tree_from_array__WEBPACK_IMPORTED_MODULE_8__["default"]; });
+/* harmony import */ var _tree_finder_make__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./tree_finder_make */ "./src/tree_finder_make.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_finder_make", function() { return _tree_finder_make__WEBPACK_IMPORTED_MODULE_8__["default"]; });
 
-/* harmony import */ var _tree_from_string__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./tree_from_string */ "./src/tree_from_string.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_from_string", function() { return _tree_from_string__WEBPACK_IMPORTED_MODULE_9__["default"]; });
+/* harmony import */ var _tree_from_array__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./tree_from_array */ "./src/tree_from_array.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_from_array", function() { return _tree_from_array__WEBPACK_IMPORTED_MODULE_9__["default"]; });
 
-/* harmony import */ var _tree_from_string2__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./tree_from_string2 */ "./src/tree_from_string2.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_from_string2", function() { return _tree_from_string2__WEBPACK_IMPORTED_MODULE_10__["default"]; });
+/* harmony import */ var _tree_from_string__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./tree_from_string */ "./src/tree_from_string.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_from_string", function() { return _tree_from_string__WEBPACK_IMPORTED_MODULE_10__["default"]; });
 
 /* harmony import */ var _tree_insert__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./tree_insert */ "./src/tree_insert.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_insert", function() { return _tree_insert__WEBPACK_IMPORTED_MODULE_11__["default"]; });
@@ -224,23 +224,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _tree_resolve__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./tree_resolve */ "./src/tree_resolve.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_resolve", function() { return _tree_resolve__WEBPACK_IMPORTED_MODULE_22__["default"]; });
 
-/* harmony import */ var _tree_roots_flatten__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./tree_roots_flatten */ "./src/tree_roots_flatten.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_roots_flatten", function() { return _tree_roots_flatten__WEBPACK_IMPORTED_MODULE_23__["default"]; });
+/* harmony import */ var _tree_shift__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./tree_shift */ "./src/tree_shift.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_shift", function() { return _tree_shift__WEBPACK_IMPORTED_MODULE_23__["default"]; });
 
-/* harmony import */ var _tree_shift__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./tree_shift */ "./src/tree_shift.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_shift", function() { return _tree_shift__WEBPACK_IMPORTED_MODULE_24__["default"]; });
+/* harmony import */ var _tree_sort_preorder__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./tree_sort_preorder */ "./src/tree_sort_preorder.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_sort_preorder", function() { return _tree_sort_preorder__WEBPACK_IMPORTED_MODULE_24__["default"]; });
 
-/* harmony import */ var _tree_sort_preorder__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./tree_sort_preorder */ "./src/tree_sort_preorder.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_sort_preorder", function() { return _tree_sort_preorder__WEBPACK_IMPORTED_MODULE_25__["default"]; });
+/* harmony import */ var _tree_walk_preorder__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./tree_walk_preorder */ "./src/tree_walk_preorder.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_walk_preorder", function() { return _tree_walk_preorder__WEBPACK_IMPORTED_MODULE_25__["default"]; });
 
-/* harmony import */ var _tree_walk_preorder__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./tree_walk_preorder */ "./src/tree_walk_preorder.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_walk_preorder", function() { return _tree_walk_preorder__WEBPACK_IMPORTED_MODULE_26__["default"]; });
+/* harmony import */ var _tree_walk_preorder_prefix__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./tree_walk_preorder_prefix */ "./src/tree_walk_preorder_prefix.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_walk_preorder_prefix", function() { return _tree_walk_preorder_prefix__WEBPACK_IMPORTED_MODULE_26__["default"]; });
 
-/* harmony import */ var _tree_walk_preorder_prefix__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./tree_walk_preorder_prefix */ "./src/tree_walk_preorder_prefix.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_walk_preorder_prefix", function() { return _tree_walk_preorder_prefix__WEBPACK_IMPORTED_MODULE_27__["default"]; });
-
-/* harmony import */ var _tree_walk_preorder_rev__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./tree_walk_preorder_rev */ "./src/tree_walk_preorder_rev.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_walk_preorder_rev", function() { return _tree_walk_preorder_rev__WEBPACK_IMPORTED_MODULE_28__["default"]; });
+/* harmony import */ var _tree_walk_preorder_rev__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./tree_walk_preorder_rev */ "./src/tree_walk_preorder_rev.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_walk_preorder_rev", function() { return _tree_walk_preorder_rev__WEBPACK_IMPORTED_MODULE_27__["default"]; });
 
 
 
@@ -272,6 +269,39 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+/***/ }),
+
+/***/ "./src/roots_flatten.js":
+/*!******************************!*\
+  !*** ./src/roots_flatten.js ***!
+  \******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _tree_walk_preorder__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tree_walk_preorder */ "./src/tree_walk_preorder.js");
+
+
+function roots_flatten(roots) {
+  return Object(_tree_walk_preorder__WEBPACK_IMPORTED_MODULE_0__["default"])({
+    roots: roots,
+    retval: [],
+    enter: function enter(_ref) {
+      var node = _ref.node,
+          retval = _ref.retval;
+      retval.push(node);
+    },
+    leave: function leave(_ref2) {
+      var node = _ref2.node;
+      delete node.parent;
+      delete node.children;
+      delete node.siblings;
+    }
+  });
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (roots_flatten);
 
 /***/ }),
 
@@ -943,7 +973,7 @@ __webpack_require__.r(__webpack_exports__);
  *     This function will modify original values.
  *
  * @param {Array} nodes
- * @returns {{roots,nodes,nodes_map}} roots
+ * @returns {{roots,nodes,nodes_map}}
  *
  * @link https://stackoverflow.com/a/37907458/1478566
  * @link http://krishnalearnings.blogspot.com/2015/11/basics-of-graph-in-computer-science.html
@@ -1041,166 +1071,73 @@ function panic(node) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-// if (0) {
-//     const tree = tree_from_string(`
-//         logo
-//             shapes
-//                 scale,rotate,color,layer_up,layer_down,delete
-//             scale
-//             rotate
-//             drop_shadow
-//                 enabled,distance,angle,opacity,blur
-//             inner_shadow
-//                 enabled,distance,angle,opacity,blur
-//         text
-//             scale
-//             rotate
-//             font
-//             color
-//             drop_shadow
-//                 enabled,distance,angle,opacity,blur
-//             inner_shadow
-//                 enabled,distance,angle,opacity,blur
-//             layer_up
-//             layer_down
-//             delete
-//         uploads
-//             scale
-//             rotate
-//             drop_shadow
-//                 enabled,distance,angle,opacity,blur
-//             inner_shadow
-//                 enabled,distance,angle,opacity,blur
-//             layer_up
-//             layer_down
-//             delete
-//         background
-//             transparent
-//             gradient_color
-//             solid_color
-//     `);
-//     tree_print(tree.children);
-// }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 /**
- * 1. Should return an array of roots
- * 2. Each node should have unique ids
- *
- * FIXME Should return the same object as tree_from_array
- *
- * @param s
+ * @param {String} s
+ * @returns {{roots,nodes,nodes_map}}
  */
-function tree_from_string(s) {
+function tree_from_string() {
+  var s = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+  // 1. Each line represent one or several *node ids* separated by comma
+  // 2. Duplicated *node ids* would be prefixed with a number starting from 2
+  // 3. Parent of a node would be the first above it with less spaces
   var root = {
     id: null,
-    level: 0,
-    parent: null,
     children: []
   };
-  var parents = [root];
+  var nodes = [];
+  var nodes_map = {};
+
+  var spaces_map = _defineProperty({}, null, 0);
+
+  var parent = root;
   s.split('\n').forEach(function (line) {
     var names = line.trimLeft();
-    var level = line.length - names.length;
 
     if (names == '') {
       return;
     }
 
-    while (parents.length > 1 && parents[0].level >= level) {
-      parents[0].level = parents.length - 1;
-      parents[0].parent = parents[1];
-      parents.shift();
+    var spaces = line.length - names.length;
+
+    while (parent !== root && spaces_map[parent.id] >= spaces) {
+      parent = parent.parent;
     }
 
-    var node;
-    names.split(',').forEach(function (id) {
-      node = {
+    names.split(',').forEach(function (name) {
+      var id = name;
+
+      for (var suffix = 2; nodes_map[id] && suffix < 100; ++suffix) {
+        id = "".concat(name).concat(suffix);
+      }
+
+      var node = {
         id: id,
-        level: parents.length - 1,
-        parent: parents[0],
-        children: []
+        parent_id: parent.id,
+        name: name,
+        parent: parent,
+        children: [],
+        siblings: parent.children
       };
-      parents[0].children.push(node);
+      spaces_map[id] = spaces;
+      nodes.push(node);
+      nodes_map[id] = node;
+      parent.children.push(node);
     });
-    node.level = level;
-    parents.unshift(node);
+    parent = nodes[nodes.length - 1];
   });
-
-  while (parents.length > 0) {
-    parents[0].level = parents.length - 1;
-    parents.shift();
-  }
-
-  return root;
+  root.children.forEach(function (v) {
+    return v.parent = null;
+  });
+  return {
+    roots: root.children,
+    nodes: nodes,
+    nodes_map: nodes_map
+  };
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (tree_from_string);
-
-/***/ }),
-
-/***/ "./src/tree_from_string2.js":
-/*!**********************************!*\
-  !*** ./src/tree_from_string2.js ***!
-  \**********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/**
- * FIXME Should return the same object as tree_from_array
- *
- * @param s
- */
-function tree_from_string2(s) {
-  var counter = 0;
-  var root = {
-    id: null,
-    parent_id: null,
-    level: 0,
-    parent: null,
-    children: []
-  };
-  var parents = [root];
-  s.split('\n').forEach(function (line) {
-    var names = line.trimLeft();
-    var level = line.length - names.length; // noinspection EqualityComparisonWithCoercionJS
-
-    if (names == '') {
-      return;
-    }
-
-    while (parents.length > 1 && parents[0].level >= level) {
-      parents[0].level = parents.length - 1;
-      parents[0].parent = parents[1];
-      parents.shift();
-    }
-
-    var node;
-    names.split(',').forEach(function (text) {
-      node = {
-        id: text,
-        parent_id: parents[0].id,
-        text: text,
-        level: parents.length - 1,
-        parent: parents[0],
-        children: []
-      };
-      parents[0].children.push(node);
-    });
-    node.level = level;
-    parents.unshift(node);
-  });
-
-  while (parents.length > 0) {
-    parents[0].level = parents.length - 1;
-    parents.shift();
-  }
-
-  return root.children;
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (tree_from_string2);
 
 /***/ }),
 
@@ -1930,40 +1867,6 @@ function tree_resolve(nodes, start, one_down, horizontal_shift) {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (tree_resolve);
-
-/***/ }),
-
-/***/ "./src/tree_roots_flatten.js":
-/*!***********************************!*\
-  !*** ./src/tree_roots_flatten.js ***!
-  \***********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _tree_walk_preorder__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tree_walk_preorder */ "./src/tree_walk_preorder.js");
-
-
-function tree_roots_flatten(roots) {
-  return Object(_tree_walk_preorder__WEBPACK_IMPORTED_MODULE_0__["default"])({
-    roots: roots,
-    retval: [],
-    enter: function enter(_ref) {
-      var node = _ref.node,
-          retval = _ref.retval;
-      retval.push(node);
-    },
-    leave: function leave(_ref2) {
-      var node = _ref2.node;
-      delete node.parent;
-      delete node.children;
-      delete node.siblings;
-    }
-  });
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (tree_roots_flatten);
 
 /***/ }),
 

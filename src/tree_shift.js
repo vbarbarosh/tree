@@ -14,7 +14,7 @@ function tree_shift(nodes, i, shift, is_shift_allowed = () => true)
     }
 
     let shift_real = 0;
-    let parent_id = (i==nodes.length)  ? null : nodes[i].parent_id;
+    let parent_id = (i == nodes.length)  ? null : nodes[i].parent_id;
     let reti = i;
 
     while (shift > 0) {

@@ -10,12 +10,7 @@ describe('tree_from_string', function () {
         assert.deepEqual(tree_from_string(''), {roots: [], nodes: [], nodes_map: {}});
     });
     it('should made ids unique', function () {
-        const tree = tree_from_string(`
-            foo
-            foo
-            foo
-            bar
-        `);
+        const tree = tree_from_string('foo\nfoo\nfoo\nbar');
         const ids_map = {};
         tree.nodes.forEach(function (node) {
             assert(!ids_map[node.id]);
@@ -28,9 +23,6 @@ describe('tree_from_string', function () {
     it('should return the same result as tree_from_array', function () {
         const nodes = [{id: 'foo', name: 'foo'}, {id: 'bar', name: 'bar'}];
         assert.deepEqual(tree_from_string('foo\nbar'), tree_from_array(nodes));
-    });
-    it('should define parent_id for each node', function () {
-        assert.deepEqual(tree_from_string(), {roots: [], nodes: [], nodes_map: {}});
     });
     it('should parse sample 1', function () {
         const input = `

@@ -1,6 +1,6 @@
+import roots_flatten from './roots_flatten';
 import tree_from_string from './tree_from_string';
 import tree_pointer_shift from './tree_pointer_shift';
-import tree_roots_flatten from './tree_roots_flatten';
 
 describe('tree_pointer_shift', function () {
     it('should handle basic input', function () {

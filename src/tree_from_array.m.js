@@ -1,7 +1,7 @@
 import array_permutations from './array_permutations';
+import roots_flatten from './roots_flatten';
 import tree_from_array from './tree_from_array';
 import tree_print2 from './tree_print2';
-import tree_roots_flatten from './tree_roots_flatten';
 
 // tree_flatten(tree_from_string(tree_random()))
 const valid = [
@@ -108,7 +108,7 @@ describe('tree_from_array', function () {
     it('should pass random test', function () {
         for (let i = 0, end = valid.length; i < end; ++i) {
             const t1 = obj_clone(valid[i]).sort(fcmp_nodes_id);
-            const t2 = tree_roots_flatten(tree_from_array(obj_clone(valid[i])).roots).sort(fcmp_nodes_id);
+            const t2 = roots_flatten(tree_from_array(obj_clone(valid[i])).roots).sort(fcmp_nodes_id);
             assert.deepEqual(t1, t2);
         }
     });

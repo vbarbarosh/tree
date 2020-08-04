@@ -1,10 +1,10 @@
 import Promise from 'bluebird';
 import cli from '@vbarbarosh/node-cli';
 import readline from 'readline';
+import roots_flatten from './roots_flatten';
 import tree_from_array from './tree_from_array';
 import tree_from_string from './tree_from_string';
 import tree_print2 from './tree_print2';
-import tree_roots_flatten from './tree_roots_flatten';
 import tree_walk_preorder from './tree_walk_preorder';
 
 // Case when node refers to undefined parent_id

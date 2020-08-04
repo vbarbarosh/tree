@@ -1,6 +1,6 @@
 import tree_walk_preorder from './tree_walk_preorder';
 
-function tree_roots_flatten(roots)
+function roots_flatten(roots)
 {
     return tree_walk_preorder({
         roots,
@@ -16,4 +16,4 @@ function tree_roots_flatten(roots)
     });
 }
 
-export default tree_roots_flatten;
+export default roots_flatten;

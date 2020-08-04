@@ -1,8 +1,8 @@
-import tree_roots_flatten from './tree_roots_flatten';
+import roots_flatten from './roots_flatten';
 
 function tree_flatten(tree)
 {
-    return tree_roots_flatten(tree.roots)
+    return roots_flatten(tree.roots)
 }
 
 export default tree_flatten;

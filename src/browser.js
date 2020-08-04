@@ -1,5 +1,6 @@
 import array_index from './array_index';
 import array_permutations from './array_permutations';
+import roots_flatten from './roots_flatten';
 import tree_ancestors from './tree_ancestors';
 import tree_common_ancestor from './tree_common_ancestor';
 import tree_descendants from './tree_descendants';
@@ -20,7 +21,6 @@ import tree_pointer_shift from './tree_pointer_shift';
 import tree_print2 from './tree_print2';
 import tree_random from './tree_random';
 import tree_resolve from './tree_resolve';
-import tree_roots_flatten from './tree_roots_flatten';
 import tree_shift from './tree_shift';
 import tree_sort_preorder from './tree_sort_preorder';
 import tree_walk_preorder from './tree_walk_preorder';
@@ -30,6 +30,7 @@ import tree_walk_preorder_rev from './tree_walk_preorder_rev';
 export {
     array_index,
     array_permutations,
+    roots_flatten,
     tree_ancestors,
     tree_common_ancestor,
     tree_descendants,
@@ -50,7 +51,6 @@ export {
     tree_print2,
     tree_random,
     tree_resolve,
-    tree_roots_flatten,
     tree_shift,
     tree_sort_preorder,
     tree_walk_preorder,

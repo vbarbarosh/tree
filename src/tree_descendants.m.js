@@ -1,6 +1,6 @@
 import tree_descendants from './tree_descendants';
+import tree_flatten from './tree_flatten';
 import tree_from_string from './tree_from_string';
-import tree_roots_flatten from './tree_roots_flatten';
 
 describe('tree_descendants', function () {
     it('should handle empty arrays', function () {

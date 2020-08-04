@@ -1,5 +1,5 @@
+import tree_flatten from './tree_flatten';
 import tree_from_string from './tree_from_string';
-import tree_roots_flatten from './tree_roots_flatten';
 import tree_shift from './tree_shift';
 
 describe('tree_shift', function () {

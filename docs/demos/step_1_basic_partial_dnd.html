@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://unpkg.com/@vbarbarosh/smcss@0.3.20/dist/sm.css" rel="stylesheet" />
+    <title>A set of functions for working with trees &mdash; @vbarbarosh/tree</title>
+    <style>
+        ul { padding-left: 28px; }
+        .vue-tree-item:hover { background: #ccc; }
+    </style>
+</head>
+<body>
+
+<div id="app" class="w500 ma p10 bs5">
+    <div class="flex-row">
+        <div class="w50p">
+            <dnd-tree v-model="tree" v-on:move="move"></dnd-tree>
+        </div>
+        <div class="w50p">
+            <static-tree v-model="tree.roots"></static-tree>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.min.js"></script>
+<script src="https://unpkg.com/vue@2.6.11/dist/vue.js"></script>
+<script src="https://unpkg.com/@vbarbarosh/dd@1.1.0/dist/dd.js"></script>
+<script src="https://unpkg.com/axios@0.19.2/dist/axios.js"></script>
+<script src="../../dist/vbtree.js?r=1"></script>
+
+<script>
+    const app = new Vue({
+        data: {
+            inst: null,
+        },
+    });
+
+    Vue.mixin({
+        computed: {
+            app: function () {
+                return app.inst;
+            },
+        },
+        methods: {
+            px,
+        }
+    });
+
+    Vue.component('static-tree', {
+        template: `
+            <ul v-if="tree_nodes.length">
+                <li v-for="node in tree_nodes" v-bind:key="node.id">
+                    {{ node.orig.name }}
+                    <static-tree v-model="node.children" />
+                </li>
+            </ul>
+        `,
+        props: ['value'],
+        computed: {
+            tree_nodes: function () {
+                return this.value;
+            },
+        },
+    });
+
+    function rects_closest(rects, x, y)
+    {
+        let out = -1;
+        let d_min = Number.MAX_VALUE;
+        for (let i = 0, end = rects.length; i < end; ++i) {
+            const rect = rects[i];
+            const d = Math.abs((rect.y) - y);
+            if (d_min > d) {
+                d_min = d;
+                out = i;
+            }
+        }
+        return out;
+    }
+
+    //         | shift left
+    // aaa     | только для последних потомков
+    // bbb     | * поменять родителя на деда и встать сразу после него
+    //    xxx  |
+    //    yyy  | shift right
+    //    zzz  | только для не первого потомка
+    // ccc     | * стать последним потомком предыдущего брата
+
+    function tree_node_shift(node, shift)
+    {
+        if (shift < 0) {
+            return tree_node_shift_left(node, shift);
+        }
+        return tree_node_shift_right(node, shift);
+    }
+
+    // Только для последних потомков. Поменять родителя на деда и встать сразу после текущего родителя.
+    function tree_node_shift_left(node, shift_in)
+    {
+        let shift = 1;
+        let p = node;
+        let parent = node.parent;
+        let before = node.siblings[node.siblings.indexOf(node) + 1] || null;
+        while (--shift > shift_in) {
+            // Только для последних потомков.
+            if (p.siblings[p.siblings.length - 1] !== p) {
+                break;
+            }
+            // Поменять родителя на деда и встать сразу после него.
+            p = parent;
+            before = parent.siblings[parent.siblings.indexOf(parent) + 1] || null;
+            parent = parent.parent;
+            if (before) {
+                break;
+            }
+        }
+        return {node, parent, before, shift};
+    }
+
+    // Только для не первого потомка. Стать последним потомком предыдущего брата.
+    function tree_node_shift_right(node, shift_in)
+    {
+        let p = node;
+        let shift = -1;
+        let parent = node.parent;
+        let before = node.siblings[node.siblings.indexOf(node) + 1] || null;
+        while (++shift < shift_in) {
+            const i = p.siblings.indexOf(p);
+            // Только для не первого потомка.
+            if (i == 0) {
+                break;
+            }
+            // Стать последним потомком предыдущего брата.
+            parent = p.siblings[i - 1];
+            before = null;
+            p = parent;
+        }
+        return {node, parent, before, shift};
+    }
+
+    Vue.component('dnd-tree', {
+        template: `
+            <div>
+              <dnd-tree-nodes v-model="value.roots" />
+              <div v-if="feedback">
+                <div v-for="r in feedback.rects" v-bind:style="{top: px(r.top), left: px(r.left), width: px(r.w), height: px(r.h), opacity: 0.25}" class="fix red"></div>
+                <div v-bind:style="feedback.style">
+                  <div style="margin-top:-1px;margin-left:-1px;">
+                    {{ feedback.node.orig.name }}
+                  </div>
+                </div>
+                <div v-bind:style="{top: px(feedback.y-5), left: px(feedback.x-5)}" class="fix w10 h10 black br999"></div>
+                <div v-for="r in [feedback.rect_active]" v-bind:style="{top: px(r.top), left: px(r.left), width: px(r.w), height: px(r.h*0+1), opacity: 0.5, background: 'purple'}" class="fix">
+                  {{ r.node.orig.name }} ^^^ before
+                </div>
+              </div>
+            </div>
+        `,
+        props: ['value'],
+        provide: function () {
+            return {
+                dnd_tree: this
+            };
+        },
+        data: function () {
+            return {
+                feedback: null,
+            };
+        },
+        methods :{
+            mousedown_node: function (event) {
+                if (event.target !== event.currentTarget) {
+                    return;
+                }
+                const _this = this;
+                const {top, left, right, bottom} = event.target.getBoundingClientRect();
+                const node = this.value.nodes_map[event.target.dataset.nodeId];
+                const rects = Array.from(this.$el.querySelectorAll('[data-node-id]')).map(function (elem) {
+                    const {top, left, right, bottom} = elem.getBoundingClientRect();
+                    return {top, left, right, bottom, x: left, y: top, w: right - left, h: bottom - top, node: _this.value.nodes_map[elem.dataset.nodeId]};
+                });
+                // const {top, left, right, bottom} = this.$el.getBoundingClientRect();
+                // rect.push({top, left, right, bottom, x: left, y: top, w: right - left, h: bottom - top, node: _this.value.nodes_map[elem.dataset.nodeId]})
+                dd({
+                    event,
+                    begin: function () {
+                        _this.feedback = {
+                            style: {
+                                position: 'fixed',
+                                top: top + 'px',
+                                left: left + 'px',
+                                width: right - left + 'px',
+                                height: bottom - top + 'px',
+                                pointerEvents: 'none',
+                                background: '#8f8',
+                                opacity: 0.5,
+                                border: '1px solid black',
+                                boxSizing: 'border-box',
+                            },
+                            node,
+                            rects,
+                        };
+                    },
+                    end: function () {
+                        // _this.$emit('move', {node, before: _this.feedback.rect_active.node});
+                        _this.$emit('move', _this.feedback.move);
+                        _this.feedback = null;
+                    },
+                    update: function ({x, y, dx, dy}) {
+                        _this.feedback.style.top = top + dy + 'px';
+                        _this.feedback.style.left = left + dx + 'px';
+                        _this.feedback.x = x;
+                        _this.feedback.y = y;
+                        _this.feedback.rect_active = _this.feedback.rects[rects_closest(_this.feedback.rects, x, y)];
+                        _this.feedback.move = {node, parent: _this.feedback.rect_active.node.parent, before: _this.feedback.rect_active.node, shift: 0};
+                    },
+                });
+            },
+        }
+    });
+
+    Vue.component('dnd-tree-nodes', {
+        template: `
+            <ul v-if="value.length">
+                <li v-for="node in value" v-on:mousedown="dnd_tree.mousedown_node" v-bind:key="node.id" v-bind:data-node-id="node.id">
+                    {{ node.orig.name }}
+                    <dnd-tree-nodes v-model="node.children" />
+                </li>
+            </ul>
+        `,
+        props: ['value'],
+        inject: ['dnd_tree'],
+    });
+
+    function array_index(array, fn)
+    {
+        const out = {};
+        array.forEach(v => out[fn(v)] = v);
+        return out;
+    }
+
+    function px(v)
+    {
+        return v ? `${v}px` : '0';
+    }
+
+    new Vue({
+        el: '#app',
+        data: {
+            is_dnd_active: false,
+            items: [],
+            closed: [],
+            selection: [],
+            tree_nodes_map: {},
+            mousedown_checkbox_active: null,
+        },
+        computed: {
+            tree: function () {
+                return vbtree.tree_from_array(this.items.map(function (item) {
+                    return {id: item.id, parent_id: item.parent_id, orig: item};
+                }));
+            },
+        },
+        methods: {
+            move: function ({node, parent, before}) {
+                node.orig.parent_id = parent ? parent.id : null;
+                this.items.splice(this.items.indexOf(node.orig), 1);
+                this.items.splice(before ? this.items.indexOf(before.orig) : this.items.length, 0, node.orig);
+            },
+        },
+        created: function () {
+            app.inst = this;
+            this.items = vbtree.tree_flatten(vbtree.tree_from_string(`
+images
+    image-bg
+    image-logo
+texts
+    text-safari
+    text-savannah
+       xxx
+          yyy
+             zzz
+buttons
+    button-book-now
+    button-close
+`));
+        },
+    });
+</script>
+
+</body>
+</html>

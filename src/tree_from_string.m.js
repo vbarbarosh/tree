@@ -1,4 +1,5 @@
 import tree_flatten from './tree_flatten';
+import tree_from_array from './tree_from_array';
 import tree_from_string from './tree_from_string';
 
 describe('tree_from_string', function () {
@@ -23,6 +24,10 @@ describe('tree_from_string', function () {
     });
     it('should be no parent for root nodes', function () {
         tree_from_string(`foo\nbar\nbaz`).roots.forEach(v => assert(v.parent_id === null && v.parent === null));
+    });
+    it('should return the same result as tree_from_array', function () {
+        const nodes = [{id: 'foo', name: 'foo'}, {id: 'bar', name: 'bar'}];
+        assert.deepEqual(tree_from_string('foo\nbar'), tree_from_array(nodes));
     });
     it('should define parent_id for each node', function () {
         assert.deepEqual(tree_from_string(), {roots: [], nodes: [], nodes_map: {}});

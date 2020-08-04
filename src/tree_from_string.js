@@ -27,7 +27,7 @@ function tree_from_string(s= '')
             for (let suffix = 2; nodes_map[id] && suffix < 100; ++suffix) {
                 id = `${name}${suffix}`;
             }
-            const node = {id, parent_id: parent.id, name, parent, children: []};
+            const node = {id, parent_id: parent.id, name, parent, children: [], siblings: parent.children};
             spaces_map[id] = spaces;
             nodes.push(node);
             nodes_map[id] = node;

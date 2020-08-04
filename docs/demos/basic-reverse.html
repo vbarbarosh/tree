@@ -53,7 +53,7 @@
         template: `
             <ul v-if="tree_nodes.length">
                 <li v-for="node in tree_nodes" v-bind:key="node.id">
-                    {{ node.orig.text }}
+                    {{ node.orig.name }}
                     <ul-tree v-bind:value="node.children" />
                 </li>
             </ul>
@@ -93,7 +93,7 @@
                 </template>
                 <input v-on:mousedown="app.mousedown_checkbox($event, tree_node)" v-model="tree_node.orig.is_selected" type="checkbox">
                 <span v-on:mousedown="app.dnd_tree_node($event, tree_node)">
-                    {{ tree_node.orig.text }}
+                    {{ tree_node.orig.name }}
                 </span>
             </div>
         `,
@@ -234,18 +234,19 @@
         },
         created: function () {
             app.inst = this;
-            this.items = vbtree.tree_roots_flatten(vbtree.tree_from_string2(`
-group images
-    image bg
-    image logo
-group texts
-    text safari Safari road
-    text savannah African savannah
+            this.items = vbtree.tree_flatten(vbtree.tree_from_string(`
+images
+    image-bg
+    image-logo
+texts
+    text-safari
+    text-savannah
        xxx
           yyy
              zzz
-group buttons
-    button Book Now
+buttons
+    button-book-now
+    button-close
 `));
         },
     });

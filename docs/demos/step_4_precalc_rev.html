@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://unpkg.com/@vbarbarosh/smcss@0.3.20/dist/sm.css" rel="stylesheet" />
+    <title>A set of functions for working with trees &mdash; @vbarbarosh/tree</title>
+    <style>
+        ul { padding-left: 28px; }
+        .vue-tree-item:hover { background: #ccc; }
+    </style>
+</head>
+<body>
+
+<div id="app" class="w500 ma p10 bs5">
+    <div class="flex-row">
+        <div class="w50p">
+            <dnd-tree-rev v-model="tree_rev" v-on:move="move"></dnd-tree-rev>
+        </div>
+        <div class="w50p">
+            <static-tree v-model="tree_rev.roots"></static-tree>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.min.js"></script>
+<script src="https://unpkg.com/vue@2.6.11/dist/vue.js"></script>
+<script src="https://unpkg.com/@vbarbarosh/dd@1.1.0/dist/dd.js"></script>
+<script src="https://unpkg.com/axios@0.19.2/dist/axios.js"></script>
+<script src="../../dist/vbtree.js?r=1"></script>
+
+<script>
+    const app = new Vue({
+        data: {
+            inst: null,
+        },
+    });
+
+    Vue.mixin({
+        computed: {
+            app: function () {
+                return app.inst;
+            },
+        },
+        methods: {
+            px,
+        }
+    });
+
+    Vue.component('static-tree', {
+        template: `
+            <ul v-if="tree_nodes.length">
+                <li v-for="node in tree_nodes" v-bind:key="node.id">
+                    {{ node.orig.name }}
+                    <static-tree v-model="node.children" />
+                </li>
+            </ul>
+        `,
+        props: ['value'],
+        computed: {
+            tree_nodes: function () {
+                return this.value;
+            },
+        },
+    });
+
+    function points_closest(points, x, y)
+    {
+        let out = -1;
+        let d_min = Number.MAX_VALUE;
+        for (let i = 0, end = points.length; i < end; ++i) {
+            const p = points[i];
+            const dx = p.x - x;
+            const dy = p.y - y;
+            const d = dx*dx + dy*dy;
+            if (d_min > d) {
+                d_min = d;
+                out = i;
+            }
+        }
+        // let dx_min = Number.MAX_VALUE;
+        // let dy_min = Number.MAX_VALUE;
+        // let tmp = [];
+        // for (let i = 0, end = points.length; i < end; ++i) {
+        //     const p = points[i];
+        //     const dx = Math.abs(p.x - x);
+        //     const dy = Math.abs(p.y - y);
+        //     if (Math.abs(dy_min - dy) < 5) {
+        //         tmp.push({dx, i});
+        //     }
+        //     if (dy_min > dy) {
+        //         dy_min = dy;
+        //         tmp = [{dx, i}];
+        //     }
+        // }
+        // for (let i = 0, end = tmp.length; i < end; ++i) {
+        //     if (dx_min > tmp[i].dx) {
+        //         dx_min = tmp[i].dx;
+        //         out = tmp[i].i;
+        //     }
+        // }
+        return out;
+    }
+
+    function tree_node_prev(node)
+    {
+        let p = node.siblings[node.siblings.indexOf(node) - 1] || null;
+        if (p) {
+            while (p.children.length) {
+                p = p.children[p.children.length - 1];
+            }
+        }
+        return p;
+    }
+
+    function tree_node_next(node)
+    {
+        if (node.children.length) {
+            return node.children[0];
+        }
+        for (let p = node; p; p = p.parent) {
+            const next = p.siblings[p.siblings.indexOf(p) + 1];
+            if (next) {
+                return next;
+            }
+        }
+        return null;
+    }
+
+    Vue.component('dnd-tree-rev', {
+        template: `
+            <div>
+              <dnd-tree-rev-nodes ref="container" v-model="value.roots" />
+              <div v-if="feedback">
+                <div v-for="r in feedback.rects" v-bind:style="{top: px(r.top), left: px(r.left), width: px(r.w), height: px(r.h), opacity: 0.25}" class="fix red"></div>
+                <div v-bind:style="feedback.style">
+<!--
+                  <div style="margin-top:-1px;margin-left:-1px;">
+                    {{ feedback.node.orig.name }}
+                  </div>
+-->
+                </div>
+<!--
+                <div v-bind:style="{top: px(feedback.y-5), left: px(feedback.x-5)}" class="fix w10 h10 black br999"></div>
+-->
+                  {{ (feedback.move.parent||{}).id||'-' }},{{ (feedback.move.before||{}).id||'-' }}
+                <div v-for="p in [feedback.move]" v-bind:style="{top: px(p.y), left: px(p.x), width: px(200), height: '2px', background: 'purple'}" class="fix" />
+                  <svg class="fix-f ww hh">
+                      <circle v-for="p in feedback.points" v-bind:cx="p.x" v-bind:cy="p.y" r="5" opacity="0.3"></circle>
+                  </svg>
+              </div>
+            </div>
+        `,
+        props: ['value'],
+        provide: function () {
+            return {
+                dnd_tree: this
+            };
+        },
+        data: function () {
+            return {
+                feedback: null,
+            };
+        },
+        methods: {
+            mousedown_node: function (event) {
+                if (event.target !== event.currentTarget) {
+                    return;
+                }
+                const _this = this;
+                const {top, left, right, bottom} = event.target.getBoundingClientRect();
+                const node = this.value.nodes_map[event.target.dataset.nodeId];
+                const rects = Array.from(this.$el.querySelectorAll('[data-node-id]')).map(function (elem) {
+                    const {top, left, right, bottom} = elem.getBoundingClientRect();
+                    return {top, left, right, bottom, x: left, y: top, w: right - left, h: bottom - top, node: _this.value.nodes_map[elem.dataset.nodeId]};
+                });
+                const SHIFT = 28;
+                const rects_map = array_index(rects, v => v.node.id);
+                const points = [];
+                // 1) Point at top,left -- insert sibling before node
+                // 3) Point at bottom,left+SHIFT -- insert as first child
+                rects.forEach(function ({top, left, bottom, node}) {
+                    const next = tree_node_next(node);
+                    if (node.siblings[0] === node) {
+                        points.push({x: left, y: top, parent: node.parent, after: node});
+                    }
+                    if (node.children.length == 0) {
+                        points.push({x: left + SHIFT, y: bottom, parent: node, after: null});
+                    }
+                    for (let p = node; p; p = p.parent) {
+                        if (next && next.parent === p) {
+                            break;
+                        }
+                        points.push({x: rects_map[p.id].left, y: bottom, parent: p.parent, before: p});
+                    }
+                });
+                dd({
+                    event,
+                    begin: function () {
+                        _this.feedback = {
+                            style: {
+                                position: 'fixed',
+                                top: top + 'px',
+                                left: left + 'px',
+                                width: right - left + 'px',
+                                height: bottom - top + 'px',
+                                pointerEvents: 'none',
+                                background: '#8f8',
+                                opacity: 0,
+                                border: '1px solid black',
+                                boxSizing: 'border-box',
+                            },
+                            node,
+                            rects,
+                            points,
+                        };
+                    },
+                    end: function () {
+                        // _this.$emit('move', {node, before: _this.feedback.rect_active.node});
+                        _this.$emit('move', _this.feedback.move);
+                        _this.feedback = null;
+                    },
+                    update: function ({x, y, dx, dy}) {
+                        _this.feedback.style.top = top + dy + 'px';
+                        _this.feedback.style.left = left + dx + 'px';
+                        _this.feedback.x = x;
+                        _this.feedback.y = y;
+                        _this.feedback.move = points[points_closest(points, x, y)];
+                        _this.feedback.move.node = node;
+                    },
+                });
+            },
+        }
+    });
+
+    Vue.component('dnd-tree-rev-nodes', {
+        template: `
+            <ul v-if="value.length">
+                <li v-for="node in value" v-bind:key="node.id">
+                    <div v-on:mousedown="dnd_tree.mousedown_node" v-bind:data-node-id="node.id">
+                        {{ node.orig.name }}
+                    </div>
+                    <dnd-tree-rev-nodes v-model="node.children" />
+                </li>
+            </ul>
+        `,
+        props: ['value'],
+        inject: ['dnd_tree'],
+    });
+
+    function array_index(array, fn)
+    {
+        const out = {};
+        array.forEach(v => out[fn(v)] = v);
+        return out;
+    }
+
+    function px(v)
+    {
+        return v ? `${v}px` : '0';
+    }
+
+    new Vue({
+        el: '#app',
+        data: {
+            is_dnd_active: false,
+            items: [],
+            closed: [],
+            selection: [],
+            tree_nodes_map: {},
+            mousedown_checkbox_active: null,
+        },
+        computed: {
+            tree_rev: function () {
+                const tmp = this.items.map(function (item) {
+                    return {id: item.id, parent_id: item.parent_id, orig: item};
+                });
+                return vbtree.tree_from_array(tmp.reverse());
+            },
+        },
+        methods: {
+            move: function ({node, parent, before, after}) {
+                if (node === before || node === after) {
+                    return;
+                }
+                node.orig.parent_id = parent ? parent.id : null;
+                if (before !== undefined) {
+                    this.items.splice(this.items.indexOf(node.orig), 1);
+                    this.items.splice(before ? this.items.indexOf(before.orig) : this.items.length, 0, node.orig);
+                }
+                else {
+                    this.items.splice(this.items.indexOf(node.orig), 1);
+                    this.items.splice(after ? this.items.indexOf(after.orig) + 1 : 0, 0, node.orig);
+                }
+            },
+        },
+        created: function () {
+            app.inst = this;
+            this.items = vbtree.tree_flatten(vbtree.tree_from_string(`
+1-images
+    2-image-bg
+    3-image-logo
+    4-image-foo
+    5-image-bar
+    6-image-baz
+7-texts
+    8-text-safari
+    9-text-savannah
+        10-xxx
+            11-yyy
+                12-zzz
+        13-qqq
+            14-rrr
+15-buttons
+    16-button-book-now
+    17-button-close
+`));
+        },
+    });
+</script>
+
+</body>
+</html>

@@ -3,7 +3,7 @@ import roots_flatten from './roots_flatten';
 import tree_from_array from './tree_from_array';
 import tree_from_string from './tree_from_string';
 import tree_move from './tree_move';
-import tree_print2 from './tree_print2';
+import tree_print from './tree_print';
 import tree_walk_preorder_rev from './tree_walk_preorder_rev';
 
 // noinspection NonAsciiCharacters
@@ -36,7 +36,7 @@ function main()
     shift_left_downwards(ctx);
     tree_move(ctx.items, [items[4]], ctx.i, ctx.parent_id);
 
-    console.log(tree_print2(tree_from_array(items.map(v => ({id: v.id, parent_id: v.parent_id})))));
+    console.log(tree_print(tree_from_array(items.map(v => ({id: v.id, parent_id: v.parent_id})))));
     console.log(tree_print3(tree_from_array(items.map(v => ({id: v.id, parent_id: v.parent_id})))));
 
 //items.splice(0, 0, ...items.splice(2, 2));

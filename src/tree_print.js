@@ -9,7 +9,7 @@ const prefix4 = {
     ' ': '    ',
 };
 
-function tree_print2({roots})
+function tree_print({roots})
 {
     return tree_walk_preorder({
         retval: '',
@@ -20,4 +20,4 @@ function tree_print2({roots})
     });
 }
 
-export default tree_print2;
+export default tree_print;

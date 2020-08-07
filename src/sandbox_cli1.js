@@ -4,7 +4,7 @@ import readline from 'readline';
 import roots_flatten from './roots_flatten';
 import tree_from_array from './tree_from_array';
 import tree_from_string from './tree_from_string';
-import tree_print2 from './tree_print2';
+import tree_print from './tree_print';
 import tree_walk_preorder from './tree_walk_preorder';
 
 // Case when node refers to undefined parent_id
@@ -12,7 +12,7 @@ import tree_walk_preorder from './tree_walk_preorder';
 function print(items, selection)
 {
     console.log(preorder(items));
-    let s = tree_print2(tree_from_array(JSON.parse(JSON.stringify(items))));
+    let s = tree_print(tree_from_array(JSON.parse(JSON.stringify(items))));
     s = s.split('\n').map(function (line) {
         if (line.endsWith(`─ ${selection.id}`)) {
             return `\x1b[32m${line}<<<<\x1b[0m`;

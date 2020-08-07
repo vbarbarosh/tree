@@ -6,7 +6,7 @@
 import tree_flatten from '../src/tree_flatten';
 import tree_from_array from '../src/tree_from_array';
 import tree_from_string from '../src/tree_from_string';
-import tree_print2 from '../src/tree_print2';
+import tree_print from '../src/tree_print';
 
 const str = `
     1-logo
@@ -46,4 +46,4 @@ const str = `
         43-solid_color
 `;
 
-console.log(tree_print2(tree_from_array(tree_flatten(tree_from_string(str)).reverse())));
+console.log(tree_print(tree_from_array(tree_flatten(tree_from_string(str)).reverse())));

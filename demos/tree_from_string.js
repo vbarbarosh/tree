@@ -1,6 +1,6 @@
 import tree_flatten from '../src/tree_flatten';
 import tree_from_string from '../src/tree_from_string';
-import tree_print2 from '../src/tree_print2';
+import tree_print from '../src/tree_print';
 
 const str = `
     logo

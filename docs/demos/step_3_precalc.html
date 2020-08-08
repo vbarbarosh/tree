@@ -84,8 +84,8 @@
         let tmp = [];
         for (let i = 0, end = points.length; i < end; ++i) {
             const p = points[i];
-            const dx = Math.abs(p.x - x);
-            const dy = Math.abs(p.y - y);
+            const dx = Math.abs(Math.round(p.x) - Math.round(x));
+            const dy = Math.abs(Math.round(p.y) - Math.round(y));
             if (Math.abs(dy_min - dy) < 5) {
                 tmp.push({dx, i});
             }
@@ -171,6 +171,8 @@
                 const _this = this;
                 const {top, left, right, bottom} = event.target.getBoundingClientRect();
                 const node = this.value.nodes_map[event.target.dataset.nodeId];
+                const selection = vbtree.tree_intersect(this.value.nodes, [node]);
+                const selection_map = array_index(selection, v => v.id);
                 const rects = Array.from(this.$el.querySelectorAll('[data-node-id]')).map(function (elem) {
                     const {top, left, right, bottom} = elem.getBoundingClientRect();
                     return {top, left, right, bottom, x: left, y: top, w: right - left, h: bottom - top, node: _this.value.nodes_map[elem.dataset.nodeId]};
@@ -180,22 +182,28 @@
                 const SHIFT = 28;
                 const rects_map = array_index(rects, v => v.node.id);
                 const points = [];
+                const node_start = node;
                 // 1) Point at top,left -- insert sibling before node
                 // 3) Point at bottom,left+SHIFT -- insert as first child
                 rects.forEach(function ({top, left, bottom, node}) {
                     const next = tree_node_next(node);
                     if (node.siblings[0] === node) {
-                        points.push({x: left, y: top, parent: node.parent, before: node});
+                        if (!selection_map[node.parent_id]) {
+                            points.push({x: left, y: top, parent: node.parent, before: node});
+                        }
                     }
                     if (node.children.length == 0) {
-                        points.push({x: left + SHIFT, y: bottom, parent: node, before: null});
+                        if (!selection_map[node.parent_id]) {
+                            points.push({x: left + SHIFT, y: bottom, parent: node, before: null});
+                        }
                     }
                     for (let p = node; p; p = p.parent) {
-                        if (next && next.parent === p) {
+                        if (next && next.parent === p && next !== node_start) {
                             break;
                         }
-                        points.push({x: rects_map[p.id].left, y: bottom, parent: p.parent, before: p.siblings[p.siblings.indexOf(p) + 1]||null});
-                        // console.log(node.id, p.parent ? p.parent.id : '-', p.siblings[p.siblings.indexOf(p) + 1] ? p.siblings[p.siblings.indexOf(p) + 1].id : '-');
+                        if (!selection_map[p.parent_id]) {
+                            points.push({x: rects_map[p.id].left, y: bottom, parent: p.parent, before: p.siblings[p.siblings.indexOf(p) + 1]||null});
+                        }
                     }
                 });
                 dd({

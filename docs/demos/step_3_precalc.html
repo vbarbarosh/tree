@@ -102,31 +102,6 @@
         return out;
     }
 
-    function tree_node_prev(node)
-    {
-        let p = node.siblings[node.siblings.indexOf(node) - 1] || null;
-        if (p) {
-            while (p.children.length) {
-                p = p.children[p.children.length - 1];
-            }
-        }
-        return p;
-    }
-
-    function tree_node_next(node)
-    {
-        if (node.children.length) {
-            return node.children[0];
-        }
-        for (let p = node; p; p = p.parent) {
-            const next = p.siblings[p.siblings.indexOf(p) + 1];
-            if (next) {
-                return next;
-            }
-        }
-        return null;
-    }
-
     Vue.component('dnd-tree', {
         template: `
             <div>
@@ -143,10 +118,10 @@
 <!--
                 <div v-bind:style="{top: px(feedback.y-5), left: px(feedback.x-5)}" class="fix w10 h10 black br999"></div>
 -->
-                  {{ (feedback.move.parent||{}).id||'-' }},{{ (feedback.move.before||{}).id||'-' }}
+                  {{ feedback.move.parent?.id || '-' }},{{ feedback.move.before?.id || '-' }}
                 <div v-for="p in [feedback.move]" v-bind:style="{top: px(p.y), left: px(p.x), width: px(200), height: '2px', background: 'purple'}" class="fix" />
                   <svg class="fix-f ww hh">
-                      <circle v-for="p in feedback.points" v-bind:cx="p.x" v-bind:cy="p.y" r="5" opacity="0.3"></circle>
+                      <circle v-for="p in feedback.points" v-bind:cx="p.x" v-bind:cy="p.y" r="3" opacity="0.3"></circle>
                   </svg>
               </div>
             </div>
@@ -176,6 +151,7 @@
                     const {top, left, right, bottom} = elem.getBoundingClientRect();
                     return {top, left, right, bottom, x: left, y: top, w: right - left, h: bottom - top, node: _this.value.nodes_map[elem.dataset.nodeId]};
                 });
+                // Origin would be at top,left of a node's rect.
                 const ox = left - event.clientX;
                 const oy = top - event.clientY;
                 const SHIFT = 28;
@@ -185,7 +161,7 @@
                 // 1) Point at top,left -- insert sibling before node
                 // 3) Point at bottom,left+SHIFT -- insert as first child
                 rects.forEach(function ({top, left, bottom, node}) {
-                    const next = tree_node_next(node);
+                    const next = vbtree.tree_node_next(node);
                     if (node.siblings[0] === node) {
                         if (!selection_map[node.parent_id]) {
                             points.push({x: left, y: top, parent: node.parent, before: node});
@@ -227,7 +203,6 @@
                         };
                     },
                     end: function () {
-                        // _this.$emit('move', {node, before: _this.feedback.rect_active.node});
                         _this.$emit('move', _this.feedback.move);
                         _this.feedback = null;
                     },

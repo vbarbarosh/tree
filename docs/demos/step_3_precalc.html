@@ -66,39 +66,40 @@
 
     function points_closest(points, x, y)
     {
-        let out = -1;
-        let d_min = Number.MAX_VALUE;
-        for (let i = 0, end = points.length; i < end; ++i) {
-            const p = points[i];
-            const dx = p.x - x;
-            const dy = p.y - y;
-            const d = dx*dx + dy*dy;
-            if (d_min > d) {
-                d_min = d;
-                out = i;
-            }
-        }
-        // let dx_min = Number.MAX_VALUE;
-        // let dy_min = Number.MAX_VALUE;
-        // let tmp = [];
+        // let out = -1;
+        // let d_min = Number.MAX_VALUE;
         // for (let i = 0, end = points.length; i < end; ++i) {
         //     const p = points[i];
-        //     const dx = Math.abs(p.x - x);
-        //     const dy = Math.abs(p.y - y);
-        //     if (Math.abs(dy_min - dy) < 5) {
-        //         tmp.push({dx, i});
-        //     }
-        //     if (dy_min > dy) {
-        //         dy_min = dy;
-        //         tmp = [{dx, i}];
+        //     const dx = p.x - x;
+        //     const dy = p.y - y;
+        //     const d = dx*dx + dy*dy;
+        //     if (d_min > d) {
+        //         d_min = d;
+        //         out = i;
         //     }
         // }
-        // for (let i = 0, end = tmp.length; i < end; ++i) {
-        //     if (dx_min > tmp[i].dx) {
-        //         dx_min = tmp[i].dx;
-        //         out = tmp[i].i;
-        //     }
-        // }
+        let out = -1;
+        let dx_min = Number.MAX_VALUE;
+        let dy_min = Number.MAX_VALUE;
+        let tmp = [];
+        for (let i = 0, end = points.length; i < end; ++i) {
+            const p = points[i];
+            const dx = Math.abs(p.x - x);
+            const dy = Math.abs(p.y - y);
+            if (Math.abs(dy_min - dy) < 5) {
+                tmp.push({dx, i});
+            }
+            if (dy_min > dy) {
+                dy_min = dy;
+                tmp = [{dx, i}];
+            }
+        }
+        for (let i = 0, end = tmp.length; i < end; ++i) {
+            if (dx_min > tmp[i].dx) {
+                dx_min = tmp[i].dx;
+                out = tmp[i].i;
+            }
+        }
         return out;
     }
 
@@ -174,6 +175,8 @@
                     const {top, left, right, bottom} = elem.getBoundingClientRect();
                     return {top, left, right, bottom, x: left, y: top, w: right - left, h: bottom - top, node: _this.value.nodes_map[elem.dataset.nodeId]};
                 });
+                const ox = left - event.clientX;
+                const oy = top - event.clientY;
                 const SHIFT = 28;
                 const rects_map = array_index(rects, v => v.node.id);
                 const points = [];
@@ -222,11 +225,11 @@
                         _this.feedback = null;
                     },
                     update: function ({x, y, dx, dy}) {
-                        _this.feedback.style.top = top + dy + 'px';
-                        _this.feedback.style.left = left + dx + 'px';
-                        _this.feedback.x = x;
-                        _this.feedback.y = y;
-                        _this.feedback.move = points[points_closest(points, x, y)];
+                        _this.feedback.style.top = top + ox+dy + 'px';
+                        _this.feedback.style.left = left +oy+dx + 'px';
+                        _this.feedback.x = x+ox;
+                        _this.feedback.y = y+oy;
+                        _this.feedback.move = points[points_closest(points, x+ox, y+oy)];
                         _this.feedback.move.node = node;
                     },
                 });

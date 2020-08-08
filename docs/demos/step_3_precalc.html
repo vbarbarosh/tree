@@ -29,18 +29,7 @@
 <script src="../../dist/vbtree.js?r=1"></script>
 
 <script>
-    const app = new Vue({
-        data: {
-            inst: null,
-        },
-    });
-
     Vue.mixin({
-        computed: {
-            app: function () {
-                return app.inst;
-            },
-        },
         methods: {
             px,
         }
@@ -274,7 +263,6 @@
             },
         },
         created: function () {
-            app.inst = this;
             this.items = vbtree.tree_flatten(vbtree.tree_from_string(`
 images
     image-bg

@@ -2,7 +2,7 @@
  * @param {String} s
  * @returns {{roots,nodes,nodes_map}}
  */
-function tree_from_string(s= '')
+function tree_from_string(s = '')
 {
     // 1. Each line represent one or several *node ids* separated by comma
     // 2. Duplicated *node ids* would be prefixed with a number starting from 2

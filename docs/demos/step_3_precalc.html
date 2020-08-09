@@ -162,11 +162,16 @@
                         }
                     }
                     for (let p = node; p; p = p.parent) {
+                        // Exception
                         if (next && next.parent === p && next !== node_start) {
                             break;
                         }
                         if (!selection_map[p.parent_id]) {
                             points.push({x: rects_map[p.id].left, y: bottom, parent: p.parent, before: p.siblings[p.siblings.indexOf(p) + 1]||null});
+                        }
+                        // Exception
+                        if (next === node_start && p.siblings[p.siblings.length-1] !== p) {
+                            break;
                         }
                     }
                 });

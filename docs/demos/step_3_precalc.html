@@ -151,6 +151,7 @@
                 // 3) Point at bottom,left+SHIFT -- insert as first child
                 rects.forEach(function ({top, left, bottom, node}) {
                     const next = vbtree.tree_node_next(node);
+                    const next2 = tree_node_next2(node_start);
                     if (node.siblings[0] === node) {
                         if (!selection_map[node.parent_id]) {
                             points.push({x: left, y: top, parent: node.parent, before: node});
@@ -162,16 +163,14 @@
                         }
                     }
                     for (let p = node; p; p = p.parent) {
-                        // Exception
-                        if (next && next.parent === p && next !== node_start) {
+                        if (next?.parent === p && next !== node_start) {
+                            break;
+                        }
+                        if (next === node_start && next2?.parent === p) {
                             break;
                         }
                         if (!selection_map[p.parent_id]) {
                             points.push({x: rects_map[p.id].left, y: bottom, parent: p.parent, before: p.siblings[p.siblings.indexOf(p) + 1]||null});
-                        }
-                        // Exception
-                        if (next === node_start && p.siblings[p.siblings.length-1] !== p) {
-                            break;
                         }
                     }
                 });
@@ -227,6 +226,20 @@
         props: ['value'],
         inject: ['dnd_tree'],
     });
+
+    function tree_node_next2(node)
+    {
+        for (let p = node, i = 0; p; p = p.parent, ++i) {
+            if (i > 1000) {
+                throw new Error('Too many iterations');
+            }
+            if (p.siblings[p.siblings.length - 1] === p) {
+                continue;
+            }
+            return p.siblings[p.siblings.indexOf(p) + 1];
+        }
+        return null;
+    }
 
     function array_index(array, fn)
     {

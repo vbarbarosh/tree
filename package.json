@@ -11,9 +11,6 @@
     "src",
     "dist/*.js"
   ],
-  "exports": {
-    "./": "./src/"
-  },
   "keywords": [
     "js",
     "tree"

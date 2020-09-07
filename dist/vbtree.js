@@ -2138,6 +2138,18 @@ __webpack_require__.r(__webpack_exports__);
 function tree_walk_preorder(ctx) {
   ctx.stack = ctx.stack || [];
 
+  if (typeof ctx.visit != 'function' && typeof ctx.retval == 'undefined') {
+    // It is possible that ctx.retval would be overwritten
+    // in enter or leave function.
+    var retval = [];
+
+    ctx.visit = function (v) {
+      return retval.push(v.node);
+    };
+
+    ctx.retval = retval;
+  }
+
   for (var i = 0, end = ctx.roots.length; i < end; ++i) {
     ctx.node = ctx.roots[i];
 

@@ -1,6 +1,15 @@
 function tree_walk_preorder(ctx)
 {
     ctx.stack = ctx.stack || [];
+
+    if (typeof ctx.visit != 'function' && typeof ctx.retval == 'undefined') {
+        // It is possible that ctx.retval would be overwritten
+        // in enter or leave function.
+        const retval = [];
+        ctx.visit = v => retval.push(v.node);
+        ctx.retval = retval;
+    }
+
     for (let i = 0, end = ctx.roots.length; i < end; ++i) {
         ctx.node = ctx.roots[i];
         if (tree_walk_preorder_int(ctx)) {

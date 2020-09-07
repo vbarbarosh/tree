@@ -96,6 +96,17 @@ describe('tree_walk_preorder', function () {
         });
         assert.deepEqual(preorder, ['E[a]','V[a]','E[b]','V[b]','L[b]','L[a]','E[c]','V[c]','L[c]']);
     });
+    it('should return an array of walked items by default', function () {
+        const items = [
+            {id: 'rect1', parent_id: 'folder'},
+            {id: 'rect2', parent_id: 'folder'},
+            {id: 'folder', parent_id: 'scene'},
+            {id: 'scene'},
+        ];
+        const a = tree_walk_preorder(tree_from_array(items)).map(v => v.id).join();
+        // noinspection EqualityComparisonWithCoercionJS
+        assert(a == 'scene,folder,rect1,rect2');
+    });
 });
 
 function tree(text)

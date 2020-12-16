@@ -97,7 +97,7 @@
 8. after blue (last child of colors)
 9. last child of blue
 10. before circle
-11. before square (after cicle)
+11. before square (after circle)
 12. last child of circle
 13. before triangle (after square)
 14. last child of square

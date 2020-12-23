@@ -17,7 +17,7 @@
   ],
   "scripts": {
     "build": "webpack",
-    "test": "mjs src/*.m.js"
+    "test": "mjs src/*.test.js"
   },
   "repository": {
     "type": "git",

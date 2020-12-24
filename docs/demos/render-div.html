@@ -31,18 +31,18 @@ new Vue({
         nodes: vbtree.tree_walk_preorder({
             retval: [],
             roots: vbtree.tree_from_string(`
-                images
-                    image-bg
-                    image-logo
-                texts
-                    text-safari
-                    text-savannah
-                       xxx
-                          yyy
-                             zzz
-                buttons
-                    button-book-now
-                    button-close
+                1 images
+                    2 image-bg
+                    3 image-logo
+                4 texts
+                    5 text-safari
+                    6 text-savannah
+                       7 xxx
+                          8 yyy
+                             9 zzz
+                10 buttons
+                    11 button-book-now
+                    12 button-close
             `).roots,
             visit: function (ctx) {
                 ctx.node.depth = ctx.stack.length - 1;

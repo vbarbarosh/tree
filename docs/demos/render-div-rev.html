@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://unpkg.com/@vbarbarosh/smcss@0.6.1/dist/sm.css" rel="stylesheet" />
+    <title>Title of the Page</title>
+</head>
+<body>
+
+<br>
+<p class="w800 ma">Rendering tree using DIV elements wihout any recursion.</p>
+<br>
+
+<div id="app" class="w800 ma mg10 p5 bs5">
+    <div v-for="node in nodes" v-bind:style="{marginLeft: px(30*node.depth)}" class="dashed">
+        {{ node.name }}
+    </div>
+</div>
+
+<script src="https://unpkg.com/jquery@3.5.1/dist/jquery.js"></script>
+<script src="https://unpkg.com/bluebird@3.7.2/js/browser/bluebird.js"></script>
+<script src="https://unpkg.com/vue@2.6.11/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.min.js"></script>
+<script src="../../dist/vbtree.js?r=1"></script>
+
+<script>
+new Vue({
+    el: '#app',
+    data: {
+        nodes: vbtree.tree_walk_preorder_rev({
+            retval: [],
+            roots: vbtree.tree_from_string(`
+                1 images
+                    2 image-bg
+                    3 image-logo
+                4 texts
+                    5 text-safari
+                    6 text-savannah
+                       7 xxx
+                          8 yyy
+                             9 zzz
+                10 buttons
+                    11 button-book-now
+                    12 button-close
+            `).roots,
+            visit: function (ctx) {
+                ctx.node.depth = ctx.stack.length - 1;
+                ctx.retval.push(ctx.node);
+            },
+        }),
+    },
+    methods: {
+        px: function (v) {
+            return v ? `${v}px` : '0';
+        },
+    }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://unpkg.com/@vbarbarosh/smcss@0.6.1/dist/sm.css" rel="stylesheet" />
+    <title>Title of the Page</title>
+</head>
+<body>
+
+<br>
+<p class="w800 ma">Rendering tree using UL elements.</p>
+<br>
+
+<div id="app" class="w800 ma p5 bs5">
+    <vue-tree v-model="tree.roots"></vue-tree>
+</div>
+
+<script src="https://unpkg.com/jquery@3.5.1/dist/jquery.js"></script>
+<script src="https://unpkg.com/bluebird@3.7.2/js/browser/bluebird.js"></script>
+<script src="https://unpkg.com/vue@2.6.11/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.min.js"></script>
+<script src="../../dist/vbtree.js?r=1"></script>
+
+<script>
+Vue.component('vue-tree', {
+    props: ['value'],
+    template: `
+        <ul>
+            <li v-for="node in value.slice().reverse()">
+                {{ node.name }}
+                <vue-tree v-model="node.children" />
+            </li>
+        </ul>
+    `,
+});
+new Vue({
+    el: '#app',
+    data: {
+        tree: vbtree.tree_from_string(`
+            1 images
+                2 image-bg
+                3 image-logo
+            4 texts
+                5 text-safari
+                6 text-savannah
+                   7 xxx
+                      8 yyy
+                         9 zzz
+            10 buttons
+                11 button-book-now
+                12 button-close
+        `),
+    },
+});
+</script>
+
+</body>
+</html>

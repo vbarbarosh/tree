@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://unpkg.com/@vbarbarosh/smcss@0.6.1/dist/sm.css" rel="stylesheet" />
+    <title>Title of the Page</title>
+    <style>
+        .tree-node {
+            border: 1px dashed;
+            cursor: move;
+        }
+        .tree-node:hover {
+            background: yellow;
+        }
+    </style>
+</head>
+<body>
+
+<br>
+<p class="w800 ma">Drag and Drop in tree rendered using DIV elements wihout any recursion.</p>
+<br>
+
+<div id="app" class="w800 ma p5 bs5">
+    <div ref="container" class="mg10">
+        <div v-for="node in nodes_preorder_rev" v-on:mousedown="mousedown_node($event, node)" ref="nodes" v-bind:style="{marginLeft: px(30*node.depth)}" class="tree-node">
+            {{ node.name }}
+        </div>
+    </div>
+    <svg v-if="feedback" class="fix-f ww hh z1 no-pointer-events">
+        <circle v-for="p in feedback.points" v-bind:cx="p.x" v-bind:cy="p.y" v-bind:fill="(p === feedback.closest ? '#8f8' : '#f88')" r="5" opacity="0.75"></circle>
+    </svg>
+</div>
+
+<script src="https://unpkg.com/jquery@3.5.1/dist/jquery.js"></script>
+<script src="https://unpkg.com/bluebird@3.7.2/js/browser/bluebird.js"></script>
+<script src="https://unpkg.com/vue@2.6.11/dist/vue.js"></script>
+<script src="https://unpkg.com/@vbarbarosh/dd@1.3.0/dist/dd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.min.js"></script>
+<script src="../../dist/vbtree.js?r=1"></script>
+
+<script>
+new Vue({
+    el: '#app',
+    data: {
+        feedback: null,
+        nodes: vbtree.tree_flatten(vbtree.tree_from_string(`
+            1 images
+                2 image-bg
+                3 image-logo
+            4 texts
+                5 text-safari
+                6 text-savannah
+                   7 xxx
+                      8 yyy
+                         9 zzz
+            10 buttons
+                11 button-book-now
+                12 button-close
+        `)),
+    },
+    computed: {
+        nodes_preorder_rev: function () {
+            return vbtree.tree_walk_preorder_rev({
+                retval: [],
+                roots: vbtree.tree_from_array(this.nodes).roots,
+                visit: function (ctx) {
+                    ctx.node.depth = ctx.stack.length - 1;
+                    ctx.retval.push(ctx.node);
+                }
+            });
+        },
+    },
+    methods: {
+        px: function (v) {
+            return v ? `${v}px` : '0';
+        },
+        mousedown_node: function (event, node_in) {
+            const _this = this;
+            const points = [];
+            // Simply put, this is an array of nodes for which
+            // insertion points shouldn't be generated.
+            const selection = vbtree.tree_intersect(this.nodes, [node_in]);
+            // Build an array of insertion points. It will be queried
+            // on each mouse movement (exclude any nodes from selection).
+            this.nodes_preorder_rev.forEach(function (node, i) {
+                if (selection.includes(node)) {
+                    return;
+                }
+                // left,top -- move after node
+                // left,bottom -- move before node
+                // left,bottom+SHIFT -- move as a last child of a node
+                const {top, left, bottom} = _this.$refs.nodes[i].getBoundingClientRect();
+                points.push({x: left, y: top, parent_id: node.parent_id, i: _this.nodes.indexOf(node) + 1});
+                points.push({x: left + 30, y: bottom, parent_id: node.id, i: _this.nodes.length});
+                // `next` node will tell us when to stop making
+                // insertion points.
+                let next = node;
+                for (let n = 1; next; ++n) {
+                    if (n > 100) {
+                        throw new Error('Too many iterations');
+                    }
+                    if (next.children[next.children.length - 1]) {
+                        next = next.children[next.children.length - 1];
+                    }
+                    else {
+                        for (let p = next; p; p = p.parent) {
+                            next = p.siblings[p.siblings.indexOf(p) - 1];
+                            if (next) {
+                                break;
+                            }
+                        }
+                    }
+                    if (!selection.includes(next)) {
+                        break;
+                    }
+                }
+                for (let p = node, x = left; p; p = p.parent, x -= 30) {
+                    if (p === next?.parent) {
+                        break;
+                    }
+                    points.push({x, y: bottom, parent_id: p.parent_id, i: _this.nodes.indexOf(p)});
+                }
+            });
+            dd({
+                event,
+                mixins: [dd.prevent_default()],
+                begin: function () {
+                    _this.feedback = {points, closest: null};
+                },
+                end: function () {
+                    if (_this.feedback.closest) {
+                        const i = _this.nodes.indexOf(node_in);
+                        node_in.parent_id = _this.feedback.closest.parent_id;
+                        _this.nodes.splice(i, 1);
+                        _this.nodes.splice(_this.feedback.closest.i - (_this.feedback.closest.i > i), 0, node_in);
+                    }
+                    _this.feedback = null;
+                },
+                move: function ({x, y}) {
+                    _this.feedback.closest = points_closest_vertical(points, x, y);
+                },
+            });
+        },
+    }
+});
+/*
+function points_closest(points, x, y)
+{
+    let out = null;
+    let d_min = Number.MAX_VALUE;
+    for (let i = 0, end = points.length; i < end; ++i) {
+        const p = points[i];
+        const dx = p.x - x;
+        const dy = p.y - y;
+        const d = dx*dx + dy*dy;
+        if (d_min > d) {
+            d_min = d;
+            out = p;
+        }
+    }
+    return out;
+}
+*/
+function points_closest_vertical(points, x, y)
+{
+    let out = null;
+    let dx_min = Number.MAX_VALUE;
+    let dy_min = Number.MAX_VALUE;
+    let horizontal = [];
+    for (let i = 0, end = points.length; i < end; ++i) {
+        const p = points[i];
+        const dx = Math.abs(Math.round(p.x - x));
+        const dy = Math.abs(Math.round(p.y - y));
+        if (dy_min == dy) {
+            horizontal.push({dx, i});
+        }
+        if (dy_min > dy) {
+            dy_min = dy;
+            horizontal = [{dx, i}];
+        }
+    }
+    for (let i = 0, end = horizontal.length; i < end; ++i) {
+        if (dx_min > horizontal[i].dx) {
+            dx_min = horizontal[i].dx;
+            out = points[horizontal[i].i];
+        }
+    }
+    return out;
+}
+</script>
+
+</body>
+</html>

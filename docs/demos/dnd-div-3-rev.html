@@ -79,8 +79,8 @@ new Vue({
             const _this = this;
             const points = [];
             const selection = vbtree.tree_intersect(this.nodes, [node_in]);
-            // Simply put, insertion point cannot be to the left of
-            // the next visual node.
+            // Simply put, insertion point should not be to the left
+            // of the next visual node.
             this.nodes_preorder_rev.filter(v => !selection.includes(v)).forEach(function (node, i, nodes_active) {
                 // left,top -- move after node
                 // left,bottom -- move before node

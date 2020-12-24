@@ -131,8 +131,8 @@ new Vue({
                 // the root than next node. Othwerwise, inserted nodes
                 // would be rendered below next node.
                 //
-                // Simply put, insertion point cannot be to the left
-                // of the next node.
+                // Simply put, insertion point should not be to the
+                // left of the next node.
                 for (let p = node, x = left; p; p = p.parent, x -= 30) {
                     if (p === next?.parent) {
                         break;

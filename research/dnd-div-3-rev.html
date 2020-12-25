@@ -23,7 +23,7 @@
 
 <div id="app" class="w800 ma p5 bs5">
     <div ref="container" class="mg10">
-        <div v-for="node in nodes_preorder_rev" v-on:mousedown="mousedown_node($event, node)" ref="nodes" v-bind:style="{marginLeft: px(30*node.depth)}" class="tree-node">
+        <div v-for="node in nodes_preorder_rev" v-on:mousedown="mousedown_node($event, node)" ref="nodes_preorder_rev" v-bind:style="{marginLeft: px(30*node.depth)}" class="tree-node">
             {{ node.name }}
         </div>
     </div>
@@ -81,16 +81,16 @@ new Vue({
             const selection = vbtree.tree_intersect(this.nodes, [node_in]);
             // Simply put, insertion point should not be to the left
             // of the next visual node.
-            this.nodes_preorder_rev.filter(v => !selection.includes(v)).forEach(function (node, i, nodes_active) {
+            this.nodes_preorder_rev.filter(v => !selection.includes(v)).forEach(function (node_preorder_rev, i, nodes_active) {
                 // left,top -- move after node
                 // left,bottom -- move before node
                 // left,bottom+SHIFT -- move as a last child of a node
-                const node_i = _this.nodes_preorder_rev.indexOf(node);
-                const {top, left, bottom} = _this.$refs.nodes[node_i].getBoundingClientRect();
-                points.push({x: left, y: top, parent_id: node.parent_id, i: _this.nodes.indexOf(node) + 1});
-                points.push({x: left + 30, y: bottom, parent_id: node.id, i: _this.nodes.length});
+                const node_preorder_rev_i = _this.nodes_preorder_rev.indexOf(node_preorder_rev);
+                const {top, left, bottom} = _this.$refs.nodes_preorder_rev[node_preorder_rev_i].getBoundingClientRect();
+                points.push({x: left, y: top, parent_id: node_preorder_rev.parent_id, i: _this.nodes.indexOf(node_preorder_rev) + 1});
+                points.push({x: left + 30, y: bottom, parent_id: node_preorder_rev.id, i: _this.nodes.length});
                 const next = nodes_active[i + 1];
-                for (let p = node, x = left; p; p = p.parent, x -= 30) {
+                for (let p = node_preorder_rev, x = left; p; p = p.parent, x -= 30) {
                     if (p === next?.parent) {
                         break;
                     }

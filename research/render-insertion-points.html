@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://unpkg.com/@vbarbarosh/smcss@0.6.1/dist/sm.css" rel="stylesheet" />
+    <title>Title of the Page</title>
+    <style>
+        .tree-node {
+            border: 1px dashed;
+            cursor: move;
+        }
+        .tree-node:hover:not(.green) {
+            background: yellow;
+        }
+    </style>
+</head>
+<body>
+
+<br>
+<p class="w800 ma">Researching a way to render insertion points</p>
+<br>
+
+<div id="app" class="w800 ma p5 bs5">
+    <div class="mg10">
+        <div v-for="node in nodes_preorder"
+             v-on:click="click_node($event, node)"
+             v-bind:ref="node.id"
+             v-bind:style="{marginLeft: px(30*node.depth)}"
+             v-bind:class="{green: selection.includes(node)}"
+             class="tree-node">
+            {{ node.name }} <small>depth={{ node.depth }}, position={{ node.position }}</small>
+        </div>
+    </div>
+    <svg v-if="feedback" class="fix-f ww hh z1 no-pointer-events">
+        <circle v-for="p in feedback.points"
+                v-bind:cx="p.x"
+                v-bind:cy="p.y"
+                fill="#f88"
+                r="5"
+                opacity="0.75"></circle>
+    </svg>
+</div>
+
+<script src="https://unpkg.com/jquery@3.5.1/dist/jquery.js"></script>
+<script src="https://unpkg.com/bluebird@3.7.2/js/browser/bluebird.js"></script>
+<script src="https://unpkg.com/vue@2.6.11/dist/vue.js"></script>
+<script src="https://unpkg.com/@vbarbarosh/dd@1.3.0/dist/dd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.min.js"></script>
+<script src="../dist/vbtree.js?r=1"></script>
+
+<script>
+new Vue({
+    el: '#app',
+    data: {
+        feedback: null,
+        selection: [],
+        nodes: vbtree.tree_flatten(vbtree.tree_from_string(`
+            1 images
+                2 image-bg
+                3 image-logo
+            4 texts
+                5 text-safari
+                6 text-savannah
+                   7 xxx
+                      8 yyy
+                         9 zzz
+            10 buttons
+                11 button-book-now
+                12 button-close
+        `)),
+    },
+    computed: {
+        nodes_preorder: function () {
+            let position = 1;
+            return vbtree.tree_walk_preorder({
+                retval: [],
+                roots: vbtree.tree_from_array(this.nodes).roots,
+                visit: function (ctx) {
+                    ctx.node.depth = ctx.stack.length - 1;
+                    ctx.node.position = position++;
+                    ctx.retval.push(ctx.node);
+                }
+            });
+        },
+    },
+    methods: {
+        px: function (v) {
+            return v ? `${v}px` : '0';
+        },
+        click_node: function (event, node) {
+            const i = this.selection.indexOf(node);
+            if (i == -1) {
+                this.selection.push(node);
+            }
+            else {
+                this.selection.splice(i, 1);
+            }
+        },
+        refresh_insertion_points: function (event) {
+            const _this = this;
+            const points = [];
+            const selection = vbtree.tree_intersect(this.nodes, this.selection);
+            let shift_i = 0;
+            // Simply put, insertion point should not be to the left
+            // of the next visual node.
+            this.nodes_preorder.filter(v => !selection.includes(v)).forEach(function (node, i, nodes_active) {
+                // left,top -- move before node
+                // left,bottom+SHIFT -- move as a first child of a node
+                const {top, left, bottom} = _this.$refs[node.id][0].getBoundingClientRect();
+                if (i == 0) {
+                    points.push({x: left, y: top, parent_id: node.parent_id, i: _this.nodes.indexOf(node)});
+                }
+                else if (nodes_active[i - 1].position + 1 != node.position) {
+                    // Duplicate points for selected node at its bottom
+                    points.slice(shift_i).forEach(function (p) {
+                        points.push({...p, y: top});
+                    });
+                }
+                shift_i = points.length;
+                points.push({x: left + 30, y: bottom, parent_id: node.id, i: 0});
+                const next = nodes_active[i + 1];
+                for (let p = node, x = left; p; p = p.parent, x -= 30) {
+                    if (p === next?.parent) {
+                        break;
+                    }
+                    points.push({x, y: bottom, parent_id: p.parent_id, i: _this.nodes.indexOf(p) + 1});
+                }
+            });
+            _this.feedback = {points, closest: null};
+        },
+    },
+    mounted: function () {
+        setInterval(this.refresh_insertion_points, 100);
+    },
+});
+</script>
+
+</body>
+</html>

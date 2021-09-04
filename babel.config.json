@@ -1,0 +1,6 @@
+{
+    "presets": [
+        "power-assert",
+        ["@babel/preset-env", {"targets": {"esmodules": true}}],
+    ]
+}

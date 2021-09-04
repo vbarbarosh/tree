@@ -1,100 +1,14 @@
-var vbtree =
-/******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// define __esModule on exports
-/******/ 	__webpack_require__.r = function(exports) {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
-/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/
-/******/ 	// create a fake namespace object
-/******/ 	// mode & 1: value is a module id, require it
-/******/ 	// mode & 2: merge all properties of value into the ns
-/******/ 	// mode & 4: return value when already ns object
-/******/ 	// mode & 8|1: behave like require
-/******/ 	__webpack_require__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __webpack_require__(value);
-/******/ 		if(mode & 8) return value;
-/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
-/******/ 		__webpack_require__.r(ns);
-/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/******/ 		return ns;
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-/******/
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/browser.js");
-/******/ })
-/************************************************************************/
-/******/ ({
+var vbtree;
+/******/ (function() { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
 
 /***/ "./src/array_index.js":
 /*!****************************!*\
   !*** ./src/array_index.js ***!
   \****************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 function array_index(array, fn) {
   var out = {};
@@ -112,10 +26,8 @@ function array_index(array, fn) {
 /*!***********************************!*\
   !*** ./src/array_permutations.js ***!
   \***********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 // https://stackoverflow.com/a/37580979/1478566
 function array_permutations(items) {
@@ -146,157 +58,18 @@ function array_permutations(items) {
 
 /***/ }),
 
-/***/ "./src/browser.js":
-/*!************************!*\
-  !*** ./src/browser.js ***!
-  \************************/
-/*! exports provided: array_index, array_permutations, roots_flatten, tree_ancestors, tree_common_ancestor, tree_descendants, tree_diff, tree_find_shifts, tree_finder_make, tree_flatten, tree_from_array, tree_from_string, tree_insert, tree_intersect, tree_map_orig, tree_move, tree_move_after, tree_move_before, tree_move_into, tree_move_v2, tree_node_next, tree_node_prev, tree_pointer_shift, tree_print, tree_random, tree_resolve, tree_shift, tree_sort_preorder, tree_walk_preorder, tree_walk_preorder_prefix, tree_walk_preorder_rev */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _array_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./array_index */ "./src/array_index.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "array_index", function() { return _array_index__WEBPACK_IMPORTED_MODULE_0__["default"]; });
-
-/* harmony import */ var _array_permutations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./array_permutations */ "./src/array_permutations.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "array_permutations", function() { return _array_permutations__WEBPACK_IMPORTED_MODULE_1__["default"]; });
-
-/* harmony import */ var _roots_flatten__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./roots_flatten */ "./src/roots_flatten.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "roots_flatten", function() { return _roots_flatten__WEBPACK_IMPORTED_MODULE_2__["default"]; });
-
-/* harmony import */ var _tree_ancestors__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./tree_ancestors */ "./src/tree_ancestors.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_ancestors", function() { return _tree_ancestors__WEBPACK_IMPORTED_MODULE_3__["default"]; });
-
-/* harmony import */ var _tree_common_ancestor__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./tree_common_ancestor */ "./src/tree_common_ancestor.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_common_ancestor", function() { return _tree_common_ancestor__WEBPACK_IMPORTED_MODULE_4__["default"]; });
-
-/* harmony import */ var _tree_descendants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./tree_descendants */ "./src/tree_descendants.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_descendants", function() { return _tree_descendants__WEBPACK_IMPORTED_MODULE_5__["default"]; });
-
-/* harmony import */ var _tree_diff__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./tree_diff */ "./src/tree_diff.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_diff", function() { return _tree_diff__WEBPACK_IMPORTED_MODULE_6__["default"]; });
-
-/* harmony import */ var _tree_find_shifts__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./tree_find_shifts */ "./src/tree_find_shifts.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_find_shifts", function() { return _tree_find_shifts__WEBPACK_IMPORTED_MODULE_7__["default"]; });
-
-/* harmony import */ var _tree_finder_make__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./tree_finder_make */ "./src/tree_finder_make.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_finder_make", function() { return _tree_finder_make__WEBPACK_IMPORTED_MODULE_8__["default"]; });
-
-/* harmony import */ var _tree_flatten__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./tree_flatten */ "./src/tree_flatten.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_flatten", function() { return _tree_flatten__WEBPACK_IMPORTED_MODULE_9__["default"]; });
-
-/* harmony import */ var _tree_from_array__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./tree_from_array */ "./src/tree_from_array.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_from_array", function() { return _tree_from_array__WEBPACK_IMPORTED_MODULE_10__["default"]; });
-
-/* harmony import */ var _tree_from_string__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./tree_from_string */ "./src/tree_from_string.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_from_string", function() { return _tree_from_string__WEBPACK_IMPORTED_MODULE_11__["default"]; });
-
-/* harmony import */ var _tree_insert__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./tree_insert */ "./src/tree_insert.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_insert", function() { return _tree_insert__WEBPACK_IMPORTED_MODULE_12__["default"]; });
-
-/* harmony import */ var _tree_intersect__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./tree_intersect */ "./src/tree_intersect.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_intersect", function() { return _tree_intersect__WEBPACK_IMPORTED_MODULE_13__["default"]; });
-
-/* harmony import */ var _tree_map_orig__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./tree_map_orig */ "./src/tree_map_orig.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_map_orig", function() { return _tree_map_orig__WEBPACK_IMPORTED_MODULE_14__["default"]; });
-
-/* harmony import */ var _tree_move__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./tree_move */ "./src/tree_move.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_move", function() { return _tree_move__WEBPACK_IMPORTED_MODULE_15__["default"]; });
-
-/* harmony import */ var _tree_move_after__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./tree_move_after */ "./src/tree_move_after.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_move_after", function() { return _tree_move_after__WEBPACK_IMPORTED_MODULE_16__["default"]; });
-
-/* harmony import */ var _tree_move_before__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./tree_move_before */ "./src/tree_move_before.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_move_before", function() { return _tree_move_before__WEBPACK_IMPORTED_MODULE_17__["default"]; });
-
-/* harmony import */ var _tree_move_into__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./tree_move_into */ "./src/tree_move_into.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_move_into", function() { return _tree_move_into__WEBPACK_IMPORTED_MODULE_18__["default"]; });
-
-/* harmony import */ var _tree_move_v2__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./tree_move_v2 */ "./src/tree_move_v2.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_move_v2", function() { return _tree_move_v2__WEBPACK_IMPORTED_MODULE_19__["default"]; });
-
-/* harmony import */ var _tree_node_next__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./tree_node_next */ "./src/tree_node_next.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_node_next", function() { return _tree_node_next__WEBPACK_IMPORTED_MODULE_20__["default"]; });
-
-/* harmony import */ var _tree_node_prev__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./tree_node_prev */ "./src/tree_node_prev.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_node_prev", function() { return _tree_node_prev__WEBPACK_IMPORTED_MODULE_21__["default"]; });
-
-/* harmony import */ var _tree_pointer_shift__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./tree_pointer_shift */ "./src/tree_pointer_shift.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_pointer_shift", function() { return _tree_pointer_shift__WEBPACK_IMPORTED_MODULE_22__["default"]; });
-
-/* harmony import */ var _tree_print__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./tree_print */ "./src/tree_print.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_print", function() { return _tree_print__WEBPACK_IMPORTED_MODULE_23__["default"]; });
-
-/* harmony import */ var _tree_random__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./tree_random */ "./src/tree_random.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_random", function() { return _tree_random__WEBPACK_IMPORTED_MODULE_24__["default"]; });
-
-/* harmony import */ var _tree_resolve__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./tree_resolve */ "./src/tree_resolve.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_resolve", function() { return _tree_resolve__WEBPACK_IMPORTED_MODULE_25__["default"]; });
-
-/* harmony import */ var _tree_shift__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./tree_shift */ "./src/tree_shift.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_shift", function() { return _tree_shift__WEBPACK_IMPORTED_MODULE_26__["default"]; });
-
-/* harmony import */ var _tree_sort_preorder__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./tree_sort_preorder */ "./src/tree_sort_preorder.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_sort_preorder", function() { return _tree_sort_preorder__WEBPACK_IMPORTED_MODULE_27__["default"]; });
-
-/* harmony import */ var _tree_walk_preorder__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./tree_walk_preorder */ "./src/tree_walk_preorder.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_walk_preorder", function() { return _tree_walk_preorder__WEBPACK_IMPORTED_MODULE_28__["default"]; });
-
-/* harmony import */ var _tree_walk_preorder_prefix__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./tree_walk_preorder_prefix */ "./src/tree_walk_preorder_prefix.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_walk_preorder_prefix", function() { return _tree_walk_preorder_prefix__WEBPACK_IMPORTED_MODULE_29__["default"]; });
-
-/* harmony import */ var _tree_walk_preorder_rev__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./tree_walk_preorder_rev */ "./src/tree_walk_preorder_rev.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "tree_walk_preorder_rev", function() { return _tree_walk_preorder_rev__WEBPACK_IMPORTED_MODULE_30__["default"]; });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/***/ }),
-
 /***/ "./src/roots_flatten.js":
 /*!******************************!*\
   !*** ./src/roots_flatten.js ***!
   \******************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _tree_walk_preorder__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tree_walk_preorder */ "./src/tree_walk_preorder.js");
 
 
 function roots_flatten(roots) {
-  return Object(_tree_walk_preorder__WEBPACK_IMPORTED_MODULE_0__["default"])({
+  return (0,_tree_walk_preorder__WEBPACK_IMPORTED_MODULE_0__["default"])({
     roots: roots,
     retval: [],
     enter: function enter(_ref) {
@@ -321,10 +94,8 @@ function roots_flatten(roots) {
 /*!*******************************!*\
   !*** ./src/tree_ancestors.js ***!
   \*******************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _tree_map_orig__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tree_map_orig */ "./src/tree_map_orig.js");
 /* harmony import */ var _tree_walk_preorder__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tree_walk_preorder */ "./src/tree_walk_preorder.js");
@@ -340,7 +111,7 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 function tree_ancestors(nodes, target) {
-  var tree = Object(_tree_from_array__WEBPACK_IMPORTED_MODULE_2__["default"])(nodes.map(_tree_map_orig__WEBPACK_IMPORTED_MODULE_0__["default"]));
+  var tree = (0,_tree_from_array__WEBPACK_IMPORTED_MODULE_2__["default"])(nodes.map(_tree_map_orig__WEBPACK_IMPORTED_MODULE_0__["default"]));
   var out = [];
 
   for (var parent = tree.nodes_map[target.parent_id]; parent; parent = parent.parent) {
@@ -358,10 +129,8 @@ function tree_ancestors(nodes, target) {
 /*!*************************************!*\
   !*** ./src/tree_common_ancestor.js ***!
   \*************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
@@ -369,7 +138,7 @@ function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread n
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 
@@ -418,10 +187,8 @@ function tree_common_ancestor(nodes) {
 /*!*********************************!*\
   !*** ./src/tree_descendants.js ***!
   \*********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _array_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./array_index */ "./src/array_index.js");
 /* harmony import */ var _tree_from_array__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tree_from_array */ "./src/tree_from_array.js");
@@ -443,11 +210,11 @@ __webpack_require__.r(__webpack_exports__);
 function tree_descendants(nodes, selection) {
   var dump = 0;
   var descendants = [];
-  var selection_map = Object(_array_index__WEBPACK_IMPORTED_MODULE_0__["default"])(selection, function (v) {
+  var selection_map = (0,_array_index__WEBPACK_IMPORTED_MODULE_0__["default"])(selection, function (v) {
     return v.id;
   });
-  Object(_tree_walk_preorder__WEBPACK_IMPORTED_MODULE_3__["default"])({
-    roots: Object(_tree_from_array__WEBPACK_IMPORTED_MODULE_1__["default"])(nodes.map(_tree_map_orig__WEBPACK_IMPORTED_MODULE_2__["default"])).roots,
+  (0,_tree_walk_preorder__WEBPACK_IMPORTED_MODULE_3__["default"])({
+    roots: (0,_tree_from_array__WEBPACK_IMPORTED_MODULE_1__["default"])(nodes.map(_tree_map_orig__WEBPACK_IMPORTED_MODULE_2__["default"])).roots,
     leave: function leave(_ref) {
       var node = _ref.node;
 
@@ -478,10 +245,8 @@ function tree_descendants(nodes, selection) {
 /*!**************************!*\
   !*** ./src/tree_diff.js ***!
   \**************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _array_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./array_index */ "./src/array_index.js");
 /* harmony import */ var _tree_from_array__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tree_from_array */ "./src/tree_from_array.js");
@@ -501,11 +266,11 @@ __webpack_require__.r(__webpack_exports__);
 
 function tree_diff(nodes, selection) {
   var keep = [];
-  var selection_map = Object(_array_index__WEBPACK_IMPORTED_MODULE_0__["default"])(selection, function (v) {
+  var selection_map = (0,_array_index__WEBPACK_IMPORTED_MODULE_0__["default"])(selection, function (v) {
     return v.id;
   });
-  Object(_tree_walk_preorder__WEBPACK_IMPORTED_MODULE_3__["default"])({
-    roots: Object(_tree_from_array__WEBPACK_IMPORTED_MODULE_1__["default"])(nodes.map(_tree_map_orig__WEBPACK_IMPORTED_MODULE_2__["default"])).roots,
+  (0,_tree_walk_preorder__WEBPACK_IMPORTED_MODULE_3__["default"])({
+    roots: (0,_tree_from_array__WEBPACK_IMPORTED_MODULE_1__["default"])(nodes.map(_tree_map_orig__WEBPACK_IMPORTED_MODULE_2__["default"])).roots,
     visit: function visit(_ref) {
       var node = _ref.node;
 
@@ -529,10 +294,8 @@ function tree_diff(nodes, selection) {
 /*!*********************************!*\
   !*** ./src/tree_find_shifts.js ***!
   \*********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /**
  * Return all possible shifts for the specified node pointer.
@@ -649,10 +412,8 @@ function move_right(nodes, target) {
 /*!*********************************!*\
   !*** ./src/tree_finder_make.js ***!
   \*********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _array_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./array_index */ "./src/array_index.js");
 /* harmony import */ var _tree_pointer_shift__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tree_pointer_shift */ "./src/tree_pointer_shift.js");
@@ -660,7 +421,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function tree_finder_make(ctx) {
-  ctx.selection_map = Object(_array_index__WEBPACK_IMPORTED_MODULE_0__["default"])(ctx.selection, function (v) {
+  ctx.selection_map = (0,_array_index__WEBPACK_IMPORTED_MODULE_0__["default"])(ctx.selection, function (v) {
     return v.id;
   });
   ctx.i = null;
@@ -714,7 +475,7 @@ function update(ctx, x, y) {
   var shift = Math.round((ctx.xx0 - closest_rect.x + ctx.dx) / ctx.shift_width); // XXX is_position_allowed should be called on each update
 
   var i = closest_node_i == -1 ? ctx.nodes.length : closest_node_i;
-  var tmp = Object(_tree_pointer_shift__WEBPACK_IMPORTED_MODULE_1__["default"])(ctx.nodes, ctx.selection_map, i, shift, ctx.is_shift_allowed);
+  var tmp = (0,_tree_pointer_shift__WEBPACK_IMPORTED_MODULE_1__["default"])(ctx.nodes, ctx.selection_map, i, shift, ctx.is_shift_allowed);
   ctx.i = tmp.i;
   ctx.parent_id = tmp.parent_id;
   ctx.shift = tmp.shift_happened;
@@ -975,16 +736,14 @@ function rects_closest_y(rects, y) {
 /*!*****************************!*\
   !*** ./src/tree_flatten.js ***!
   \*****************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _roots_flatten__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./roots_flatten */ "./src/roots_flatten.js");
 
 
 function tree_flatten(tree) {
-  return Object(_roots_flatten__WEBPACK_IMPORTED_MODULE_0__["default"])(tree.roots);
+  return (0,_roots_flatten__WEBPACK_IMPORTED_MODULE_0__["default"])(tree.roots);
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (tree_flatten);
@@ -995,10 +754,8 @@ function tree_flatten(tree) {
 /*!********************************!*\
   !*** ./src/tree_from_array.js ***!
   \********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /**
  * W A R N I N G
@@ -1098,10 +855,8 @@ function panic(node) {
 /*!*********************************!*\
   !*** ./src/tree_from_string.js ***!
   \*********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -1177,10 +932,8 @@ function tree_from_string() {
 /*!****************************!*\
   !*** ./src/tree_insert.js ***!
   \****************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _tree_from_array__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tree_from_array */ "./src/tree_from_array.js");
 /* harmony import */ var _tree_map_orig__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tree_map_orig */ "./src/tree_map_orig.js");
@@ -1201,8 +954,8 @@ __webpack_require__.r(__webpack_exports__);
 
 function tree_insert(nodes, insertion, i, parent_id) {
   var items = [];
-  Object(_tree_walk_preorder__WEBPACK_IMPORTED_MODULE_2__["default"])({
-    roots: Object(_tree_from_array__WEBPACK_IMPORTED_MODULE_0__["default"])(insertion.map(_tree_map_orig__WEBPACK_IMPORTED_MODULE_1__["default"])).roots,
+  (0,_tree_walk_preorder__WEBPACK_IMPORTED_MODULE_2__["default"])({
+    roots: (0,_tree_from_array__WEBPACK_IMPORTED_MODULE_0__["default"])(insertion.map(_tree_map_orig__WEBPACK_IMPORTED_MODULE_1__["default"])).roots,
     visit: function visit(_ref) {
       var node = _ref.node,
           stack = _ref.stack;
@@ -1226,10 +979,8 @@ function tree_insert(nodes, insertion, i, parent_id) {
 /*!*******************************!*\
   !*** ./src/tree_intersect.js ***!
   \*******************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _array_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./array_index */ "./src/array_index.js");
 /* harmony import */ var _tree_from_array__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tree_from_array */ "./src/tree_from_array.js");
@@ -1253,11 +1004,11 @@ __webpack_require__.r(__webpack_exports__);
 
 function tree_intersect(nodes, selection) {
   var retval = [];
-  var selection_map = Object(_array_index__WEBPACK_IMPORTED_MODULE_0__["default"])(selection, function (v) {
+  var selection_map = (0,_array_index__WEBPACK_IMPORTED_MODULE_0__["default"])(selection, function (v) {
     return v.id;
   });
-  Object(_tree_walk_preorder__WEBPACK_IMPORTED_MODULE_3__["default"])({
-    roots: Object(_tree_from_array__WEBPACK_IMPORTED_MODULE_1__["default"])(nodes.map(_tree_map_orig__WEBPACK_IMPORTED_MODULE_2__["default"])).roots,
+  (0,_tree_walk_preorder__WEBPACK_IMPORTED_MODULE_3__["default"])({
+    roots: (0,_tree_from_array__WEBPACK_IMPORTED_MODULE_1__["default"])(nodes.map(_tree_map_orig__WEBPACK_IMPORTED_MODULE_2__["default"])).roots,
     visit: function visit(_ref) {
       var node = _ref.node;
 
@@ -1281,10 +1032,8 @@ function tree_intersect(nodes, selection) {
 /*!******************************!*\
   !*** ./src/tree_map_orig.js ***!
   \******************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 function tree_map_orig(orig) {
   return {
@@ -1302,10 +1051,8 @@ function tree_map_orig(orig) {
 /*!**************************!*\
   !*** ./src/tree_move.js ***!
   \**************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _array_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./array_index */ "./src/array_index.js");
 /* harmony import */ var _tree_intersect__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tree_intersect */ "./src/tree_intersect.js");
@@ -1315,7 +1062,7 @@ function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread n
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 
@@ -1335,8 +1082,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
  */
 
 function tree_move(nodes, selection, i, parent_id) {
-  var subsel = Object(_tree_intersect__WEBPACK_IMPORTED_MODULE_1__["default"])(nodes, selection);
-  var subsel_ids = Object(_array_index__WEBPACK_IMPORTED_MODULE_0__["default"])(subsel, function (v) {
+  var subsel = (0,_tree_intersect__WEBPACK_IMPORTED_MODULE_1__["default"])(nodes, selection);
+  var subsel_ids = (0,_array_index__WEBPACK_IMPORTED_MODULE_0__["default"])(subsel, function (v) {
     return v.id;
   });
 
@@ -1374,10 +1121,8 @@ function tree_move(nodes, selection, i, parent_id) {
 /*!********************************!*\
   !*** ./src/tree_move_after.js ***!
   \********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
@@ -1385,7 +1130,7 @@ function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread n
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 
@@ -1419,10 +1164,8 @@ function tree_move_after(nodes, target) {
 /*!*********************************!*\
   !*** ./src/tree_move_before.js ***!
   \*********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
@@ -1430,7 +1173,7 @@ function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread n
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 
@@ -1464,10 +1207,8 @@ function tree_move_before(nodes, target) {
 /*!*******************************!*\
   !*** ./src/tree_move_into.js ***!
   \*******************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
@@ -1475,7 +1216,7 @@ function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread n
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 
@@ -1508,10 +1249,8 @@ function tree_move_into(nodes, target) {
 /*!*****************************!*\
   !*** ./src/tree_move_v2.js ***!
   \*****************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 function tree_move_before(nodes, selection, target) {
   var i = nodes.indexOf(target);
@@ -1553,10 +1292,8 @@ function tree_move_v2(nodes, selection, target) {}
 /*!*******************************!*\
   !*** ./src/tree_node_next.js ***!
   \*******************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 function tree_node_next(node) {
   if (node.children.length) {
@@ -1586,10 +1323,8 @@ function tree_node_next(node) {
 /*!*******************************!*\
   !*** ./src/tree_node_prev.js ***!
   \*******************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 function tree_node_prev(node) {
   var p = node.siblings[node.siblings.indexOf(node) - 1] || null;
@@ -1615,10 +1350,8 @@ function tree_node_prev(node) {
 /*!***********************************!*\
   !*** ./src/tree_pointer_shift.js ***!
   \***********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /**
  * Вычисляет новое положение указателя вставки после его
@@ -1770,10 +1503,8 @@ function shift_left(nodes, i, parent_id, shift, is_shift_allowed, selection_map)
 /*!***************************!*\
   !*** ./src/tree_print.js ***!
   \***************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _tree_walk_preorder__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tree_walk_preorder */ "./src/tree_walk_preorder.js");
 /* harmony import */ var _tree_walk_preorder_prefix__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tree_walk_preorder_prefix */ "./src/tree_walk_preorder_prefix.js");
@@ -1789,11 +1520,11 @@ var prefix4 = {
 
 function tree_print(_ref) {
   var roots = _ref.roots;
-  return Object(_tree_walk_preorder__WEBPACK_IMPORTED_MODULE_0__["default"])({
+  return (0,_tree_walk_preorder__WEBPACK_IMPORTED_MODULE_0__["default"])({
     retval: '',
     roots: roots,
     visit: function visit(ctx) {
-      ctx.retval += Object(_tree_walk_preorder_prefix__WEBPACK_IMPORTED_MODULE_1__["default"])(ctx).map(function (v) {
+      ctx.retval += (0,_tree_walk_preorder_prefix__WEBPACK_IMPORTED_MODULE_1__["default"])(ctx).map(function (v) {
         return prefix4[v];
       }).join('') + (ctx.node.title || ctx.node.id) + '\n';
     }
@@ -1808,10 +1539,8 @@ function tree_print(_ref) {
 /*!****************************!*\
   !*** ./src/tree_random.js ***!
   \****************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var faker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! faker */ "faker");
 /* harmony import */ var faker__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(faker__WEBPACK_IMPORTED_MODULE_0__);
@@ -1830,7 +1559,7 @@ function nodes(depth, end, used) {
     var w = void 0;
 
     for (var j = 0; j < 50; ++j) {
-      if (!used[w = faker__WEBPACK_IMPORTED_MODULE_0___default.a.lorem.word()]) {
+      if (!used[w = faker__WEBPACK_IMPORTED_MODULE_0___default().lorem.word()]) {
         break;
       }
     }
@@ -1858,10 +1587,8 @@ function nodes(depth, end, used) {
 /*!*****************************!*\
   !*** ./src/tree_resolve.js ***!
   \*****************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _array_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./array_index */ "./src/array_index.js");
 /* harmony import */ var _tree_find_shifts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tree_find_shifts */ "./src/tree_find_shifts.js");
@@ -1891,11 +1618,11 @@ function tree_resolve(nodes, start, one_down, horizontal_shift) {
     i: 0,
     parent_id: null
   };
-  var nodes_map = Object(_array_index__WEBPACK_IMPORTED_MODULE_0__["default"])(nodes, function (v) {
+  var nodes_map = (0,_array_index__WEBPACK_IMPORTED_MODULE_0__["default"])(nodes, function (v) {
     return v.id;
   });
 
-  var _tree_from_array = Object(_tree_from_array__WEBPACK_IMPORTED_MODULE_2__["default"])(nodes.map(function (node, i) {
+  var _tree_from_array = (0,_tree_from_array__WEBPACK_IMPORTED_MODULE_2__["default"])(nodes.map(function (node, i) {
     return {
       id: node.id,
       parent_id: nodes_map[node.parent_id] ? node.parent_id : null,
@@ -1905,7 +1632,7 @@ function tree_resolve(nodes, start, one_down, horizontal_shift) {
   })),
       roots = _tree_from_array.roots;
 
-  Object(_tree_walk_preorder__WEBPACK_IMPORTED_MODULE_3__["default"])({
+  (0,_tree_walk_preorder__WEBPACK_IMPORTED_MODULE_3__["default"])({
     roots: roots,
     visit: function visit(ctx) {
       if (end) {
@@ -1935,12 +1662,12 @@ function tree_resolve(nodes, start, one_down, horizontal_shift) {
   });
 
   if (horizontal_shift > 0) {
-    var tmp = Object(_tree_find_shifts__WEBPACK_IMPORTED_MODULE_1__["default"])(nodes, retval);
+    var tmp = (0,_tree_find_shifts__WEBPACK_IMPORTED_MODULE_1__["default"])(nodes, retval);
     return tmp.shift_right[Math.min(horizontal_shift, tmp.shift_right.length) - 1] || retval;
   }
 
   if (horizontal_shift < 0) {
-    var _tmp = Object(_tree_find_shifts__WEBPACK_IMPORTED_MODULE_1__["default"])(nodes, retval);
+    var _tmp = (0,_tree_find_shifts__WEBPACK_IMPORTED_MODULE_1__["default"])(nodes, retval);
 
     return _tmp.shift_left[Math.min(-horizontal_shift, _tmp.shift_left.length) - 1] || retval;
   }
@@ -1968,10 +1695,8 @@ function tree_resolve(nodes, start, one_down, horizontal_shift) {
 /*!***************************!*\
   !*** ./src/tree_shift.js ***!
   \***************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /**
  * Вычисляет новое положение узла после его смещения влево либо вправо.
@@ -2105,10 +1830,8 @@ function tree_shift(nodes, i, shift) {
 /*!***********************************!*\
   !*** ./src/tree_sort_preorder.js ***!
   \***********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 function tree_sort_preorder(children) {
   var fcmp = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : fcmp_nodes_id;
@@ -2130,10 +1853,8 @@ function fcmp_nodes_id(a, b) {
 /*!***********************************!*\
   !*** ./src/tree_walk_preorder.js ***!
   \***********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 function tree_walk_preorder(ctx) {
   ctx.stack = ctx.stack || [];
@@ -2233,10 +1954,8 @@ function tree_walk_preorder_int(ctx) {
 /*!******************************************!*\
   !*** ./src/tree_walk_preorder_prefix.js ***!
   \******************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /**
  * Render an array of strings representing position of a node on each level.
@@ -2270,10 +1989,8 @@ function tree_walk_preorder_prefix(ctx) {
 /*!***************************************!*\
   !*** ./src/tree_walk_preorder_rev.js ***!
   \***************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 function tree_walk_preorder_rev(ctx) {
   ctx.stack = ctx.stack || [];
@@ -2361,11 +2078,184 @@ function tree_walk_preorder_rev_int(ctx) {
 /*!************************!*\
   !*** external "faker" ***!
   \************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module) {
 
 module.exports = faker;
 
 /***/ })
 
-/******/ });
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	!function() {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = function(module) {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				function() { return module['default']; } :
+/******/ 				function() { return module; };
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	!function() {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	!function() {
+/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	!function() {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = function(exports) {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+!function() {
+/*!************************!*\
+  !*** ./src/browser.js ***!
+  \************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "array_index": function() { return /* reexport safe */ _array_index__WEBPACK_IMPORTED_MODULE_0__["default"]; },
+/* harmony export */   "array_permutations": function() { return /* reexport safe */ _array_permutations__WEBPACK_IMPORTED_MODULE_1__["default"]; },
+/* harmony export */   "roots_flatten": function() { return /* reexport safe */ _roots_flatten__WEBPACK_IMPORTED_MODULE_2__["default"]; },
+/* harmony export */   "tree_ancestors": function() { return /* reexport safe */ _tree_ancestors__WEBPACK_IMPORTED_MODULE_3__["default"]; },
+/* harmony export */   "tree_common_ancestor": function() { return /* reexport safe */ _tree_common_ancestor__WEBPACK_IMPORTED_MODULE_4__["default"]; },
+/* harmony export */   "tree_descendants": function() { return /* reexport safe */ _tree_descendants__WEBPACK_IMPORTED_MODULE_5__["default"]; },
+/* harmony export */   "tree_diff": function() { return /* reexport safe */ _tree_diff__WEBPACK_IMPORTED_MODULE_6__["default"]; },
+/* harmony export */   "tree_find_shifts": function() { return /* reexport safe */ _tree_find_shifts__WEBPACK_IMPORTED_MODULE_7__["default"]; },
+/* harmony export */   "tree_finder_make": function() { return /* reexport safe */ _tree_finder_make__WEBPACK_IMPORTED_MODULE_8__["default"]; },
+/* harmony export */   "tree_flatten": function() { return /* reexport safe */ _tree_flatten__WEBPACK_IMPORTED_MODULE_9__["default"]; },
+/* harmony export */   "tree_from_array": function() { return /* reexport safe */ _tree_from_array__WEBPACK_IMPORTED_MODULE_10__["default"]; },
+/* harmony export */   "tree_from_string": function() { return /* reexport safe */ _tree_from_string__WEBPACK_IMPORTED_MODULE_11__["default"]; },
+/* harmony export */   "tree_insert": function() { return /* reexport safe */ _tree_insert__WEBPACK_IMPORTED_MODULE_12__["default"]; },
+/* harmony export */   "tree_intersect": function() { return /* reexport safe */ _tree_intersect__WEBPACK_IMPORTED_MODULE_13__["default"]; },
+/* harmony export */   "tree_map_orig": function() { return /* reexport safe */ _tree_map_orig__WEBPACK_IMPORTED_MODULE_14__["default"]; },
+/* harmony export */   "tree_move": function() { return /* reexport safe */ _tree_move__WEBPACK_IMPORTED_MODULE_15__["default"]; },
+/* harmony export */   "tree_move_after": function() { return /* reexport safe */ _tree_move_after__WEBPACK_IMPORTED_MODULE_16__["default"]; },
+/* harmony export */   "tree_move_before": function() { return /* reexport safe */ _tree_move_before__WEBPACK_IMPORTED_MODULE_17__["default"]; },
+/* harmony export */   "tree_move_into": function() { return /* reexport safe */ _tree_move_into__WEBPACK_IMPORTED_MODULE_18__["default"]; },
+/* harmony export */   "tree_move_v2": function() { return /* reexport safe */ _tree_move_v2__WEBPACK_IMPORTED_MODULE_19__["default"]; },
+/* harmony export */   "tree_node_next": function() { return /* reexport safe */ _tree_node_next__WEBPACK_IMPORTED_MODULE_20__["default"]; },
+/* harmony export */   "tree_node_prev": function() { return /* reexport safe */ _tree_node_prev__WEBPACK_IMPORTED_MODULE_21__["default"]; },
+/* harmony export */   "tree_pointer_shift": function() { return /* reexport safe */ _tree_pointer_shift__WEBPACK_IMPORTED_MODULE_22__["default"]; },
+/* harmony export */   "tree_print": function() { return /* reexport safe */ _tree_print__WEBPACK_IMPORTED_MODULE_23__["default"]; },
+/* harmony export */   "tree_random": function() { return /* reexport safe */ _tree_random__WEBPACK_IMPORTED_MODULE_24__["default"]; },
+/* harmony export */   "tree_resolve": function() { return /* reexport safe */ _tree_resolve__WEBPACK_IMPORTED_MODULE_25__["default"]; },
+/* harmony export */   "tree_shift": function() { return /* reexport safe */ _tree_shift__WEBPACK_IMPORTED_MODULE_26__["default"]; },
+/* harmony export */   "tree_sort_preorder": function() { return /* reexport safe */ _tree_sort_preorder__WEBPACK_IMPORTED_MODULE_27__["default"]; },
+/* harmony export */   "tree_walk_preorder": function() { return /* reexport safe */ _tree_walk_preorder__WEBPACK_IMPORTED_MODULE_28__["default"]; },
+/* harmony export */   "tree_walk_preorder_prefix": function() { return /* reexport safe */ _tree_walk_preorder_prefix__WEBPACK_IMPORTED_MODULE_29__["default"]; },
+/* harmony export */   "tree_walk_preorder_rev": function() { return /* reexport safe */ _tree_walk_preorder_rev__WEBPACK_IMPORTED_MODULE_30__["default"]; }
+/* harmony export */ });
+/* harmony import */ var _array_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./array_index */ "./src/array_index.js");
+/* harmony import */ var _array_permutations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./array_permutations */ "./src/array_permutations.js");
+/* harmony import */ var _roots_flatten__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./roots_flatten */ "./src/roots_flatten.js");
+/* harmony import */ var _tree_ancestors__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./tree_ancestors */ "./src/tree_ancestors.js");
+/* harmony import */ var _tree_common_ancestor__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./tree_common_ancestor */ "./src/tree_common_ancestor.js");
+/* harmony import */ var _tree_descendants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./tree_descendants */ "./src/tree_descendants.js");
+/* harmony import */ var _tree_diff__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./tree_diff */ "./src/tree_diff.js");
+/* harmony import */ var _tree_find_shifts__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./tree_find_shifts */ "./src/tree_find_shifts.js");
+/* harmony import */ var _tree_finder_make__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./tree_finder_make */ "./src/tree_finder_make.js");
+/* harmony import */ var _tree_flatten__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./tree_flatten */ "./src/tree_flatten.js");
+/* harmony import */ var _tree_from_array__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./tree_from_array */ "./src/tree_from_array.js");
+/* harmony import */ var _tree_from_string__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./tree_from_string */ "./src/tree_from_string.js");
+/* harmony import */ var _tree_insert__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./tree_insert */ "./src/tree_insert.js");
+/* harmony import */ var _tree_intersect__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./tree_intersect */ "./src/tree_intersect.js");
+/* harmony import */ var _tree_map_orig__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./tree_map_orig */ "./src/tree_map_orig.js");
+/* harmony import */ var _tree_move__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./tree_move */ "./src/tree_move.js");
+/* harmony import */ var _tree_move_after__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./tree_move_after */ "./src/tree_move_after.js");
+/* harmony import */ var _tree_move_before__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./tree_move_before */ "./src/tree_move_before.js");
+/* harmony import */ var _tree_move_into__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./tree_move_into */ "./src/tree_move_into.js");
+/* harmony import */ var _tree_move_v2__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./tree_move_v2 */ "./src/tree_move_v2.js");
+/* harmony import */ var _tree_node_next__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./tree_node_next */ "./src/tree_node_next.js");
+/* harmony import */ var _tree_node_prev__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./tree_node_prev */ "./src/tree_node_prev.js");
+/* harmony import */ var _tree_pointer_shift__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./tree_pointer_shift */ "./src/tree_pointer_shift.js");
+/* harmony import */ var _tree_print__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./tree_print */ "./src/tree_print.js");
+/* harmony import */ var _tree_random__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./tree_random */ "./src/tree_random.js");
+/* harmony import */ var _tree_resolve__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./tree_resolve */ "./src/tree_resolve.js");
+/* harmony import */ var _tree_shift__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./tree_shift */ "./src/tree_shift.js");
+/* harmony import */ var _tree_sort_preorder__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./tree_sort_preorder */ "./src/tree_sort_preorder.js");
+/* harmony import */ var _tree_walk_preorder__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./tree_walk_preorder */ "./src/tree_walk_preorder.js");
+/* harmony import */ var _tree_walk_preorder_prefix__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./tree_walk_preorder_prefix */ "./src/tree_walk_preorder_prefix.js");
+/* harmony import */ var _tree_walk_preorder_rev__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./tree_walk_preorder_rev */ "./src/tree_walk_preorder_rev.js");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}();
+vbtree = __webpack_exports__;
+/******/ })()
+;

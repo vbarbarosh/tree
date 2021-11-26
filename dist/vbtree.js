@@ -1542,24 +1542,23 @@ function tree_print(_ref) {
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var faker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! faker */ "faker");
-/* harmony import */ var faker__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(faker__WEBPACK_IMPORTED_MODULE_0__);
-
-
 function tree_random() {
   var depth = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 3;
+  var random_word = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function () {
+    return faker.lorem.word;
+  };
   var used = {};
-  return nodes(1, depth, used);
+  return nodes(1, depth, used, random_word);
 }
 
-function nodes(depth, end, used) {
+function nodes(depth, end, used, random_word) {
   var lines = [];
 
   for (var i = 0, ii = Math.floor(Math.random() * 5) + 1; i < ii; ++i) {
     var w = void 0;
 
     for (var j = 0; j < 50; ++j) {
-      if (!used[w = faker__WEBPACK_IMPORTED_MODULE_0___default().lorem.word()]) {
+      if (!used[w = random_word()]) {
         break;
       }
     }
@@ -1572,7 +1571,7 @@ function nodes(depth, end, used) {
     lines.push(' '.repeat(depth * 4) + w);
 
     if (depth < end) {
-      lines.push(nodes(depth + 1, end, used));
+      lines.push(nodes(depth + 1, end, used, random_word));
     }
   }
 
@@ -2072,16 +2071,6 @@ function tree_walk_preorder_rev_int(ctx) {
 
 /* harmony default export */ __webpack_exports__["default"] = (tree_walk_preorder_rev);
 
-/***/ }),
-
-/***/ "faker":
-/*!************************!*\
-  !*** external "faker" ***!
-  \************************/
-/***/ (function(module) {
-
-module.exports = faker;
-
 /***/ })
 
 /******/ 	});
@@ -2111,18 +2100,6 @@ module.exports = faker;
 /******/ 	}
 /******/ 	
 /************************************************************************/
-/******/ 	/* webpack/runtime/compat get default export */
-/******/ 	!function() {
-/******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = function(module) {
-/******/ 			var getter = module && module.__esModule ?
-/******/ 				function() { return module['default']; } :
-/******/ 				function() { return module; };
-/******/ 			__webpack_require__.d(getter, { a: getter });
-/******/ 			return getter;
-/******/ 		};
-/******/ 	}();
-/******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	!function() {
 /******/ 		// define getter functions for harmony exports

@@ -6,6 +6,16 @@ A set of functions for working with trees
 npm i @vbarbarosh/tree
 ```
 
+## Recipies
+
+### Create a tree from array
+
+    const tree = tree_from_array(items.map(tree_map_orig))
+
+### Walk a tree and remove some nodes
+
+TODO
+
 ## Datasets
 
 * [Problem Solving with Algorithms and Data Structures using Python — 7.2. Examples of Trees](https://runestone.academy/runestone/books/published/pythonds/Trees/ExamplesofTrees.html)

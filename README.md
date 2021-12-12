@@ -10,7 +10,7 @@ npm i @vbarbarosh/tree
 
 ### Create a tree from array
 
-    const tree = tree_from_array(items.map(tree_map_orig))
+    const tree = tree_from_array(items.map(tree_map_orig));
 
 ### Walk a tree and remove some nodes
 

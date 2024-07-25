@@ -50,7 +50,7 @@ function tree_from_array(nodes = [])
             splice[node.parent_id] = (splice[node.parent_id]+1)||0;
             node.parent.children.splice(splice[node.parent_id], 0, node);
             node.siblings = node.parent.children;
-            // At this point just inserted node can create a circular dependency.
+            // At this point, just inserted node can create a circular dependency.
             for (let p = node; p; p = p.parent) {
                 if (p.parent === node) {
                     panic(node);

@@ -1,8 +1,8 @@
-import roots_flatten from './roots_flatten';
+const roots_flatten = require('./roots_flatten');
 
 function tree_flatten(tree)
 {
     return roots_flatten(tree.roots)
 }
 
-export default tree_flatten;
+module.exports = tree_flatten;

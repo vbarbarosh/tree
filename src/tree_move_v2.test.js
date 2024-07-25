@@ -1,6 +1,5 @@
-import roots_flatten from './roots_flatten';
-import tree_from_string from './tree_from_string';
-import tree_move from './tree_move';
+const tree_from_string = require('./tree_from_string');
+const tree_move = require('./tree_move');
 
 describe('tree_move_v2', function () {
     xit('should handle empty arrays', function () {
@@ -23,11 +22,6 @@ describe('tree_move_v2', function () {
         assert.deepEqual(tree_move(nodes, [{id:'c'}],{into:'a'}), [{id:'a',parent_id:null},{id:'c',parent_id:'a'},{id:'b',parent_id:null}]);
     });
 });
-
-function dup(value)
-{
-    return JSON.parse(JSON.stringify(value));
-}
 
 function tree(text)
 {

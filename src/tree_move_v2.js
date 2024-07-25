@@ -32,4 +32,4 @@ function tree_move_v2(nodes, selection, target)
 {
 }
 
-export default tree_move_v2;
+module.exports = tree_move_v2;

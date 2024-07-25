@@ -24,4 +24,4 @@ function array_permutations(items)
     return result;
 }
 
-export default array_permutations;
+module.exports = array_permutations;

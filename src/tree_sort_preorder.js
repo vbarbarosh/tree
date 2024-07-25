@@ -9,4 +9,4 @@ function fcmp_nodes_id(a, b)
     return a.id.localeCompare(b.id);
 }
 
-export default tree_sort_preorder;
+module.exports = tree_sort_preorder;

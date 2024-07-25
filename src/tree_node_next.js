@@ -15,4 +15,4 @@ function tree_node_next(node)
     return null;
 }
 
-export default tree_node_next;
+module.exports = tree_node_next;

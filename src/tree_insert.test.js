@@ -1,4 +1,4 @@
-import tree_insert from './tree_insert';
+const tree_insert = require('./tree_insert');
 
 describe('tree_insert', function () {
     it('should handle empty arrays', function () {

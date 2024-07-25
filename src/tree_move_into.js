@@ -14,4 +14,4 @@ function tree_move_into(nodes, target)
     });
 }
 
-export default tree_move_into;
+module.exports = tree_move_into;

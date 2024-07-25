@@ -1,12 +1,12 @@
 // Reverse Tree
 //
-// In order to get a reverse tree, just reverse an array of items
+// To get a reverse tree, just reverse an array of items
 // before passing them to tree_from_array.
 
-import tree_flatten from '../src/tree_flatten';
-import tree_from_array from '../src/tree_from_array';
-import tree_from_string from '../src/tree_from_string';
-import tree_print from '../src/tree_print';
+const tree_flatten = require('../src/tree_flatten');
+const tree_from_array = require('../src/tree_from_array');
+const tree_from_string = require('../src/tree_from_string');
+const tree_print = require('../src/tree_print');
 
 const str = `
     1-logo

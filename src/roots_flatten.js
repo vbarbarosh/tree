@@ -1,4 +1,4 @@
-import tree_walk_preorder from './tree_walk_preorder';
+const tree_walk_preorder = require('./tree_walk_preorder');
 
 function roots_flatten(roots)
 {
@@ -16,4 +16,4 @@ function roots_flatten(roots)
     });
 }
 
-export default roots_flatten;
+module.exports = roots_flatten;

@@ -1,7 +1,7 @@
-import array_index from './array_index';
-import tree_from_array from './tree_from_array';
-import tree_map_orig from './tree_map_orig';
-import tree_walk_preorder from './tree_walk_preorder';
+const array_index = require('./array_index');
+const tree_from_array = require('./tree_from_array');
+const tree_map_orig = require('./tree_map_orig');
+const tree_walk_preorder = require('./tree_walk_preorder');
 
 /**
  * Return nodes not presented in selection (descendants are counted).
@@ -28,4 +28,4 @@ function tree_diff(nodes, selection)
     return keep;
 }
 
-export default tree_diff;
+module.exports = tree_diff;

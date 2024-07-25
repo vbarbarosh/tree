@@ -1,5 +1,5 @@
-import tree_walk_preorder from './tree_walk_preorder';
-import tree_walk_preorder_prefix from './tree_walk_preorder_prefix';
+const tree_walk_preorder = require('./tree_walk_preorder');
+const tree_walk_preorder_prefix = require('./tree_walk_preorder_prefix');
 
 // noinspection NonAsciiCharacters
 const prefix4 = {
@@ -20,4 +20,4 @@ function tree_print({roots})
     });
 }
 
-export default tree_print;
+module.exports = tree_print;

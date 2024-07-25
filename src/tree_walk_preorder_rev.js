@@ -70,4 +70,4 @@ function tree_walk_preorder_rev_int(ctx)
     return end;
 }
 
-export default tree_walk_preorder_rev;
+module.exports = tree_walk_preorder_rev;

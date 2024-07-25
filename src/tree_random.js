@@ -26,4 +26,4 @@ function nodes(depth, end, used, random_word)
     return lines.join('\n');
 }
 
-export default tree_random;
+module.exports = tree_random;

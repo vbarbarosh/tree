@@ -1,7 +1,7 @@
-import array_permutations from './array_permutations';
-import roots_flatten from './roots_flatten';
-import tree_from_array from './tree_from_array';
-import tree_print from './tree_print';
+const array_permutations = require('./array_permutations');
+const roots_flatten = require('./roots_flatten');
+const tree_from_array = require('./tree_from_array');
+const tree_print = require('./tree_print');
 
 // tree_flatten(tree_from_string(tree_random()))
 const valid = [

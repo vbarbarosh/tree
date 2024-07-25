@@ -1,6 +1,6 @@
-import tree_descendants from './tree_descendants';
-import tree_flatten from './tree_flatten';
-import tree_from_string from './tree_from_string';
+const tree_descendants = require('./tree_descendants');
+const tree_flatten = require('./tree_flatten');
+const tree_from_string = require('./tree_from_string');
 
 describe('tree_descendants', function () {
     it('should handle empty arrays', function () {

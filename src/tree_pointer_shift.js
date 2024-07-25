@@ -121,4 +121,4 @@ function shift_left(nodes, i, parent_id, shift, is_shift_allowed, selection_map)
     return out;
 }
 
-export default tree_pointer_shift;
+module.exports = tree_pointer_shift;

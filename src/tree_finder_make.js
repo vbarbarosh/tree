@@ -1,5 +1,5 @@
-import array_index from './array_index';
-import tree_pointer_shift from './tree_pointer_shift';
+const array_index = require('./array_index');
+const tree_pointer_shift = require('./tree_pointer_shift');
 
 function tree_finder_make(ctx)
 {
@@ -200,4 +200,4 @@ function rects_closest_y(rects, y)
     return inside || outside;
 }
 
-export default tree_finder_make;
+module.exports = tree_finder_make;

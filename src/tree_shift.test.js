@@ -1,6 +1,6 @@
-import tree_flatten from './tree_flatten';
-import tree_from_string from './tree_from_string';
-import tree_shift from './tree_shift';
+const tree_flatten = require('./tree_flatten');
+const tree_from_string = require('./tree_from_string');
+const tree_shift = require('./tree_shift');
 
 describe('tree_shift', function () {
     it('should handle empty arrays', function () {

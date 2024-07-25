@@ -15,4 +15,4 @@ function tree_move_after(nodes, target)
     });
 }
 
-export default tree_move_after;
+module.exports = tree_move_after;

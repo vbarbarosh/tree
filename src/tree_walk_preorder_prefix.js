@@ -13,7 +13,7 @@ function tree_walk_preorder_prefix(ctx)
 
     return ctx.stack.map(function (node, stack_i) {
         const siblings = node.parent ? node.parent.children : ctx.roots;
-        const is_current = (stack_i == ctx.stack.length - 1);
+        const is_current = (stack_i === ctx.stack.length - 1);
         const is_last_sibling = (node === siblings[siblings.length - 1]);
         if (is_last_sibling) {
             return is_current ? '└' : ' ';
@@ -24,4 +24,4 @@ function tree_walk_preorder_prefix(ctx)
     });
 }
 
-export default tree_walk_preorder_prefix;
+module.exports = tree_walk_preorder_prefix;

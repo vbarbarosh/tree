@@ -39,4 +39,4 @@ function tree_from_string(s = '')
     return {roots: root.children, nodes, nodes_map};
 }
 
-export default tree_from_string;
+module.exports = tree_from_string;

@@ -1,5 +1,5 @@
-import array_index from './array_index';
-import tree_intersect from './tree_intersect';
+const array_index = require('./array_index');
+const tree_intersect = require('./tree_intersect');
 
 /**
  * Move nodes into a new place. Basically - set new
@@ -36,4 +36,4 @@ function tree_move(nodes, selection, i, parent_id)
     return nodes;
 }
 
-export default tree_move;
+module.exports = tree_move;

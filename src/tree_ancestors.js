@@ -1,6 +1,5 @@
-import tree_map_orig from './tree_map_orig';
-import tree_walk_preorder from './tree_walk_preorder';
-import tree_from_array from './tree_from_array';
+const tree_map_orig = require('./tree_map_orig');
+const tree_from_array = require('./tree_from_array');
 
 /**
  * Return all ancestors of a specific node
@@ -18,4 +17,4 @@ function tree_ancestors(nodes, target)
     return out;
 }
 
-export default tree_ancestors;
+module.exports = tree_ancestors;

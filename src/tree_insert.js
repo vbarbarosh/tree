@@ -1,6 +1,6 @@
-import tree_from_array from './tree_from_array';
-import tree_map_orig from './tree_map_orig';
-import tree_walk_preorder from './tree_walk_preorder';
+const tree_from_array = require('./tree_from_array');
+const tree_map_orig = require('./tree_map_orig');
+const tree_walk_preorder = require('./tree_walk_preorder');
 
 /**
  * Insert nodes at specific point.
@@ -28,4 +28,4 @@ function tree_insert(nodes, insertion, i, parent_id)
     return nodes;
 }
 
-export default tree_insert;
+module.exports = tree_insert;

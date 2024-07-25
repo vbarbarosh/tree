@@ -5,7 +5,7 @@
  */
 function tree_common_ancestor(nodes)
 {
-    if (nodes.length == 0) {
+    if (!nodes.length) {
         return null;
     }
 
@@ -31,4 +31,4 @@ function tree_common_ancestor(nodes)
     return ancestors[0][end-2]||null;
 }
 
-export default tree_common_ancestor;
+module.exports = tree_common_ancestor;

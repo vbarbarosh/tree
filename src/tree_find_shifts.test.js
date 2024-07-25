@@ -1,6 +1,6 @@
-import tree_find_shifts from './tree_find_shifts';
-import tree_flatten from './tree_flatten';
-import tree_from_string from './tree_from_string';
+const tree_find_shifts = require('./tree_find_shifts');
+const tree_flatten = require('./tree_flatten');
+const tree_from_string = require('./tree_from_string');
 
 describe('tree_find_shifts', function () {
     it('should handle basic input', function () {

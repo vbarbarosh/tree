@@ -20,7 +20,7 @@ function tree_find_shifts(nodes, pointer)
     while (move_left(tmp1, dummy1)) {
         shift_left.push({i: tmp1.indexOf(dummy1), parent_id: dummy1.parent_id||null});
     }
-    
+
     const shift_right = [];
     while (move_right(tmp2, dummy2)) {
         shift_right.push({i: tmp2.indexOf(dummy2), parent_id: dummy2.parent_id||null});
@@ -83,4 +83,4 @@ function move_right(nodes, target)
     return false;
 }
 
-export default tree_find_shifts;
+module.exports = tree_find_shifts;

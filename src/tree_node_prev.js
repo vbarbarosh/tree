@@ -12,4 +12,4 @@ function tree_node_prev(node)
     return p;
 }
 
-export default tree_node_prev;
+module.exports = tree_node_prev;

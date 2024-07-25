@@ -1,7 +1,7 @@
-import array_index from './array_index';
-import tree_find_shifts from './tree_find_shifts';
-import tree_from_array from './tree_from_array';
-import tree_walk_preorder from './tree_walk_preorder';
+const array_index = require('./array_index');
+const tree_find_shifts = require('./tree_find_shifts');
+const tree_from_array = require('./tree_from_array');
+const tree_walk_preorder = require('./tree_walk_preorder');
 
 /**
  * Like `path.resolve`. Given a starting point and
@@ -76,4 +76,4 @@ function tree_resolve(nodes, start, one_down, horizontal_shift)
     // }
 }
 
-export default tree_resolve;
+module.exports = tree_resolve;

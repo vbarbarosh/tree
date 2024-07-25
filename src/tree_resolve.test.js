@@ -1,6 +1,6 @@
-import tree_flatten from './tree_flatten';
-import tree_from_string from './tree_from_string';
-import tree_resolve from './tree_resolve';
+const tree_flatten = require('./tree_flatten');
+const tree_from_string = require('./tree_from_string');
+const tree_resolve = require('./tree_resolve');
 
 describe('tree_resolve', function () {
     it('should handle basic input', function () {

@@ -79,4 +79,4 @@ function panic(node)
     }
 }
 
-export default tree_from_array;
+module.exports = tree_from_array;

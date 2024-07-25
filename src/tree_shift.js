@@ -9,12 +9,12 @@
  */
 function tree_shift(nodes, i, shift, is_shift_allowed = () => true)
 {
-    if (nodes.length == 0) {
+    if (!nodes.length) {
         return {i,parent_id:null,shift_real:0};
     }
 
     let shift_real = 0;
-    let parent_id = (i == nodes.length)  ? null : nodes[i].parent_id;
+    let parent_id = (i === nodes.length)  ? null : nodes[i].parent_id;
     let reti = i;
 
     while (shift > 0) {
@@ -101,4 +101,4 @@ function tree_shift(nodes, i, shift, is_shift_allowed = () => true)
     return {i: reti, parent_id, shift_real};
 }
 
-export default tree_shift;
+module.exports = tree_shift;

@@ -1,6 +1,5 @@
-import tree_flatten from '../src/tree_flatten';
-import tree_from_string from '../src/tree_from_string';
-import tree_print from '../src/tree_print';
+const tree_flatten = require('../src/tree_flatten');
+const tree_from_string = require('../src/tree_from_string');
 
 const str = `
     logo

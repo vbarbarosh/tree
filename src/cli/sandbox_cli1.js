@@ -1,13 +1,15 @@
-import Promise from 'bluebird';
-import cli from '@vbarbarosh/node-cli';
-import readline from 'readline';
-import roots_flatten from './roots_flatten';
-import tree_from_array from './tree_from_array';
-import tree_from_string from './tree_from_string';
-import tree_print from './tree_print';
-import tree_walk_preorder from './tree_walk_preorder';
+const Promise = require('bluebird');
+const cli = require('@vbarbarosh/node-helpers/src/cli');
+const readline = require('readline');
+const tree_flatten = require('../tree_flatten');
+const tree_from_array = require('../tree_from_array');
+const tree_from_string = require('../tree_from_string');
+const tree_print = require('../tree_print');
+const tree_walk_preorder = require('../tree_walk_preorder');
 
 // Case when node refers to undefined parent_id
+
+cli(main);
 
 function print(items, selection)
 {
@@ -21,8 +23,6 @@ function print(items, selection)
     });
     console.log(s.join('\n'));
 }
-
-cli(main);
 
 function preorder(items)
 {

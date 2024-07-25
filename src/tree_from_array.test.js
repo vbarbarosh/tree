@@ -107,21 +107,27 @@ describe('tree_from_array', function () {
     });
     it('should pass random test', function () {
         for (let i = 0, end = valid.length; i < end; ++i) {
-            const t1 = obj_clone(valid[i]).sort(fcmp_nodes_id);
-            const t2 = roots_flatten(tree_from_array(obj_clone(valid[i])).roots).sort(fcmp_nodes_id);
+            const t1 = clone(valid[i]).sort(fcmp_nodes_id);
+            const t2 = roots_flatten(tree_from_array(clone(valid[i])).roots).sort(fcmp_nodes_id);
             assert.deepEqual(t1, t2);
         }
     });
-    it('should throw "Circular dependency detected"', function () {
+    it('should throw "Circular dependency detected" #1', function () {
         for (let i = 0, end = circular.length; i < end; ++i) {
             const perm = array_permutations(circular[i]);
             for (let j = 0, jj = perm.length; j < jj; ++j) {
-                assert.throws(() => tree_from_array(obj_clone(perm[j])).roots, /Circular dependency detected/);
+                assert.throws(() => tree_from_array(clone(perm[j])), /Circular dependency detected/);
             }
         }
     });
-    it('should throw "All rows should have unique ids" exception', function () {
-        assert.throws(() => tree_from_array([{id: 1}, {id: 1}]).roots, /All rows should have unique ids/);
+    it('should throw "Circular dependency detected" #2', function () {
+        const perm = array_permutations([{id: 'c', parent_id: 'b'}, {id: 'b', parent_id: 'a'}, {id: 'a',parent_id: 'b'}]);
+        for (let i = 0, end = perm.length; i < end; ++i) {
+            assert.throws(() => tree_from_array(clone(perm[i])), /Circular dependency detected: (a -> b -> a|b -> a -> b)/);
+        }
+    });
+    it('should throw "All rows should have unique ids"', function () {
+        assert.throws(() => tree_from_array([{id: 1}, {id: 1}]), /All rows should have unique ids/);
     });
 });
 
@@ -130,7 +136,7 @@ function fcmp_nodes_id(a, b)
     return String(a.id).localeCompare(b.id);
 }
 
-function obj_clone(object)
+function clone(object)
 {
     return JSON.parse(JSON.stringify(object));
 }

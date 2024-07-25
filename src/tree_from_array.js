@@ -58,8 +58,8 @@ function tree_from_array(nodes = [])
             }
         }
         else {
-            // Since all nodes was indexed and parent_id wasn't found
-            // in index, consider this node as root.
+            // Since all nodes were indexed and parent_id weren't found
+            // in index, consider this node as a root.
             roots.push(node);
             node.siblings = roots;
         }

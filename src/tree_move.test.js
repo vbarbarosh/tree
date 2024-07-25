@@ -24,7 +24,7 @@ describe('tree_move', function () {
             {id:'22',parent_id:'aa'},
             {id:'33',parent_id:'aa'},
         ];
-        assert.deepEqual(tree_move(dup(a), [{id:'c'}],2,null), [
+        assert.deepEqual(tree_move(clone(a), [{id:'c'}],2,null), [
             {id:'a',parent_id:null},
             {id:'aa',parent_id:null},
             {id:'c',parent_id:null},
@@ -44,7 +44,7 @@ describe('tree_move', function () {
             {id:'b',parent_id:'aa'},
             {id:'33',parent_id:'aa'},
         ];
-        assert.deepEqual(tree_move(dup(a), [{id:'2'}],2,'aa'), [
+        assert.deepEqual(tree_move(clone(a), [{id:'2'}],2,'aa'), [
             {id:'a',parent_id:null},
             {id:'aa',parent_id:null},
             {id:'22',parent_id:null},
@@ -56,7 +56,7 @@ describe('tree_move', function () {
     });
 });
 
-function dup(value)
+function clone(value)
 {
     return JSON.parse(JSON.stringify(value));
 }

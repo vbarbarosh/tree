@@ -28,15 +28,16 @@
   },
   "homepage": "https://tree.vbarbarosh.com",
   "devDependencies": {
-    "@babel/preset-env": "^7.15.4",
-    "@babel/register": "^7.15.3",
-    "@vbarbarosh/node-cli": "^1.0.0",
-    "babel-loader": "^8.2.2",
+    "@babel/preset-env": "^7.24.8",
+    "@babel/register": "^7.24.6",
+    "@vbarbarosh/node-helpers": "^3.36.0",
+    "babel-loader": "^9.1.3",
     "babel-preset-power-assert": "^3.0.0",
-    "mocha": "^9.1.1",
+    "bluebird": "^3.7.2",
+    "mocha": "^10.7.0",
     "power-assert": "^1.6.1",
-    "webpack": "^5.52.0",
-    "webpack-cli": "^4.8.0"
+    "webpack": "^5.93.0",
+    "webpack-cli": "^5.1.4"
   },
   "browserslist": [
     "> 0.25%, not dead",

@@ -1,5 +1,7 @@
-// A basic approach for converting array of nodes into a tree-like
-// structure. No checking for circular dependencies was made.
+// A basic approach for converting an array of nodes to a tree-like
+// structure.
+//
+// ⚠️ No checking for circular dependencies was made.
 function tree_from_array(nodes = [])
 {
     const nodes_map = {};

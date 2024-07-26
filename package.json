@@ -1,7 +1,7 @@
 {
   "author": "Vladimir Barbarosh",
   "name": "@vbarbarosh/tree",
-  "version": "0.4.3",
+  "version": "0.5.0",
   "description": "A set of functions for working with trees",
   "license": "ISC",
   "main": "src/browser.js",

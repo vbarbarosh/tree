@@ -29,3 +29,7 @@ TODO
 * [UIKit • Nestable](https://getuikit.com/v2/docs/nestable.html)
 * [treeify](https://github.com/notatestuser/treeify)
 * [The RecursiveTreeIterator class](https://www.php.net/manual/en/class.recursivetreeiterator.php)
+
+## Resources
+
+* [Tarjan's strongly connected components algorithm](https://en.wikipedia.org/wiki/Tarjan%27s_strongly_connected_components_algorithm)
